@@ -1,0 +1,381 @@
+Match_ID,Matchweek,Phase,Date,Match_in_Matchweek,Home_Team,Away_Team
+1,1,First Half,2024-08-17,1,Arsenal,Wolverhampton Wanderers
+2,1,First Half,2024-08-17,2,West Ham United,Aston Villa
+3,1,First Half,2024-08-17,3,Bournemouth,Tottenham Hotspur
+4,1,First Half,2024-08-17,4,Southampton,Brentford
+5,1,First Half,2024-08-17,5,Brighton,Nottingham Forest
+6,1,First Half,2024-08-17,6,Newcastle United,Chelsea
+7,1,First Half,2024-08-17,7,Crystal Palace,Manchester United
+8,1,First Half,2024-08-17,8,Manchester City,Everton
+9,1,First Half,2024-08-17,9,Fulham,Liverpool
+10,1,First Half,2024-08-17,10,Leicester City,Ipswich Town
+11,2,First Half,2024-08-24,1,West Ham United,Arsenal
+12,2,First Half,2024-08-24,2,Wolverhampton Wanderers,Tottenham Hotspur
+13,2,First Half,2024-08-24,3,Southampton,Aston Villa
+14,2,First Half,2024-08-24,4,Bournemouth,Nottingham Forest
+15,2,First Half,2024-08-24,5,Newcastle United,Brentford
+16,2,First Half,2024-08-24,6,Brighton,Manchester United
+17,2,First Half,2024-08-24,7,Manchester City,Chelsea
+18,2,First Half,2024-08-24,8,Crystal Palace,Liverpool
+19,2,First Half,2024-08-24,9,Leicester City,Everton
+20,2,First Half,2024-08-24,10,Fulham,Ipswich Town
+21,3,First Half,2024-08-31,1,Arsenal,Tottenham Hotspur
+22,3,First Half,2024-08-31,2,Southampton,West Ham United
+23,3,First Half,2024-08-31,3,Wolverhampton Wanderers,Nottingham Forest
+24,3,First Half,2024-08-31,4,Newcastle United,Aston Villa
+25,3,First Half,2024-08-31,5,Bournemouth,Manchester United
+26,3,First Half,2024-08-31,6,Manchester City,Brentford
+27,3,First Half,2024-08-31,7,Brighton,Liverpool
+28,3,First Half,2024-08-31,8,Leicester City,Chelsea
+29,3,First Half,2024-08-31,9,Crystal Palace,Ipswich Town
+30,3,First Half,2024-08-31,10,Fulham,Everton
+31,4,First Half,2024-09-14,1,Southampton,Arsenal
+32,4,First Half,2024-09-14,2,Tottenham Hotspur,Nottingham Forest
+33,4,First Half,2024-09-14,3,Newcastle United,West Ham United
+34,4,First Half,2024-09-14,4,Wolverhampton Wanderers,Manchester United
+35,4,First Half,2024-09-14,5,Manchester City,Aston Villa
+36,4,First Half,2024-09-14,6,Bournemouth,Liverpool
+37,4,First Half,2024-09-14,7,Leicester City,Brentford
+38,4,First Half,2024-09-14,8,Brighton,Ipswich Town
+39,4,First Half,2024-09-14,9,Fulham,Chelsea
+40,4,First Half,2024-09-14,10,Crystal Palace,Everton
+41,5,First Half,2024-09-21,1,Arsenal,Nottingham Forest
+42,5,First Half,2024-09-21,2,Newcastle United,Southampton
+43,5,First Half,2024-09-21,3,Tottenham Hotspur,Manchester United
+44,5,First Half,2024-09-21,4,Manchester City,West Ham United
+45,5,First Half,2024-09-21,5,Wolverhampton Wanderers,Liverpool
+46,5,First Half,2024-09-21,6,Leicester City,Aston Villa
+47,5,First Half,2024-09-21,7,Bournemouth,Ipswich Town
+48,5,First Half,2024-09-21,8,Fulham,Brentford
+49,5,First Half,2024-09-21,9,Brighton,Everton
+50,5,First Half,2024-09-21,10,Crystal Palace,Chelsea
+51,6,First Half,2024-09-28,1,Newcastle United,Arsenal
+52,6,First Half,2024-09-28,2,Nottingham Forest,Manchester United
+53,6,First Half,2024-09-28,3,Manchester City,Southampton
+54,6,First Half,2024-09-28,4,Tottenham Hotspur,Liverpool
+55,6,First Half,2024-09-28,5,Leicester City,West Ham United
+56,6,First Half,2024-09-28,6,Wolverhampton Wanderers,Ipswich Town
+57,6,First Half,2024-09-28,7,Fulham,Aston Villa
+58,6,First Half,2024-09-28,8,Bournemouth,Everton
+59,6,First Half,2024-09-28,9,Crystal Palace,Brentford
+60,6,First Half,2024-09-28,10,Brighton,Chelsea
+61,7,First Half,2024-10-05,1,Arsenal,Manchester United
+62,7,First Half,2024-10-05,2,Manchester City,Newcastle United
+63,7,First Half,2024-10-05,3,Nottingham Forest,Liverpool
+64,7,First Half,2024-10-05,4,Leicester City,Southampton
+65,7,First Half,2024-10-05,5,Tottenham Hotspur,Ipswich Town
+66,7,First Half,2024-10-05,6,Fulham,West Ham United
+67,7,First Half,2024-10-05,7,Wolverhampton Wanderers,Everton
+68,7,First Half,2024-10-05,8,Crystal Palace,Aston Villa
+69,7,First Half,2024-10-05,9,Bournemouth,Chelsea
+70,7,First Half,2024-10-05,10,Brighton,Brentford
+71,8,First Half,2024-10-19,1,Manchester City,Arsenal
+72,8,First Half,2024-10-19,2,Manchester United,Liverpool
+73,8,First Half,2024-10-19,3,Leicester City,Newcastle United
+74,8,First Half,2024-10-19,4,Nottingham Forest,Ipswich Town
+75,8,First Half,2024-10-19,5,Fulham,Southampton
+76,8,First Half,2024-10-19,6,Tottenham Hotspur,Everton
+77,8,First Half,2024-10-19,7,Crystal Palace,West Ham United
+78,8,First Half,2024-10-19,8,Wolverhampton Wanderers,Chelsea
+79,8,First Half,2024-10-19,9,Brighton,Aston Villa
+80,8,First Half,2024-10-19,10,Bournemouth,Brentford
+81,9,First Half,2024-10-26,1,Arsenal,Liverpool
+82,9,First Half,2024-10-26,2,Leicester City,Manchester City
+83,9,First Half,2024-10-26,3,Manchester United,Ipswich Town
+84,9,First Half,2024-10-26,4,Fulham,Newcastle United
+85,9,First Half,2024-10-26,5,Nottingham Forest,Everton
+86,9,First Half,2024-10-26,6,Crystal Palace,Southampton
+87,9,First Half,2024-10-26,7,Tottenham Hotspur,Chelsea
+88,9,First Half,2024-10-26,8,Brighton,West Ham United
+89,9,First Half,2024-10-26,9,Wolverhampton Wanderers,Brentford
+90,9,First Half,2024-10-26,10,Bournemouth,Aston Villa
+91,10,First Half,2024-11-02,1,Leicester City,Arsenal
+92,10,First Half,2024-11-02,2,Liverpool,Ipswich Town
+93,10,First Half,2024-11-02,3,Fulham,Manchester City
+94,10,First Half,2024-11-02,4,Manchester United,Everton
+95,10,First Half,2024-11-02,5,Crystal Palace,Newcastle United
+96,10,First Half,2024-11-02,6,Nottingham Forest,Chelsea
+97,10,First Half,2024-11-02,7,Brighton,Southampton
+98,10,First Half,2024-11-02,8,Tottenham Hotspur,Brentford
+99,10,First Half,2024-11-02,9,Bournemouth,West Ham United
+100,10,First Half,2024-11-02,10,Wolverhampton Wanderers,Aston Villa
+101,11,First Half,2024-11-09,1,Arsenal,Ipswich Town
+102,11,First Half,2024-11-09,2,Fulham,Leicester City
+103,11,First Half,2024-11-09,3,Liverpool,Everton
+104,11,First Half,2024-11-09,4,Crystal Palace,Manchester City
+105,11,First Half,2024-11-09,5,Manchester United,Chelsea
+106,11,First Half,2024-11-09,6,Brighton,Newcastle United
+107,11,First Half,2024-11-09,7,Nottingham Forest,Brentford
+108,11,First Half,2024-11-09,8,Bournemouth,Southampton
+109,11,First Half,2024-11-09,9,Tottenham Hotspur,Aston Villa
+110,11,First Half,2024-11-09,10,Wolverhampton Wanderers,West Ham United
+111,12,First Half,2024-11-23,1,Fulham,Arsenal
+112,12,First Half,2024-11-23,2,Ipswich Town,Everton
+113,12,First Half,2024-11-23,3,Crystal Palace,Leicester City
+114,12,First Half,2024-11-23,4,Liverpool,Chelsea
+115,12,First Half,2024-11-23,5,Brighton,Manchester City
+116,12,First Half,2024-11-23,6,Manchester United,Brentford
+117,12,First Half,2024-11-23,7,Bournemouth,Newcastle United
+118,12,First Half,2024-11-23,8,Nottingham Forest,Aston Villa
+119,12,First Half,2024-11-23,9,Wolverhampton Wanderers,Southampton
+120,12,First Half,2024-11-23,10,Tottenham Hotspur,West Ham United
+121,13,First Half,2024-11-30,1,Arsenal,Everton
+122,13,First Half,2024-11-30,2,Crystal Palace,Fulham
+123,13,First Half,2024-11-30,3,Ipswich Town,Chelsea
+124,13,First Half,2024-11-30,4,Brighton,Leicester City
+125,13,First Half,2024-11-30,5,Liverpool,Brentford
+126,13,First Half,2024-11-30,6,Bournemouth,Manchester City
+127,13,First Half,2024-11-30,7,Manchester United,Aston Villa
+128,13,First Half,2024-11-30,8,Wolverhampton Wanderers,Newcastle United
+129,13,First Half,2024-11-30,9,Nottingham Forest,West Ham United
+130,13,First Half,2024-11-30,10,Tottenham Hotspur,Southampton
+131,14,First Half,2024-12-04,1,Crystal Palace,Arsenal
+132,14,First Half,2024-12-04,2,Everton,Chelsea
+133,14,First Half,2024-12-04,3,Brighton,Fulham
+134,14,First Half,2024-12-04,4,Ipswich Town,Brentford
+135,14,First Half,2024-12-04,5,Bournemouth,Leicester City
+136,14,First Half,2024-12-04,6,Liverpool,Aston Villa
+137,14,First Half,2024-12-04,7,Wolverhampton Wanderers,Manchester City
+138,14,First Half,2024-12-04,8,Manchester United,West Ham United
+139,14,First Half,2024-12-04,9,Tottenham Hotspur,Newcastle United
+140,14,First Half,2024-12-04,10,Nottingham Forest,Southampton
+141,15,First Half,2024-12-07,1,Arsenal,Chelsea
+142,15,First Half,2024-12-07,2,Brighton,Crystal Palace
+143,15,First Half,2024-12-07,3,Everton,Brentford
+144,15,First Half,2024-12-07,4,Bournemouth,Fulham
+145,15,First Half,2024-12-07,5,Ipswich Town,Aston Villa
+146,15,First Half,2024-12-07,6,Wolverhampton Wanderers,Leicester City
+147,15,First Half,2024-12-07,7,Liverpool,West Ham United
+148,15,First Half,2024-12-07,8,Tottenham Hotspur,Manchester City
+149,15,First Half,2024-12-07,9,Manchester United,Southampton
+150,15,First Half,2024-12-07,10,Nottingham Forest,Newcastle United
+151,16,First Half,2024-12-14,1,Brighton,Arsenal
+152,16,First Half,2024-12-14,2,Chelsea,Brentford
+153,16,First Half,2024-12-14,3,Bournemouth,Crystal Palace
+154,16,First Half,2024-12-14,4,Everton,Aston Villa
+155,16,First Half,2024-12-14,5,Wolverhampton Wanderers,Fulham
+156,16,First Half,2024-12-14,6,Ipswich Town,West Ham United
+157,16,First Half,2024-12-14,7,Tottenham Hotspur,Leicester City
+158,16,First Half,2024-12-14,8,Liverpool,Southampton
+159,16,First Half,2024-12-14,9,Nottingham Forest,Manchester City
+160,16,First Half,2024-12-14,10,Manchester United,Newcastle United
+161,17,First Half,2024-12-21,1,Arsenal,Brentford
+162,17,First Half,2024-12-21,2,Bournemouth,Brighton
+163,17,First Half,2024-12-21,3,Chelsea,Aston Villa
+164,17,First Half,2024-12-21,4,Wolverhampton Wanderers,Crystal Palace
+165,17,First Half,2024-12-21,5,Everton,West Ham United
+166,17,First Half,2024-12-21,6,Tottenham Hotspur,Fulham
+167,17,First Half,2024-12-21,7,Ipswich Town,Southampton
+168,17,First Half,2024-12-21,8,Nottingham Forest,Leicester City
+169,17,First Half,2024-12-21,9,Liverpool,Newcastle United
+170,17,First Half,2024-12-21,10,Manchester United,Manchester City
+171,18,First Half,2024-12-26,1,Bournemouth,Arsenal
+172,18,First Half,2024-12-26,2,Brentford,Aston Villa
+173,18,First Half,2024-12-26,3,Wolverhampton Wanderers,Brighton
+174,18,First Half,2024-12-26,4,Chelsea,West Ham United
+175,18,First Half,2024-12-26,5,Tottenham Hotspur,Crystal Palace
+176,18,First Half,2024-12-26,6,Everton,Southampton
+177,18,First Half,2024-12-26,7,Nottingham Forest,Fulham
+178,18,First Half,2024-12-26,8,Ipswich Town,Newcastle United
+179,18,First Half,2024-12-26,9,Manchester United,Leicester City
+180,18,First Half,2024-12-26,10,Liverpool,Manchester City
+181,19,First Half,2024-12-29,1,Arsenal,Aston Villa
+182,19,First Half,2024-12-29,2,Wolverhampton Wanderers,Bournemouth
+183,19,First Half,2024-12-29,3,Brentford,West Ham United
+184,19,First Half,2024-12-29,4,Tottenham Hotspur,Brighton
+185,19,First Half,2024-12-29,5,Chelsea,Southampton
+186,19,First Half,2024-12-29,6,Nottingham Forest,Crystal Palace
+187,19,First Half,2024-12-29,7,Everton,Newcastle United
+188,19,First Half,2024-12-29,8,Manchester United,Fulham
+189,19,First Half,2024-12-29,9,Ipswich Town,Manchester City
+190,19,First Half,2024-12-29,10,Liverpool,Leicester City
+191,20,Second Half,2025-01-04,1,Wolverhampton Wanderers,Arsenal
+192,20,Second Half,2025-01-04,2,Aston Villa,West Ham United
+193,20,Second Half,2025-01-04,3,Tottenham Hotspur,Bournemouth
+194,20,Second Half,2025-01-04,4,Brentford,Southampton
+195,20,Second Half,2025-01-04,5,Nottingham Forest,Brighton
+196,20,Second Half,2025-01-04,6,Chelsea,Newcastle United
+197,20,Second Half,2025-01-04,7,Manchester United,Crystal Palace
+198,20,Second Half,2025-01-04,8,Everton,Manchester City
+199,20,Second Half,2025-01-04,9,Liverpool,Fulham
+200,20,Second Half,2025-01-04,10,Ipswich Town,Leicester City
+201,21,Second Half,2025-01-14,1,Arsenal,West Ham United
+202,21,Second Half,2025-01-14,2,Tottenham Hotspur,Wolverhampton Wanderers
+203,21,Second Half,2025-01-14,3,Aston Villa,Southampton
+204,21,Second Half,2025-01-14,4,Nottingham Forest,Bournemouth
+205,21,Second Half,2025-01-14,5,Brentford,Newcastle United
+206,21,Second Half,2025-01-14,6,Manchester United,Brighton
+207,21,Second Half,2025-01-14,7,Chelsea,Manchester City
+208,21,Second Half,2025-01-14,8,Liverpool,Crystal Palace
+209,21,Second Half,2025-01-14,9,Everton,Leicester City
+210,21,Second Half,2025-01-14,10,Ipswich Town,Fulham
+211,22,Second Half,2025-01-18,1,Tottenham Hotspur,Arsenal
+212,22,Second Half,2025-01-18,2,West Ham United,Southampton
+213,22,Second Half,2025-01-18,3,Nottingham Forest,Wolverhampton Wanderers
+214,22,Second Half,2025-01-18,4,Aston Villa,Newcastle United
+215,22,Second Half,2025-01-18,5,Manchester United,Bournemouth
+216,22,Second Half,2025-01-18,6,Brentford,Manchester City
+217,22,Second Half,2025-01-18,7,Liverpool,Brighton
+218,22,Second Half,2025-01-18,8,Chelsea,Leicester City
+219,22,Second Half,2025-01-18,9,Ipswich Town,Crystal Palace
+220,22,Second Half,2025-01-18,10,Everton,Fulham
+221,23,Second Half,2025-01-25,1,Arsenal,Southampton
+222,23,Second Half,2025-01-25,2,Nottingham Forest,Tottenham Hotspur
+223,23,Second Half,2025-01-25,3,West Ham United,Newcastle United
+224,23,Second Half,2025-01-25,4,Manchester United,Wolverhampton Wanderers
+225,23,Second Half,2025-01-25,5,Aston Villa,Manchester City
+226,23,Second Half,2025-01-25,6,Liverpool,Bournemouth
+227,23,Second Half,2025-01-25,7,Brentford,Leicester City
+228,23,Second Half,2025-01-25,8,Ipswich Town,Brighton
+229,23,Second Half,2025-01-25,9,Chelsea,Fulham
+230,23,Second Half,2025-01-25,10,Everton,Crystal Palace
+231,24,Second Half,2025-02-01,1,Nottingham Forest,Arsenal
+232,24,Second Half,2025-02-01,2,Southampton,Newcastle United
+233,24,Second Half,2025-02-01,3,Manchester United,Tottenham Hotspur
+234,24,Second Half,2025-02-01,4,West Ham United,Manchester City
+235,24,Second Half,2025-02-01,5,Liverpool,Wolverhampton Wanderers
+236,24,Second Half,2025-02-01,6,Aston Villa,Leicester City
+237,24,Second Half,2025-02-01,7,Ipswich Town,Bournemouth
+238,24,Second Half,2025-02-01,8,Brentford,Fulham
+239,24,Second Half,2025-02-01,9,Everton,Brighton
+240,24,Second Half,2025-02-01,10,Chelsea,Crystal Palace
+241,25,Second Half,2025-02-12,1,Arsenal,Newcastle United
+242,25,Second Half,2025-02-12,2,Manchester United,Nottingham Forest
+243,25,Second Half,2025-02-12,3,Southampton,Manchester City
+244,25,Second Half,2025-02-12,4,Liverpool,Tottenham Hotspur
+245,25,Second Half,2025-02-12,5,West Ham United,Leicester City
+246,25,Second Half,2025-02-12,6,Ipswich Town,Wolverhampton Wanderers
+247,25,Second Half,2025-02-12,7,Aston Villa,Fulham
+248,25,Second Half,2025-02-12,8,Everton,Bournemouth
+249,25,Second Half,2025-02-12,9,Brentford,Crystal Palace
+250,25,Second Half,2025-02-12,10,Chelsea,Brighton
+251,26,Second Half,2025-02-15,1,Manchester United,Arsenal
+252,26,Second Half,2025-02-15,2,Newcastle United,Manchester City
+253,26,Second Half,2025-02-15,3,Liverpool,Nottingham Forest
+254,26,Second Half,2025-02-15,4,Southampton,Leicester City
+255,26,Second Half,2025-02-15,5,Ipswich Town,Tottenham Hotspur
+256,26,Second Half,2025-02-15,6,West Ham United,Fulham
+257,26,Second Half,2025-02-15,7,Everton,Wolverhampton Wanderers
+258,26,Second Half,2025-02-15,8,Aston Villa,Crystal Palace
+259,26,Second Half,2025-02-15,9,Chelsea,Bournemouth
+260,26,Second Half,2025-02-15,10,Brentford,Brighton
+261,27,Second Half,2025-02-22,1,Arsenal,Manchester City
+262,27,Second Half,2025-02-22,2,Liverpool,Manchester United
+263,27,Second Half,2025-02-22,3,Newcastle United,Leicester City
+264,27,Second Half,2025-02-22,4,Ipswich Town,Nottingham Forest
+265,27,Second Half,2025-02-22,5,Southampton,Fulham
+266,27,Second Half,2025-02-22,6,Everton,Tottenham Hotspur
+267,27,Second Half,2025-02-22,7,West Ham United,Crystal Palace
+268,27,Second Half,2025-02-22,8,Chelsea,Wolverhampton Wanderers
+269,27,Second Half,2025-02-22,9,Aston Villa,Brighton
+270,27,Second Half,2025-02-22,10,Brentford,Bournemouth
+271,28,Second Half,2025-02-26,1,Liverpool,Arsenal
+272,28,Second Half,2025-02-26,2,Manchester City,Leicester City
+273,28,Second Half,2025-02-26,3,Ipswich Town,Manchester United
+274,28,Second Half,2025-02-26,4,Newcastle United,Fulham
+275,28,Second Half,2025-02-26,5,Everton,Nottingham Forest
+276,28,Second Half,2025-02-26,6,Southampton,Crystal Palace
+277,28,Second Half,2025-02-26,7,Chelsea,Tottenham Hotspur
+278,28,Second Half,2025-02-26,8,West Ham United,Brighton
+279,28,Second Half,2025-02-26,9,Brentford,Wolverhampton Wanderers
+280,28,Second Half,2025-02-26,10,Aston Villa,Bournemouth
+281,29,Second Half,2025-03-01,1,Arsenal,Leicester City
+282,29,Second Half,2025-03-01,2,Ipswich Town,Liverpool
+283,29,Second Half,2025-03-01,3,Manchester City,Fulham
+284,29,Second Half,2025-03-01,4,Everton,Manchester United
+285,29,Second Half,2025-03-01,5,Newcastle United,Crystal Palace
+286,29,Second Half,2025-03-01,6,Chelsea,Nottingham Forest
+287,29,Second Half,2025-03-01,7,Southampton,Brighton
+288,29,Second Half,2025-03-01,8,Brentford,Tottenham Hotspur
+289,29,Second Half,2025-03-01,9,West Ham United,Bournemouth
+290,29,Second Half,2025-03-01,10,Aston Villa,Wolverhampton Wanderers
+291,30,Second Half,2025-03-08,1,Ipswich Town,Arsenal
+292,30,Second Half,2025-03-08,2,Leicester City,Fulham
+293,30,Second Half,2025-03-08,3,Everton,Liverpool
+294,30,Second Half,2025-03-08,4,Manchester City,Crystal Palace
+295,30,Second Half,2025-03-08,5,Chelsea,Manchester United
+296,30,Second Half,2025-03-08,6,Newcastle United,Brighton
+297,30,Second Half,2025-03-08,7,Brentford,Nottingham Forest
+298,30,Second Half,2025-03-08,8,Southampton,Bournemouth
+299,30,Second Half,2025-03-08,9,Aston Villa,Tottenham Hotspur
+300,30,Second Half,2025-03-08,10,West Ham United,Wolverhampton Wanderers
+301,31,Second Half,2025-04-01,1,Arsenal,Fulham
+302,31,Second Half,2025-04-01,2,Everton,Ipswich Town
+303,31,Second Half,2025-04-01,3,Leicester City,Crystal Palace
+304,31,Second Half,2025-04-01,4,Chelsea,Liverpool
+305,31,Second Half,2025-04-01,5,Manchester City,Brighton
+306,31,Second Half,2025-04-01,6,Brentford,Manchester United
+307,31,Second Half,2025-04-01,7,Newcastle United,Bournemouth
+308,31,Second Half,2025-04-01,8,Aston Villa,Nottingham Forest
+309,31,Second Half,2025-04-01,9,Southampton,Wolverhampton Wanderers
+310,31,Second Half,2025-04-01,10,West Ham United,Tottenham Hotspur
+311,32,Second Half,2025-04-05,1,Everton,Arsenal
+312,32,Second Half,2025-04-05,2,Fulham,Crystal Palace
+313,32,Second Half,2025-04-05,3,Chelsea,Ipswich Town
+314,32,Second Half,2025-04-05,4,Leicester City,Brighton
+315,32,Second Half,2025-04-05,5,Brentford,Liverpool
+316,32,Second Half,2025-04-05,6,Manchester City,Bournemouth
+317,32,Second Half,2025-04-05,7,Aston Villa,Manchester United
+318,32,Second Half,2025-04-05,8,Newcastle United,Wolverhampton Wanderers
+319,32,Second Half,2025-04-05,9,West Ham United,Nottingham Forest
+320,32,Second Half,2025-04-05,10,Southampton,Tottenham Hotspur
+321,33,Second Half,2025-04-12,1,Arsenal,Crystal Palace
+322,33,Second Half,2025-04-12,2,Chelsea,Everton
+323,33,Second Half,2025-04-12,3,Fulham,Brighton
+324,33,Second Half,2025-04-12,4,Brentford,Ipswich Town
+325,33,Second Half,2025-04-12,5,Leicester City,Bournemouth
+326,33,Second Half,2025-04-12,6,Aston Villa,Liverpool
+327,33,Second Half,2025-04-12,7,Manchester City,Wolverhampton Wanderers
+328,33,Second Half,2025-04-12,8,West Ham United,Manchester United
+329,33,Second Half,2025-04-12,9,Newcastle United,Tottenham Hotspur
+330,33,Second Half,2025-04-12,10,Southampton,Nottingham Forest
+331,34,Second Half,2025-04-19,1,Chelsea,Arsenal
+332,34,Second Half,2025-04-19,2,Crystal Palace,Brighton
+333,34,Second Half,2025-04-19,3,Brentford,Everton
+334,34,Second Half,2025-04-19,4,Fulham,Bournemouth
+335,34,Second Half,2025-04-19,5,Aston Villa,Ipswich Town
+336,34,Second Half,2025-04-19,6,Leicester City,Wolverhampton Wanderers
+337,34,Second Half,2025-04-19,7,West Ham United,Liverpool
+338,34,Second Half,2025-04-19,8,Manchester City,Tottenham Hotspur
+339,34,Second Half,2025-04-19,9,Southampton,Manchester United
+340,34,Second Half,2025-04-19,10,Newcastle United,Nottingham Forest
+341,35,Second Half,2025-04-26,1,Arsenal,Brighton
+342,35,Second Half,2025-04-26,2,Brentford,Chelsea
+343,35,Second Half,2025-04-26,3,Crystal Palace,Bournemouth
+344,35,Second Half,2025-04-26,4,Aston Villa,Everton
+345,35,Second Half,2025-04-26,5,Fulham,Wolverhampton Wanderers
+346,35,Second Half,2025-04-26,6,West Ham United,Ipswich Town
+347,35,Second Half,2025-04-26,7,Leicester City,Tottenham Hotspur
+348,35,Second Half,2025-04-26,8,Southampton,Liverpool
+349,35,Second Half,2025-04-26,9,Manchester City,Nottingham Forest
+350,35,Second Half,2025-04-26,10,Newcastle United,Manchester United
+351,36,Second Half,2025-05-03,1,Brentford,Arsenal
+352,36,Second Half,2025-05-03,2,Brighton,Bournemouth
+353,36,Second Half,2025-05-03,3,Aston Villa,Chelsea
+354,36,Second Half,2025-05-03,4,Crystal Palace,Wolverhampton Wanderers
+355,36,Second Half,2025-05-03,5,West Ham United,Everton
+356,36,Second Half,2025-05-03,6,Fulham,Tottenham Hotspur
+357,36,Second Half,2025-05-03,7,Southampton,Ipswich Town
+358,36,Second Half,2025-05-03,8,Leicester City,Nottingham Forest
+359,36,Second Half,2025-05-03,9,Newcastle United,Liverpool
+360,36,Second Half,2025-05-03,10,Manchester City,Manchester United
+361,37,Second Half,2025-05-10,1,Arsenal,Bournemouth
+362,37,Second Half,2025-05-10,2,Aston Villa,Brentford
+363,37,Second Half,2025-05-10,3,Brighton,Wolverhampton Wanderers
+364,37,Second Half,2025-05-10,4,West Ham United,Chelsea
+365,37,Second Half,2025-05-10,5,Crystal Palace,Tottenham Hotspur
+366,37,Second Half,2025-05-10,6,Southampton,Everton
+367,37,Second Half,2025-05-10,7,Fulham,Nottingham Forest
+368,37,Second Half,2025-05-10,8,Newcastle United,Ipswich Town
+369,37,Second Half,2025-05-10,9,Leicester City,Manchester United
+370,37,Second Half,2025-05-10,10,Manchester City,Liverpool
+371,38,Second Half,2025-05-25,1,Aston Villa,Arsenal
+372,38,Second Half,2025-05-25,2,Bournemouth,Wolverhampton Wanderers
+373,38,Second Half,2025-05-25,3,West Ham United,Brentford
+374,38,Second Half,2025-05-25,4,Brighton,Tottenham Hotspur
+375,38,Second Half,2025-05-25,5,Southampton,Chelsea
+376,38,Second Half,2025-05-25,6,Crystal Palace,Nottingham Forest
+377,38,Second Half,2025-05-25,7,Newcastle United,Everton
+378,38,Second Half,2025-05-25,8,Fulham,Manchester United
+379,38,Second Half,2025-05-25,9,Manchester City,Ipswich Town
+380,38,Second Half,2025-05-25,10,Leicester City,Liverpool

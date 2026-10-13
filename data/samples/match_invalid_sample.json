@@ -1,0 +1,54 @@
+{
+  "match": {
+    "match_id": "match_invalid_fixture",
+    "date": "invalid-date-format",
+    "competition": "Premier League",
+    "season": "2024-2025",
+    "team": "Chelsea",
+    "opponent": "Arsenal",
+    "home_away": "home",
+    "result": "W",
+    "score_team": 0,
+    "score_opponent": 3
+  },
+  "team_stats": {
+    "possession_pct": 115.0,
+    "shots": 5,
+    "shots_on_target": 8,
+    "corners": 2,
+    "fouls": 7,
+    "passes_total": 300,
+    "passes_completed": 350
+  },
+  "players": [
+    {
+      "player_id": "p_robert_sanchez",
+      "player_name": "Robert S\u00e1nchez",
+      "jersey_number": 1,
+      "primary_position": "GK",
+      "is_starter": true,
+      "minutes_played": 90,
+      "passes_attempted": 20,
+      "passes_completed": 25
+    },
+    {
+      "player_id": "p_cole_palmer",
+      "player_name": "Cole Palmer",
+      "jersey_number": 20,
+      "primary_position": "MF",
+      "is_starter": true,
+      "minutes_played": -10
+    }
+  ],
+  "events": [
+    {
+      "event_id": "ev_bad_coord",
+      "player_id": "p_unknown_player",
+      "minute": 15,
+      "event_type": "shot",
+      "x": 150.0,
+      "y": -20.0,
+      "outcome": "successful"
+    }
+  ]
+}

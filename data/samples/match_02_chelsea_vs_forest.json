@@ -1,0 +1,2578 @@
+{
+  "match": {
+    "match_id": "match_20241006_che_nfo",
+    "date": "2024-10-06",
+    "competition": "Premier League",
+    "season": "2024-2025",
+    "matchday": 7,
+    "team": "Chelsea",
+    "opponent": "Nottingham Forest",
+    "home_away": "home",
+    "result": "D",
+    "score_team": 1,
+    "score_opponent": 1,
+    "stadium": "Stamford Bridge",
+    "referee": "Chris Kavanagh"
+  },
+  "team_stats": {
+    "possession_pct": 66.8,
+    "shots": 22,
+    "shots_on_target": 8,
+    "shots_off_target": 9,
+    "shots_blocked": 5,
+    "corners": 8,
+    "fouls": 14,
+    "yellow_cards": 3,
+    "red_cards": 0,
+    "offsides": 2,
+    "passes_total": 594,
+    "passes_completed": 519,
+    "pass_accuracy_pct": 87.4,
+    "xg": 1.95
+  },
+  "players": [
+    {
+      "player_id": "p_robert_sanchez",
+      "player_name": "Robert S\u00e1nchez",
+      "jersey_number": 1,
+      "primary_position": "GK",
+      "detailed_position": "GK",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 0,
+      "shots_on_target": 0,
+      "big_chances_created": 0,
+      "big_chances_missed": 0,
+      "passes_attempted": 28,
+      "passes_completed": 24,
+      "key_passes": 0,
+      "crosses_attempted": 0,
+      "crosses_completed": 0,
+      "progressive_passes": 1,
+      "tackles_attempted": 0,
+      "tackles_won": 0,
+      "interceptions": 0,
+      "blocks": 0,
+      "clearances": 2,
+      "recoveries": 5,
+      "duels_total": 1,
+      "duels_won": 1,
+      "aerial_duels_total": 1,
+      "aerial_duels_won": 1,
+      "fouls_committed": 0,
+      "fouls_drawn": 0,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 4.1,
+      "sprints": 1,
+      "saves": 3,
+      "goals_conceded": 1,
+      "clean_sheet": false,
+      "penalties_saved": 0
+    },
+    {
+      "player_id": "p_malo_gusto",
+      "player_name": "Malo Gusto",
+      "jersey_number": 27,
+      "primary_position": "DF",
+      "detailed_position": "RB",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 1,
+      "shots_on_target": 0,
+      "big_chances_created": 1,
+      "big_chances_missed": 0,
+      "passes_attempted": 61,
+      "passes_completed": 54,
+      "key_passes": 1,
+      "crosses_attempted": 5,
+      "crosses_completed": 2,
+      "progressive_passes": 5,
+      "tackles_attempted": 3,
+      "tackles_won": 2,
+      "interceptions": 1,
+      "blocks": 1,
+      "clearances": 1,
+      "recoveries": 6,
+      "duels_total": 7,
+      "duels_won": 4,
+      "aerial_duels_total": 1,
+      "aerial_duels_won": 0,
+      "fouls_committed": 1,
+      "fouls_drawn": 1,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 10.6,
+      "sprints": 20
+    },
+    {
+      "player_id": "p_wesley_fofana",
+      "player_name": "Wesley Fofana",
+      "jersey_number": 29,
+      "primary_position": "DF",
+      "detailed_position": "CB",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 1,
+      "shots_on_target": 0,
+      "big_chances_created": 0,
+      "big_chances_missed": 0,
+      "passes_attempted": 72,
+      "passes_completed": 67,
+      "key_passes": 0,
+      "crosses_attempted": 0,
+      "crosses_completed": 0,
+      "progressive_passes": 4,
+      "tackles_attempted": 2,
+      "tackles_won": 2,
+      "interceptions": 2,
+      "blocks": 1,
+      "clearances": 3,
+      "recoveries": 5,
+      "duels_total": 8,
+      "duels_won": 6,
+      "aerial_duels_total": 5,
+      "aerial_duels_won": 4,
+      "fouls_committed": 2,
+      "fouls_drawn": 1,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "distance_covered_km": 9.9,
+      "sprints": 10
+    },
+    {
+      "player_id": "p_levi_colwill",
+      "player_name": "Levi Colwill",
+      "jersey_number": 6,
+      "primary_position": "DF",
+      "detailed_position": "CB",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 1,
+      "shots_on_target": 1,
+      "big_chances_created": 0,
+      "big_chances_missed": 0,
+      "passes_attempted": 85,
+      "passes_completed": 78,
+      "key_passes": 0,
+      "crosses_attempted": 0,
+      "crosses_completed": 0,
+      "progressive_passes": 7,
+      "tackles_attempted": 3,
+      "tackles_won": 2,
+      "interceptions": 3,
+      "blocks": 1,
+      "clearances": 4,
+      "recoveries": 7,
+      "duels_total": 6,
+      "duels_won": 4,
+      "aerial_duels_total": 4,
+      "aerial_duels_won": 3,
+      "fouls_committed": 1,
+      "fouls_drawn": 0,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 10.3,
+      "sprints": 8
+    },
+    {
+      "player_id": "p_marc_cucurella",
+      "player_name": "Marc Cucurella",
+      "jersey_number": 3,
+      "primary_position": "DF",
+      "detailed_position": "LB",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 0,
+      "shots_on_target": 0,
+      "big_chances_created": 0,
+      "big_chances_missed": 0,
+      "passes_attempted": 64,
+      "passes_completed": 57,
+      "key_passes": 1,
+      "crosses_attempted": 3,
+      "crosses_completed": 1,
+      "progressive_passes": 5,
+      "tackles_attempted": 6,
+      "tackles_won": 5,
+      "interceptions": 2,
+      "blocks": 0,
+      "clearances": 2,
+      "recoveries": 8,
+      "duels_total": 11,
+      "duels_won": 7,
+      "aerial_duels_total": 3,
+      "aerial_duels_won": 2,
+      "fouls_committed": 3,
+      "fouls_drawn": 1,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "distance_covered_km": 10.9,
+      "sprints": 17
+    },
+    {
+      "player_id": "p_moises_caicedo",
+      "player_name": "Mois\u00e9s Caicedo",
+      "jersey_number": 25,
+      "primary_position": "MF",
+      "detailed_position": "DM",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 1,
+      "shots_on_target": 0,
+      "big_chances_created": 0,
+      "big_chances_missed": 0,
+      "passes_attempted": 75,
+      "passes_completed": 68,
+      "key_passes": 1,
+      "crosses_attempted": 0,
+      "crosses_completed": 0,
+      "progressive_passes": 6,
+      "tackles_attempted": 7,
+      "tackles_won": 5,
+      "interceptions": 3,
+      "blocks": 1,
+      "clearances": 1,
+      "recoveries": 10,
+      "duels_total": 15,
+      "duels_won": 10,
+      "aerial_duels_total": 2,
+      "aerial_duels_won": 1,
+      "fouls_committed": 2,
+      "fouls_drawn": 3,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 11.7,
+      "sprints": 15
+    },
+    {
+      "player_id": "p_enzo_fernandez",
+      "player_name": "Enzo Fern\u00e1ndez",
+      "jersey_number": 8,
+      "primary_position": "MF",
+      "detailed_position": "CM",
+      "is_starter": true,
+      "minutes_played": 81,
+      "subbed_out_minute": 81,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 3,
+      "shots_on_target": 1,
+      "big_chances_created": 1,
+      "big_chances_missed": 0,
+      "passes_attempted": 82,
+      "passes_completed": 73,
+      "key_passes": 3,
+      "crosses_attempted": 4,
+      "crosses_completed": 2,
+      "progressive_passes": 9,
+      "tackles_attempted": 2,
+      "tackles_won": 1,
+      "interceptions": 0,
+      "blocks": 0,
+      "clearances": 0,
+      "recoveries": 5,
+      "duels_total": 6,
+      "duels_won": 3,
+      "aerial_duels_total": 1,
+      "aerial_duels_won": 0,
+      "fouls_committed": 1,
+      "fouls_drawn": 0,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 10.2,
+      "sprints": 11,
+      "xa": 0.32
+    },
+    {
+      "player_id": "p_cole_palmer",
+      "player_name": "Cole Palmer",
+      "jersey_number": 20,
+      "primary_position": "MF",
+      "detailed_position": "AM",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 0,
+      "assists": 1,
+      "shots_total": 5,
+      "shots_on_target": 2,
+      "big_chances_created": 2,
+      "big_chances_missed": 0,
+      "passes_attempted": 52,
+      "passes_completed": 44,
+      "key_passes": 4,
+      "crosses_attempted": 4,
+      "crosses_completed": 2,
+      "progressive_passes": 6,
+      "tackles_attempted": 1,
+      "tackles_won": 1,
+      "interceptions": 1,
+      "blocks": 0,
+      "clearances": 0,
+      "recoveries": 4,
+      "duels_total": 8,
+      "duels_won": 4,
+      "aerial_duels_total": 1,
+      "aerial_duels_won": 0,
+      "fouls_committed": 0,
+      "fouls_drawn": 2,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "distance_covered_km": 10.7,
+      "sprints": 14,
+      "xg": 0.55,
+      "xa": 0.62
+    },
+    {
+      "player_id": "p_noni_madueke",
+      "player_name": "Noni Madueke",
+      "jersey_number": 11,
+      "primary_position": "FW",
+      "detailed_position": "RW",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 1,
+      "assists": 0,
+      "shots_total": 4,
+      "shots_on_target": 2,
+      "big_chances_created": 1,
+      "big_chances_missed": 0,
+      "passes_attempted": 30,
+      "passes_completed": 24,
+      "key_passes": 2,
+      "crosses_attempted": 6,
+      "crosses_completed": 2,
+      "progressive_passes": 4,
+      "tackles_attempted": 2,
+      "tackles_won": 1,
+      "interceptions": 0,
+      "blocks": 0,
+      "clearances": 0,
+      "recoveries": 3,
+      "duels_total": 14,
+      "duels_won": 7,
+      "aerial_duels_total": 1,
+      "aerial_duels_won": 0,
+      "fouls_committed": 1,
+      "fouls_drawn": 3,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 10.4,
+      "sprints": 25,
+      "xg": 0.48
+    },
+    {
+      "player_id": "p_jadon_sancho",
+      "player_name": "Jadon Sancho",
+      "jersey_number": 19,
+      "primary_position": "FW",
+      "detailed_position": "LW",
+      "is_starter": true,
+      "minutes_played": 90,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 2,
+      "shots_on_target": 1,
+      "big_chances_created": 1,
+      "big_chances_missed": 0,
+      "passes_attempted": 42,
+      "passes_completed": 36,
+      "key_passes": 2,
+      "crosses_attempted": 3,
+      "crosses_completed": 1,
+      "progressive_passes": 5,
+      "tackles_attempted": 1,
+      "tackles_won": 1,
+      "interceptions": 0,
+      "blocks": 0,
+      "clearances": 0,
+      "recoveries": 4,
+      "duels_total": 9,
+      "duels_won": 5,
+      "aerial_duels_total": 0,
+      "aerial_duels_won": 0,
+      "fouls_committed": 1,
+      "fouls_drawn": 2,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 9.8,
+      "sprints": 18,
+      "xa": 0.28
+    },
+    {
+      "player_id": "p_nicolas_jackson",
+      "player_name": "Nicolas Jackson",
+      "jersey_number": 15,
+      "primary_position": "FW",
+      "detailed_position": "ST",
+      "is_starter": true,
+      "minutes_played": 81,
+      "subbed_out_minute": 81,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 2,
+      "shots_on_target": 1,
+      "big_chances_created": 0,
+      "big_chances_missed": 1,
+      "passes_attempted": 16,
+      "passes_completed": 12,
+      "key_passes": 1,
+      "crosses_attempted": 0,
+      "crosses_completed": 0,
+      "progressive_passes": 1,
+      "tackles_attempted": 1,
+      "tackles_won": 0,
+      "interceptions": 0,
+      "blocks": 0,
+      "clearances": 1,
+      "recoveries": 2,
+      "duels_total": 11,
+      "duels_won": 4,
+      "aerial_duels_total": 4,
+      "aerial_duels_won": 1,
+      "fouls_committed": 2,
+      "fouls_drawn": 1,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 9.1,
+      "sprints": 21,
+      "xg": 0.35
+    },
+    {
+      "player_id": "p_christopher_nkunku",
+      "player_name": "Christopher Nkunku",
+      "jersey_number": 18,
+      "primary_position": "FW",
+      "detailed_position": "ST",
+      "is_starter": false,
+      "minutes_played": 9,
+      "subbed_in_minute": 81,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 1,
+      "shots_on_target": 1,
+      "big_chances_created": 0,
+      "big_chances_missed": 0,
+      "passes_attempted": 5,
+      "passes_completed": 4,
+      "key_passes": 0,
+      "crosses_attempted": 0,
+      "crosses_completed": 0,
+      "progressive_passes": 0,
+      "tackles_attempted": 0,
+      "tackles_won": 0,
+      "interceptions": 0,
+      "blocks": 0,
+      "clearances": 0,
+      "recoveries": 1,
+      "duels_total": 2,
+      "duels_won": 1,
+      "aerial_duels_total": 1,
+      "aerial_duels_won": 1,
+      "fouls_committed": 0,
+      "fouls_drawn": 0,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 1.3,
+      "sprints": 3
+    },
+    {
+      "player_id": "p_pedro_neto",
+      "player_name": "Pedro Neto",
+      "jersey_number": 7,
+      "primary_position": "FW",
+      "detailed_position": "RW",
+      "is_starter": false,
+      "minutes_played": 9,
+      "subbed_in_minute": 81,
+      "goals": 0,
+      "assists": 0,
+      "shots_total": 0,
+      "shots_on_target": 0,
+      "big_chances_created": 0,
+      "big_chances_missed": 0,
+      "passes_attempted": 4,
+      "passes_completed": 4,
+      "key_passes": 1,
+      "crosses_attempted": 1,
+      "crosses_completed": 1,
+      "progressive_passes": 1,
+      "tackles_attempted": 0,
+      "tackles_won": 0,
+      "interceptions": 0,
+      "blocks": 0,
+      "clearances": 0,
+      "recoveries": 0,
+      "duels_total": 1,
+      "duels_won": 1,
+      "aerial_duels_total": 0,
+      "aerial_duels_won": 0,
+      "fouls_committed": 0,
+      "fouls_drawn": 0,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "distance_covered_km": 1.2,
+      "sprints": 4
+    }
+  ],
+  "events": [
+    {
+      "event_id": "ev_m2_152_touch",
+      "player_id": "p_christopher_nkunku",
+      "minute": 1,
+      "second": 39,
+      "event_type": "touch",
+      "x": 78.8,
+      "y": 46.0,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_103_recovery",
+      "player_id": "p_enzo_fernandez",
+      "minute": 2,
+      "second": 42,
+      "event_type": "recovery",
+      "x": 43.6,
+      "y": 70.4,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_114_take_on",
+      "player_id": "p_cole_palmer",
+      "minute": 3,
+      "second": 12,
+      "event_type": "take_on",
+      "x": 74.4,
+      "y": 45.5,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_153_pass",
+      "player_id": "p_pedro_neto",
+      "minute": 3,
+      "second": 31,
+      "event_type": "pass",
+      "x": 82.0,
+      "y": 67.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_059_tackle",
+      "player_id": "p_levi_colwill",
+      "minute": 3,
+      "second": 40,
+      "event_type": "tackle",
+      "x": 33.6,
+      "y": 47.3,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_085_interception",
+      "player_id": "p_moises_caicedo",
+      "minute": 4,
+      "second": 8,
+      "event_type": "interception",
+      "x": 64.4,
+      "y": 52.7,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_077_pass",
+      "player_id": "p_marc_cucurella",
+      "minute": 6,
+      "second": 38,
+      "event_type": "pass",
+      "x": 32.8,
+      "y": 15.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_139_take_on",
+      "player_id": "p_jadon_sancho",
+      "minute": 7,
+      "second": 0,
+      "event_type": "take_on",
+      "x": 81.7,
+      "y": 7.4,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_154_cross",
+      "player_id": "p_pedro_neto",
+      "minute": 7,
+      "second": 8,
+      "event_type": "pass",
+      "x": 76.3,
+      "y": 65.2,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_049_clearance",
+      "player_id": "p_wesley_fofana",
+      "minute": 7,
+      "second": 37,
+      "event_type": "clearance",
+      "x": 40.7,
+      "y": 33.2,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_151_pass",
+      "player_id": "p_christopher_nkunku",
+      "minute": 9,
+      "second": 25,
+      "event_type": "pass",
+      "x": 79.0,
+      "y": 64.1,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_120_cross",
+      "player_id": "p_noni_madueke",
+      "minute": 10,
+      "second": 40,
+      "event_type": "pass",
+      "x": 81.2,
+      "y": 84.0,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_039_touch",
+      "player_id": "p_malo_gusto",
+      "minute": 12,
+      "second": 13,
+      "event_type": "touch",
+      "x": 51.5,
+      "y": 94.9,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_038_touch",
+      "player_id": "p_malo_gusto",
+      "minute": 12,
+      "second": 31,
+      "event_type": "touch",
+      "x": 49.9,
+      "y": 78.3,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_067_interception",
+      "player_id": "p_levi_colwill",
+      "minute": 12,
+      "second": 31,
+      "event_type": "interception",
+      "x": 20.3,
+      "y": 24.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_005_shot",
+      "player_id": "p_cole_palmer",
+      "minute": 12,
+      "second": 40,
+      "event_type": "shot",
+      "x": 79.0,
+      "y": 52.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "saved",
+        "xg": 0.11,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_122_take_on",
+      "player_id": "p_noni_madueke",
+      "minute": 13,
+      "second": 14,
+      "event_type": "take_on",
+      "x": 85.2,
+      "y": 72.1,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_032_clearance",
+      "player_id": "p_robert_sanchez",
+      "minute": 15,
+      "second": 12,
+      "event_type": "clearance",
+      "x": 12.2,
+      "y": 32.5,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_149_touch",
+      "player_id": "p_nicolas_jackson",
+      "minute": 16,
+      "second": 15,
+      "event_type": "touch",
+      "x": 71.2,
+      "y": 44.3,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_018_shot",
+      "player_id": "p_wesley_fofana",
+      "minute": 16,
+      "second": 50,
+      "event_type": "shot",
+      "x": 91.5,
+      "y": 50.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "blocked",
+        "xg": 0.08,
+        "body_part": "header"
+      }
+    },
+    {
+      "event_id": "ev_m2_076_touch",
+      "player_id": "p_marc_cucurella",
+      "minute": 17,
+      "second": 24,
+      "event_type": "touch",
+      "x": 71.9,
+      "y": 7.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_024_pass",
+      "player_id": "p_robert_sanchez",
+      "minute": 17,
+      "second": 27,
+      "event_type": "pass",
+      "x": 10.5,
+      "y": 57.7,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_147_touch",
+      "player_id": "p_nicolas_jackson",
+      "minute": 17,
+      "second": 47,
+      "event_type": "touch",
+      "x": 78.4,
+      "y": 63.3,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_100_pass",
+      "player_id": "p_enzo_fernandez",
+      "minute": 18,
+      "second": 33,
+      "event_type": "pass",
+      "x": 56.1,
+      "y": 43.5,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_002_shot",
+      "player_id": "p_noni_madueke",
+      "minute": 19,
+      "second": 30,
+      "event_type": "shot",
+      "x": 82.0,
+      "y": 75.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "saved",
+        "xg": 0.12,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_071_tackle",
+      "player_id": "p_levi_colwill",
+      "minute": 20,
+      "second": 0,
+      "event_type": "tackle",
+      "x": 21.5,
+      "y": 56.5,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_052_pass",
+      "player_id": "p_wesley_fofana",
+      "minute": 21,
+      "second": 58,
+      "event_type": "pass",
+      "x": 46.0,
+      "y": 23.1,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_041_tackle",
+      "player_id": "p_malo_gusto",
+      "minute": 23,
+      "second": 4,
+      "event_type": "tackle",
+      "x": 40.8,
+      "y": 81.2,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_027_touch",
+      "player_id": "p_robert_sanchez",
+      "minute": 23,
+      "second": 13,
+      "event_type": "touch",
+      "x": 16.8,
+      "y": 36.5,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_010_shot",
+      "player_id": "p_enzo_fernandez",
+      "minute": 23,
+      "second": 15,
+      "event_type": "shot",
+      "x": 77.0,
+      "y": 48.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "saved",
+        "xg": 0.09,
+        "body_part": "right_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_057_tackle",
+      "player_id": "p_wesley_fofana",
+      "minute": 23,
+      "second": 44,
+      "event_type": "tackle",
+      "x": 23.6,
+      "y": 66.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_094_recovery",
+      "player_id": "p_moises_caicedo",
+      "minute": 23,
+      "second": 48,
+      "event_type": "recovery",
+      "x": 61.9,
+      "y": 67.0,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_026_clearance",
+      "player_id": "p_robert_sanchez",
+      "minute": 23,
+      "second": 55,
+      "event_type": "clearance",
+      "x": 12.8,
+      "y": 35.6,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_045_touch",
+      "player_id": "p_malo_gusto",
+      "minute": 25,
+      "second": 6,
+      "event_type": "touch",
+      "x": 62.3,
+      "y": 83.0,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_119_touch",
+      "player_id": "p_noni_madueke",
+      "minute": 25,
+      "second": 46,
+      "event_type": "touch",
+      "x": 75.1,
+      "y": 89.9,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_123_take_on",
+      "player_id": "p_noni_madueke",
+      "minute": 25,
+      "second": 58,
+      "event_type": "take_on",
+      "x": 76.5,
+      "y": 79.8,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_145_touch",
+      "player_id": "p_nicolas_jackson",
+      "minute": 26,
+      "second": 45,
+      "event_type": "touch",
+      "x": 70.6,
+      "y": 39.4,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_121_cross",
+      "player_id": "p_noni_madueke",
+      "minute": 26,
+      "second": 46,
+      "event_type": "pass",
+      "x": 82.5,
+      "y": 72.7,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_042_pass",
+      "player_id": "p_malo_gusto",
+      "minute": 27,
+      "second": 1,
+      "event_type": "pass",
+      "x": 30.4,
+      "y": 95.1,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_108_tackle",
+      "player_id": "p_enzo_fernandez",
+      "minute": 27,
+      "second": 13,
+      "event_type": "tackle",
+      "x": 53.9,
+      "y": 77.6,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_097_progressive_pass",
+      "player_id": "p_enzo_fernandez",
+      "minute": 28,
+      "second": 22,
+      "event_type": "pass",
+      "x": 73.2,
+      "y": 79.2,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_013_shot",
+      "player_id": "p_nicolas_jackson",
+      "minute": 29,
+      "second": 10,
+      "event_type": "shot",
+      "x": 92.0,
+      "y": 52.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "saved",
+        "xg": 0.26,
+        "body_part": "right_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_125_touch",
+      "player_id": "p_noni_madueke",
+      "minute": 30,
+      "second": 14,
+      "event_type": "touch",
+      "x": 64.8,
+      "y": 86.8,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_146_take_on",
+      "player_id": "p_nicolas_jackson",
+      "minute": 30,
+      "second": 25,
+      "event_type": "take_on",
+      "x": 87.8,
+      "y": 42.8,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_110_pass",
+      "player_id": "p_cole_palmer",
+      "minute": 30,
+      "second": 49,
+      "event_type": "pass",
+      "x": 68.4,
+      "y": 70.3,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_069_touch",
+      "player_id": "p_levi_colwill",
+      "minute": 31,
+      "second": 3,
+      "event_type": "touch",
+      "x": 24.0,
+      "y": 52.6,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_050_pass",
+      "player_id": "p_wesley_fofana",
+      "minute": 31,
+      "second": 47,
+      "event_type": "pass",
+      "x": 36.7,
+      "y": 34.0,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_150_pass",
+      "player_id": "p_nicolas_jackson",
+      "minute": 31,
+      "second": 49,
+      "event_type": "pass",
+      "x": 84.6,
+      "y": 44.7,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_030_clearance",
+      "player_id": "p_robert_sanchez",
+      "minute": 32,
+      "second": 22,
+      "event_type": "clearance",
+      "x": 14.8,
+      "y": 54.1,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_089_tackle",
+      "player_id": "p_moises_caicedo",
+      "minute": 32,
+      "second": 49,
+      "event_type": "tackle",
+      "x": 56.1,
+      "y": 42.9,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_025_save",
+      "player_id": "p_robert_sanchez",
+      "minute": 33,
+      "second": 28,
+      "event_type": "save",
+      "x": 10.6,
+      "y": 63.0,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_006_shot",
+      "player_id": "p_cole_palmer",
+      "minute": 34,
+      "second": 20,
+      "event_type": "shot",
+      "x": 86.0,
+      "y": 45.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "saved",
+        "xg": 0.24,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_066_pass",
+      "player_id": "p_levi_colwill",
+      "minute": 34,
+      "second": 31,
+      "event_type": "pass",
+      "x": 25.3,
+      "y": 74.3,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_087_tackle",
+      "player_id": "p_moises_caicedo",
+      "minute": 34,
+      "second": 43,
+      "event_type": "tackle",
+      "x": 36.8,
+      "y": 74.1,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_073_touch",
+      "player_id": "p_marc_cucurella",
+      "minute": 35,
+      "second": 8,
+      "event_type": "touch",
+      "x": 29.7,
+      "y": 30.5,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_117_take_on",
+      "player_id": "p_cole_palmer",
+      "minute": 35,
+      "second": 21,
+      "event_type": "take_on",
+      "x": 84.5,
+      "y": 56.7,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_048_touch",
+      "player_id": "p_wesley_fofana",
+      "minute": 36,
+      "second": 51,
+      "event_type": "touch",
+      "x": 24.6,
+      "y": 55.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_142_take_on",
+      "player_id": "p_nicolas_jackson",
+      "minute": 36,
+      "second": 54,
+      "event_type": "take_on",
+      "x": 87.4,
+      "y": 61.1,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_113_take_on",
+      "player_id": "p_cole_palmer",
+      "minute": 36,
+      "second": 56,
+      "event_type": "take_on",
+      "x": 82.1,
+      "y": 72.1,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_053_tackle",
+      "player_id": "p_wesley_fofana",
+      "minute": 37,
+      "second": 21,
+      "event_type": "tackle",
+      "x": 24.1,
+      "y": 75.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_015_shot",
+      "player_id": "p_jadon_sancho",
+      "minute": 38,
+      "second": 5,
+      "event_type": "shot",
+      "x": 85.0,
+      "y": 32.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "saved",
+        "xg": 0.14,
+        "body_part": "right_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_148_take_on",
+      "player_id": "p_nicolas_jackson",
+      "minute": 39,
+      "second": 13,
+      "event_type": "take_on",
+      "x": 76.0,
+      "y": 31.5,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_033_save",
+      "player_id": "p_robert_sanchez",
+      "minute": 41,
+      "second": 6,
+      "event_type": "save",
+      "x": 8.0,
+      "y": 58.6,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_003_shot",
+      "player_id": "p_noni_madueke",
+      "minute": 42,
+      "second": 10,
+      "event_type": "shot",
+      "x": 85.5,
+      "y": 70.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "miss",
+        "xg": 0.09,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_107_recovery",
+      "player_id": "p_enzo_fernandez",
+      "minute": 42,
+      "second": 41,
+      "event_type": "recovery",
+      "x": 52.3,
+      "y": 33.6,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_135_pass",
+      "player_id": "p_jadon_sancho",
+      "minute": 42,
+      "second": 51,
+      "event_type": "pass",
+      "x": 62.0,
+      "y": 26.6,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_111_touch",
+      "player_id": "p_cole_palmer",
+      "minute": 43,
+      "second": 19,
+      "event_type": "touch",
+      "x": 61.5,
+      "y": 65.3,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_095_touch",
+      "player_id": "p_moises_caicedo",
+      "minute": 44,
+      "second": 44,
+      "event_type": "touch",
+      "x": 54.8,
+      "y": 46.7,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_136_take_on",
+      "player_id": "p_jadon_sancho",
+      "minute": 44,
+      "second": 51,
+      "event_type": "take_on",
+      "x": 67.9,
+      "y": 22.8,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_070_clearance",
+      "player_id": "p_levi_colwill",
+      "minute": 44,
+      "second": 53,
+      "event_type": "clearance",
+      "x": 22.7,
+      "y": 42.3,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_078_pass",
+      "player_id": "p_marc_cucurella",
+      "minute": 45,
+      "second": 11,
+      "event_type": "pass",
+      "x": 37.4,
+      "y": 18.6,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_014_shot",
+      "player_id": "p_nicolas_jackson",
+      "minute": 45,
+      "second": 20,
+      "event_type": "shot",
+      "x": 89.0,
+      "y": 44.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "miss",
+        "xg": 0.12,
+        "body_part": "header"
+      }
+    },
+    {
+      "event_id": "ev_m2_058_interception",
+      "player_id": "p_levi_colwill",
+      "minute": 45,
+      "second": 28,
+      "event_type": "interception",
+      "x": 45.6,
+      "y": 63.5,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_124_cross",
+      "player_id": "p_noni_madueke",
+      "minute": 46,
+      "second": 7,
+      "event_type": "pass",
+      "x": 62.8,
+      "y": 91.9,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_079_pass",
+      "player_id": "p_marc_cucurella",
+      "minute": 46,
+      "second": 55,
+      "event_type": "pass",
+      "x": 58.5,
+      "y": 27.4,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_017_shot",
+      "player_id": "p_malo_gusto",
+      "minute": 47,
+      "second": 18,
+      "event_type": "shot",
+      "x": 79.0,
+      "y": 80.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "miss",
+        "xg": 0.04,
+        "body_part": "right_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_064_tackle",
+      "player_id": "p_levi_colwill",
+      "minute": 48,
+      "second": 14,
+      "event_type": "tackle",
+      "x": 39.5,
+      "y": 75.4,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_063_pass",
+      "player_id": "p_levi_colwill",
+      "minute": 49,
+      "second": 37,
+      "event_type": "pass",
+      "x": 26.2,
+      "y": 51.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_116_touch",
+      "player_id": "p_cole_palmer",
+      "minute": 49,
+      "second": 48,
+      "event_type": "touch",
+      "x": 73.9,
+      "y": 56.5,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_093_pass",
+      "player_id": "p_moises_caicedo",
+      "minute": 50,
+      "second": 29,
+      "event_type": "pass",
+      "x": 45.9,
+      "y": 54.1,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_046_tackle",
+      "player_id": "p_malo_gusto",
+      "minute": 50,
+      "second": 34,
+      "event_type": "tackle",
+      "x": 59.7,
+      "y": 75.0,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_054_clearance",
+      "player_id": "p_wesley_fofana",
+      "minute": 51,
+      "second": 0,
+      "event_type": "clearance",
+      "x": 18.6,
+      "y": 38.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_102_tackle",
+      "player_id": "p_enzo_fernandez",
+      "minute": 51,
+      "second": 24,
+      "event_type": "tackle",
+      "x": 73.7,
+      "y": 25.5,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_011_shot",
+      "player_id": "p_enzo_fernandez",
+      "minute": 51,
+      "second": 30,
+      "event_type": "shot",
+      "x": 74.0,
+      "y": 55.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "miss",
+        "xg": 0.05,
+        "body_part": "right_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_044_touch",
+      "player_id": "p_malo_gusto",
+      "minute": 51,
+      "second": 36,
+      "event_type": "touch",
+      "x": 76.6,
+      "y": 94.3,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_098_progressive_pass",
+      "player_id": "p_enzo_fernandez",
+      "minute": 52,
+      "second": 6,
+      "event_type": "pass",
+      "x": 46.4,
+      "y": 53.9,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_082_touch",
+      "player_id": "p_marc_cucurella",
+      "minute": 53,
+      "second": 15,
+      "event_type": "touch",
+      "x": 50.0,
+      "y": 6.3,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_134_pass",
+      "player_id": "p_jadon_sancho",
+      "minute": 53,
+      "second": 28,
+      "event_type": "pass",
+      "x": 89.8,
+      "y": 23.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_106_touch",
+      "player_id": "p_enzo_fernandez",
+      "minute": 54,
+      "second": 2,
+      "event_type": "touch",
+      "x": 76.5,
+      "y": 72.4,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_092_pass",
+      "player_id": "p_moises_caicedo",
+      "minute": 55,
+      "second": 7,
+      "event_type": "pass",
+      "x": 64.8,
+      "y": 71.9,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_040_interception",
+      "player_id": "p_malo_gusto",
+      "minute": 55,
+      "second": 31,
+      "event_type": "interception",
+      "x": 41.9,
+      "y": 86.2,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_115_pass",
+      "player_id": "p_cole_palmer",
+      "minute": 55,
+      "second": 34,
+      "event_type": "pass",
+      "x": 72.4,
+      "y": 53.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_129_touch",
+      "player_id": "p_noni_madueke",
+      "minute": 55,
+      "second": 47,
+      "event_type": "touch",
+      "x": 59.2,
+      "y": 93.3,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_144_take_on",
+      "player_id": "p_nicolas_jackson",
+      "minute": 57,
+      "second": 9,
+      "event_type": "take_on",
+      "x": 82.1,
+      "y": 32.5,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_001_shot",
+      "player_id": "p_noni_madueke",
+      "minute": 57,
+      "second": 14,
+      "event_type": "shot",
+      "x": 84.2,
+      "y": 68.5,
+      "outcome": "successful",
+      "metadata": {
+        "shot_result": "goal",
+        "xg": 0.18,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_105_tackle",
+      "player_id": "p_enzo_fernandez",
+      "minute": 58,
+      "second": 11,
+      "event_type": "tackle",
+      "x": 57.0,
+      "y": 62.1,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_062_clearance",
+      "player_id": "p_levi_colwill",
+      "minute": 58,
+      "second": 37,
+      "event_type": "clearance",
+      "x": 41.3,
+      "y": 43.3,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_141_touch",
+      "player_id": "p_nicolas_jackson",
+      "minute": 60,
+      "second": 28,
+      "event_type": "touch",
+      "x": 84.0,
+      "y": 58.5,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_016_shot",
+      "player_id": "p_jadon_sancho",
+      "minute": 61,
+      "second": 25,
+      "event_type": "shot",
+      "x": 83.0,
+      "y": 28.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "blocked",
+        "xg": 0.07,
+        "body_part": "right_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_132_pass",
+      "player_id": "p_jadon_sancho",
+      "minute": 61,
+      "second": 31,
+      "event_type": "pass",
+      "x": 65.5,
+      "y": 24.3,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_101_pass",
+      "player_id": "p_enzo_fernandez",
+      "minute": 61,
+      "second": 42,
+      "event_type": "pass",
+      "x": 60.9,
+      "y": 48.3,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_130_touch",
+      "player_id": "p_noni_madueke",
+      "minute": 63,
+      "second": 25,
+      "event_type": "touch",
+      "x": 57.1,
+      "y": 90.4,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_074_touch",
+      "player_id": "p_marc_cucurella",
+      "minute": 63,
+      "second": 53,
+      "event_type": "touch",
+      "x": 31.4,
+      "y": 5.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_020_shot",
+      "player_id": "p_moises_caicedo",
+      "minute": 64,
+      "second": 12,
+      "event_type": "shot",
+      "x": 72.0,
+      "y": 54.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "miss",
+        "xg": 0.04,
+        "body_part": "right_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_128_touch",
+      "player_id": "p_noni_madueke",
+      "minute": 64,
+      "second": 20,
+      "event_type": "touch",
+      "x": 69.1,
+      "y": 65.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_007_shot",
+      "player_id": "p_cole_palmer",
+      "minute": 65,
+      "second": 15,
+      "event_type": "shot",
+      "x": 82.5,
+      "y": 58.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "blocked",
+        "xg": 0.08,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_043_touch",
+      "player_id": "p_malo_gusto",
+      "minute": 65,
+      "second": 40,
+      "event_type": "touch",
+      "x": 77.7,
+      "y": 87.4,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_083_touch",
+      "player_id": "p_marc_cucurella",
+      "minute": 66,
+      "second": 21,
+      "event_type": "touch",
+      "x": 51.4,
+      "y": 8.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_068_pass",
+      "player_id": "p_levi_colwill",
+      "minute": 67,
+      "second": 18,
+      "event_type": "pass",
+      "x": 24.1,
+      "y": 36.7,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_127_pass",
+      "player_id": "p_noni_madueke",
+      "minute": 68,
+      "second": 15,
+      "event_type": "pass",
+      "x": 73.8,
+      "y": 89.2,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_075_tackle",
+      "player_id": "p_marc_cucurella",
+      "minute": 68,
+      "second": 27,
+      "event_type": "tackle",
+      "x": 84.3,
+      "y": 17.3,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_012_shot",
+      "player_id": "p_enzo_fernandez",
+      "minute": 69,
+      "second": 40,
+      "event_type": "shot",
+      "x": 79.5,
+      "y": 38.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "miss",
+        "xg": 0.06,
+        "body_part": "right_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_060_pass",
+      "player_id": "p_levi_colwill",
+      "minute": 70,
+      "second": 1,
+      "event_type": "pass",
+      "x": 28.3,
+      "y": 63.2,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_126_cross",
+      "player_id": "p_noni_madueke",
+      "minute": 71,
+      "second": 6,
+      "event_type": "pass",
+      "x": 74.7,
+      "y": 88.8,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_133_pass",
+      "player_id": "p_jadon_sancho",
+      "minute": 71,
+      "second": 6,
+      "event_type": "pass",
+      "x": 71.8,
+      "y": 18.8,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_088_touch",
+      "player_id": "p_moises_caicedo",
+      "minute": 71,
+      "second": 24,
+      "event_type": "touch",
+      "x": 47.8,
+      "y": 26.9,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_072_touch",
+      "player_id": "p_marc_cucurella",
+      "minute": 71,
+      "second": 38,
+      "event_type": "touch",
+      "x": 63.3,
+      "y": 22.6,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_143_take_on",
+      "player_id": "p_nicolas_jackson",
+      "minute": 71,
+      "second": 59,
+      "event_type": "take_on",
+      "x": 93.6,
+      "y": 28.0,
+      "outcome": "successful",
+      "metadata": {
+        "target": "striker_channel"
+      }
+    },
+    {
+      "event_id": "ev_m2_137_touch",
+      "player_id": "p_jadon_sancho",
+      "minute": 73,
+      "second": 38,
+      "event_type": "touch",
+      "x": 65.7,
+      "y": 17.9,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_008_shot",
+      "player_id": "p_cole_palmer",
+      "minute": 73,
+      "second": 50,
+      "event_type": "shot",
+      "x": 88.0,
+      "y": 51.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "blocked",
+        "xg": 0.15,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_096_interception",
+      "player_id": "p_moises_caicedo",
+      "minute": 73,
+      "second": 50,
+      "event_type": "interception",
+      "x": 35.3,
+      "y": 54.5,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_037_pass",
+      "player_id": "p_malo_gusto",
+      "minute": 73,
+      "second": 51,
+      "event_type": "pass",
+      "x": 36.9,
+      "y": 68.4,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right"
+      }
+    },
+    {
+      "event_id": "ev_m2_031_save",
+      "player_id": "p_robert_sanchez",
+      "minute": 74,
+      "second": 22,
+      "event_type": "save",
+      "x": 8.9,
+      "y": 37.7,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_140_pass",
+      "player_id": "p_jadon_sancho",
+      "minute": 74,
+      "second": 35,
+      "event_type": "pass",
+      "x": 80.3,
+      "y": 29.3,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_055_clearance",
+      "player_id": "p_wesley_fofana",
+      "minute": 75,
+      "second": 4,
+      "event_type": "clearance",
+      "x": 29.6,
+      "y": 58.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_081_pass",
+      "player_id": "p_marc_cucurella",
+      "minute": 76,
+      "second": 4,
+      "event_type": "pass",
+      "x": 51.9,
+      "y": 22.2,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_099_tackle",
+      "player_id": "p_enzo_fernandez",
+      "minute": 77,
+      "second": 10,
+      "event_type": "tackle",
+      "x": 67.0,
+      "y": 54.5,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_091_touch",
+      "player_id": "p_moises_caicedo",
+      "minute": 77,
+      "second": 30,
+      "event_type": "touch",
+      "x": 47.5,
+      "y": 52.3,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_061_touch",
+      "player_id": "p_levi_colwill",
+      "minute": 78,
+      "second": 15,
+      "event_type": "touch",
+      "x": 28.0,
+      "y": 33.2,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_104_recovery",
+      "player_id": "p_enzo_fernandez",
+      "minute": 78,
+      "second": 36,
+      "event_type": "recovery",
+      "x": 46.0,
+      "y": 49.4,
+      "outcome": "successful",
+      "metadata": {
+        "role": "box_to_box"
+      }
+    },
+    {
+      "event_id": "ev_m2_004_shot",
+      "player_id": "p_noni_madueke",
+      "minute": 78,
+      "second": 45,
+      "event_type": "shot",
+      "x": 88.0,
+      "y": 65.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "miss",
+        "xg": 0.09,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_090_recovery",
+      "player_id": "p_moises_caicedo",
+      "minute": 78,
+      "second": 52,
+      "event_type": "recovery",
+      "x": 46.0,
+      "y": 32.3,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_109_pass",
+      "player_id": "p_cole_palmer",
+      "minute": 79,
+      "second": 10,
+      "event_type": "pass",
+      "x": 76.1,
+      "y": 26.0,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_023_clearance",
+      "player_id": "p_robert_sanchez",
+      "minute": 79,
+      "second": 48,
+      "event_type": "clearance",
+      "x": 16.0,
+      "y": 50.8,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_084_pass",
+      "player_id": "p_moises_caicedo",
+      "minute": 81,
+      "second": 15,
+      "event_type": "pass",
+      "x": 65.1,
+      "y": 42.6,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_019_shot",
+      "player_id": "p_levi_colwill",
+      "minute": 81,
+      "second": 30,
+      "event_type": "shot",
+      "x": 93.0,
+      "y": 47.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "saved",
+        "xg": 0.18,
+        "body_part": "header"
+      }
+    },
+    {
+      "event_id": "ev_m2_138_pass",
+      "player_id": "p_jadon_sancho",
+      "minute": 83,
+      "second": 13,
+      "event_type": "pass",
+      "x": 92.3,
+      "y": 30.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_080_interception",
+      "player_id": "p_marc_cucurella",
+      "minute": 83,
+      "second": 24,
+      "event_type": "interception",
+      "x": 82.2,
+      "y": 31.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left"
+      }
+    },
+    {
+      "event_id": "ev_m2_112_touch",
+      "player_id": "p_cole_palmer",
+      "minute": 83,
+      "second": 49,
+      "event_type": "touch",
+      "x": 77.1,
+      "y": 62.6,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "final_third_creative"
+      }
+    },
+    {
+      "event_id": "ev_m2_029_clearance",
+      "player_id": "p_robert_sanchez",
+      "minute": 84,
+      "second": 22,
+      "event_type": "clearance",
+      "x": 6.7,
+      "y": 42.5,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_036_pass",
+      "player_id": "p_robert_sanchez",
+      "minute": 84,
+      "second": 28,
+      "event_type": "pass",
+      "x": 10.5,
+      "y": 53.7,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_086_recovery",
+      "player_id": "p_moises_caicedo",
+      "minute": 84,
+      "second": 45,
+      "event_type": "recovery",
+      "x": 67.7,
+      "y": 71.1,
+      "outcome": "successful",
+      "metadata": {
+        "role": "midfield_anchor"
+      }
+    },
+    {
+      "event_id": "ev_m2_047_touch",
+      "player_id": "p_wesley_fofana",
+      "minute": 85,
+      "second": 31,
+      "event_type": "touch",
+      "x": 34.5,
+      "y": 28.7,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_035_pass",
+      "player_id": "p_robert_sanchez",
+      "minute": 86,
+      "second": 35,
+      "event_type": "pass",
+      "x": 10.5,
+      "y": 47.8,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_065_tackle",
+      "player_id": "p_levi_colwill",
+      "minute": 86,
+      "second": 44,
+      "event_type": "tackle",
+      "x": 23.3,
+      "y": 24.4,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_118_cross",
+      "player_id": "p_noni_madueke",
+      "minute": 86,
+      "second": 51,
+      "event_type": "pass",
+      "x": 66.7,
+      "y": 95.7,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "right_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_131_pass",
+      "player_id": "p_jadon_sancho",
+      "minute": 87,
+      "second": 1,
+      "event_type": "pass",
+      "x": 90.2,
+      "y": 7.1,
+      "outcome": "successful",
+      "metadata": {
+        "flank": "left_wing"
+      }
+    },
+    {
+      "event_id": "ev_m2_034_touch",
+      "player_id": "p_robert_sanchez",
+      "minute": 87,
+      "second": 31,
+      "event_type": "touch",
+      "x": 17.4,
+      "y": 42.9,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_021_shot",
+      "player_id": "p_christopher_nkunku",
+      "minute": 87,
+      "second": 40,
+      "event_type": "shot",
+      "x": 92.5,
+      "y": 51.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "saved",
+        "xg": 0.28,
+        "body_part": "header"
+      }
+    },
+    {
+      "event_id": "ev_m2_056_touch",
+      "player_id": "p_wesley_fofana",
+      "minute": 87,
+      "second": 57,
+      "event_type": "touch",
+      "x": 21.8,
+      "y": 37.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_009_shot",
+      "player_id": "p_cole_palmer",
+      "minute": 88,
+      "second": 10,
+      "event_type": "shot",
+      "x": 75.0,
+      "y": 42.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "miss",
+        "xg": 0.07,
+        "body_part": "left_foot"
+      }
+    },
+    {
+      "event_id": "ev_m2_051_tackle",
+      "player_id": "p_wesley_fofana",
+      "minute": 88,
+      "second": 16,
+      "event_type": "tackle",
+      "x": 37.0,
+      "y": 32.9,
+      "outcome": "successful",
+      "metadata": {
+        "zone": "defensive_third"
+      }
+    },
+    {
+      "event_id": "ev_m2_028_touch",
+      "player_id": "p_robert_sanchez",
+      "minute": 89,
+      "second": 50,
+      "event_type": "touch",
+      "x": 13.2,
+      "y": 47.7,
+      "outcome": "successful",
+      "metadata": {
+        "action": "goalkeeper_distribution"
+      }
+    },
+    {
+      "event_id": "ev_m2_022_shot",
+      "player_id": "p_pedro_neto",
+      "minute": 89,
+      "second": 55,
+      "event_type": "shot",
+      "x": 84.0,
+      "y": 74.0,
+      "outcome": "unsuccessful",
+      "metadata": {
+        "shot_result": "blocked",
+        "xg": 0.06,
+        "body_part": "left_foot"
+      }
+    }
+  ]
+}

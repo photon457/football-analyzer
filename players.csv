@@ -1,0 +1,173 @@
+match_id,player_id,player_name,jersey_number,team,opponent,position,minutes,goals,assists,shots,xG,passes_completed,tackles,interceptions,yellow_cards,red_cards
+M1001,P001,Robert Sánchez,1,Chelsea,Manchester City,GK,90,0,0,0,0.0,34,0,0,1,0
+M1001,P002,Malo Gusto,27,Chelsea,Manchester City,RB,76,0,0,0,0.0,46,2,1,0,0
+M1001,P003,Wesley Fofana,29,Chelsea,Manchester City,CB,85,0,0,1,0.06,73,1,1,1,0
+M1001,P004,Levi Colwill,6,Chelsea,Manchester City,CB,75,0,0,0,0.0,54,2,3,0,0
+M1001,P005,Marc Cucurella,3,Chelsea,Manchester City,LB,86,0,0,1,0.06,45,2,3,0,0
+M1001,P006,Moisés Caicedo,25,Chelsea,Manchester City,DM,72,0,0,0,0.0,57,2,1,0,0
+M1001,P007,Enzo Fernández,8,Chelsea,Manchester City,CM,79,0,0,3,0.36,67,2,0,0,0
+M1001,P008,Cole Palmer,20,Chelsea,Manchester City,AM,85,0,0,1,0.12,51,0,2,0,0
+M1001,P009,Noni Madueke,11,Chelsea,Manchester City,RW,88,0,0,4,0.56,37,0,1,1,0
+M1001,P010,Jadon Sancho,19,Chelsea,Manchester City,LW,89,0,0,3,0.42,28,0,0,0,0
+M1001,P011,Nicolas Jackson,15,Chelsea,Manchester City,ST,80,0,0,4,0.56,30,1,0,0,0
+M1001,P012,Pedro Neto,7,Chelsea,Manchester City,RW,20,0,0,2,0.28,5,0,0,0,0
+M1001,P013,Christopher Nkunku,18,Chelsea,Manchester City,ST,20,0,0,3,0.42,6,0,0,0,0
+M1001,P014,Roméo Lavia,45,Chelsea,Manchester City,DM,24,0,0,1,0.07,17,1,1,0,0
+M1001,P015,João Félix,14,Chelsea,Manchester City,AM,32,0,0,4,0.48,16,1,0,0,0
+M1001,P016,Axel Disasi,2,Chelsea,Manchester City,CB,20,0,0,0,0.0,17,1,1,0,0
+M1001,P017,Mykhailo Mudryk,10,Chelsea,Manchester City,LW,28,0,0,5,0.7,6,0,0,0,0
+M1001,P018,Renato Veiga,40,Chelsea,Manchester City,LB,25,0,0,2,0.12,13,1,1,0,0
+M1001,P101,Erling Haaland,9,Manchester City,Chelsea,ST,90,1,0,5,1.07,18,3,0,0,0
+M1001,P102,Mateo Kovačić,8,Manchester City,Chelsea,CM,90,1,0,2,0.74,72,3,2,1,0
+M1001,P103,Kevin De Bruyne,17,Manchester City,Chelsea,AM,88,0,0,3,0.33,58,4,1,0,0
+M1001,P104,Bernardo Silva,20,Manchester City,Chelsea,RW,90,0,0,2,0.22,64,3,1,0,0
+M1001,P105,Rúben Dias,3,Manchester City,Chelsea,CB,90,0,0,0,0.0,85,1,2,0,0
+M1002,P001,Robert Sánchez,1,Chelsea,Wolverhampton Wanderers,GK,90,0,0,0,0.0,32,0,0,0,0
+M1002,P002,Malo Gusto,27,Chelsea,Wolverhampton Wanderers,RB,72,0,0,1,0.06,42,1,2,0,0
+M1002,P003,Wesley Fofana,29,Chelsea,Wolverhampton Wanderers,CB,71,0,0,0,0.0,58,2,1,0,0
+M1002,P004,Levi Colwill,6,Chelsea,Wolverhampton Wanderers,CB,86,0,0,0,0.0,64,4,1,0,0
+M1002,P005,Marc Cucurella,3,Chelsea,Wolverhampton Wanderers,LB,85,0,0,0,0.0,49,4,1,0,0
+M1002,P006,Moisés Caicedo,25,Chelsea,Wolverhampton Wanderers,DM,87,0,0,1,0.07,65,6,2,0,0
+M1002,P007,Enzo Fernández,8,Chelsea,Wolverhampton Wanderers,CM,80,0,0,3,0.36,64,3,0,0,0
+M1002,P008,Cole Palmer,20,Chelsea,Wolverhampton Wanderers,AM,70,1,3,3,0.78,32,1,2,0,0
+M1002,P009,Noni Madueke,11,Chelsea,Wolverhampton Wanderers,RW,70,3,0,6,1.62,21,0,0,0,0
+M1002,P010,Jadon Sancho,19,Chelsea,Wolverhampton Wanderers,LW,70,0,0,3,0.42,21,1,0,0,0
+M1002,P011,Nicolas Jackson,15,Chelsea,Wolverhampton Wanderers,ST,72,1,1,5,1.08,21,0,0,0,0
+M1002,P013,Christopher Nkunku,18,Chelsea,Wolverhampton Wanderers,ST,25,0,0,5,0.7,9,0,0,0,0
+M1002,P014,Roméo Lavia,45,Chelsea,Wolverhampton Wanderers,DM,15,0,0,0,0.0,12,1,1,0,0
+M1002,P015,João Félix,14,Chelsea,Wolverhampton Wanderers,AM,26,1,0,2,0.66,15,0,0,0,0
+M1002,P016,Axel Disasi,2,Chelsea,Wolverhampton Wanderers,CB,14,0,0,0,0.0,12,1,1,0,0
+M1002,P017,Mykhailo Mudryk,10,Chelsea,Wolverhampton Wanderers,LW,12,0,0,2,0.28,3,0,0,0,0
+M1002,P018,Renato Veiga,40,Chelsea,Wolverhampton Wanderers,LB,24,0,0,0,0.0,14,1,1,0,0
+M1002,P106,Matheus Cunha,10,Wolverhampton Wanderers,Chelsea,AM,90,1,0,4,0.96,34,4,2,0,0
+M1002,P107,Jørgen Strand Larsen,9,Wolverhampton Wanderers,Chelsea,ST,82,1,1,3,0.85,16,4,1,0,0
+M1002,P108,Mario Lemina,5,Wolverhampton Wanderers,Chelsea,DM,90,0,0,1,0.11,48,2,0,0,0
+M1002,P109,Rayan Aït-Nouri,3,Wolverhampton Wanderers,Chelsea,LB,90,0,0,1,0.11,42,1,2,1,0
+M1003,P001,Robert Sánchez,1,Chelsea,Crystal Palace,GK,90,0,0,0,0.0,33,0,0,0,0
+M1003,P002,Malo Gusto,27,Chelsea,Crystal Palace,RB,84,0,0,0,0.0,45,1,1,1,0
+M1003,P003,Wesley Fofana,29,Chelsea,Crystal Palace,CB,70,0,0,0,0.0,56,3,1,0,0
+M1003,P004,Levi Colwill,6,Chelsea,Crystal Palace,CB,86,0,0,1,0.06,80,1,1,0,0
+M1003,P005,Marc Cucurella,3,Chelsea,Crystal Palace,LB,86,0,0,2,0.12,61,3,2,0,0
+M1003,P006,Moisés Caicedo,25,Chelsea,Crystal Palace,DM,90,0,0,1,0.07,69,5,5,1,0
+M1003,P007,Enzo Fernández,8,Chelsea,Crystal Palace,CM,88,0,0,3,0.36,70,2,0,1,0
+M1003,P008,Cole Palmer,20,Chelsea,Crystal Palace,AM,87,0,1,1,0.12,42,1,2,0,0
+M1003,P009,Noni Madueke,11,Chelsea,Crystal Palace,RW,79,0,0,2,0.28,23,0,0,0,0
+M1003,P010,Jadon Sancho,19,Chelsea,Crystal Palace,LW,85,0,0,4,0.56,34,0,1,0,0
+M1003,P011,Nicolas Jackson,15,Chelsea,Crystal Palace,ST,77,1,0,2,0.66,20,0,0,0,0
+M1003,P012,Pedro Neto,7,Chelsea,Crystal Palace,RW,16,0,0,4,0.56,5,0,0,0,0
+M1003,P013,Christopher Nkunku,18,Chelsea,Crystal Palace,ST,32,0,0,4,0.56,12,0,0,0,0
+M1003,P014,Roméo Lavia,45,Chelsea,Crystal Palace,DM,14,0,0,2,0.14,11,1,1,1,0
+M1003,P015,João Félix,14,Chelsea,Crystal Palace,AM,32,0,0,3,0.36,16,1,1,0,0
+M1003,P016,Axel Disasi,2,Chelsea,Crystal Palace,CB,15,0,0,1,0.06,14,1,1,0,0
+M1003,P017,Mykhailo Mudryk,10,Chelsea,Crystal Palace,LW,16,0,0,5,0.7,4,0,0,0,0
+M1003,P018,Renato Veiga,40,Chelsea,Crystal Palace,LB,13,0,0,1,0.06,7,1,1,0,0
+M1003,P110,Eberechi Eze,10,Crystal Palace,Chelsea,AM,90,1,1,5,1.07,44,4,1,0,0
+M1003,P111,Jean-Philippe Mateta,14,Crystal Palace,Chelsea,ST,85,0,0,3,0.33,19,2,1,0,0
+M1003,P112,Adam Wharton,20,Crystal Palace,Chelsea,CM,90,0,0,1,0.11,61,2,3,1,0
+M1003,P113,Marc Guéhi,6,Crystal Palace,Chelsea,CB,90,0,0,0,0.0,68,3,3,0,0
+M1004,P001,Robert Sánchez,1,Chelsea,Bournemouth,GK,90,0,0,0,0.0,37,0,0,0,0
+M1004,P002,Malo Gusto,27,Chelsea,Bournemouth,RB,75,0,0,1,0.06,44,1,3,0,0
+M1004,P003,Wesley Fofana,29,Chelsea,Bournemouth,CB,83,0,0,1,0.06,72,3,2,0,0
+M1004,P004,Levi Colwill,6,Chelsea,Bournemouth,CB,75,0,0,1,0.06,71,2,3,0,0
+M1004,P005,Marc Cucurella,3,Chelsea,Bournemouth,LB,70,0,0,1,0.06,45,3,2,0,0
+M1004,P006,Moisés Caicedo,25,Chelsea,Bournemouth,DM,71,0,0,1,0.07,52,5,3,1,0
+M1004,P007,Enzo Fernández,8,Chelsea,Bournemouth,CM,87,0,0,4,0.48,66,2,1,0,0
+M1004,P008,Cole Palmer,20,Chelsea,Bournemouth,AM,84,0,0,1,0.12,50,1,1,1,0
+M1004,P009,Noni Madueke,11,Chelsea,Bournemouth,RW,81,0,0,2,0.28,32,1,1,0,0
+M1004,P010,Jadon Sancho,19,Chelsea,Bournemouth,LW,89,0,1,3,0.42,30,0,0,0,0
+M1004,P011,Nicolas Jackson,15,Chelsea,Bournemouth,ST,78,0,0,4,0.56,19,1,0,0,0
+M1004,P012,Pedro Neto,7,Chelsea,Bournemouth,RW,22,0,0,5,0.7,7,0,0,0,0
+M1004,P013,Christopher Nkunku,18,Chelsea,Bournemouth,ST,24,1,0,3,0.8,10,0,0,0,0
+M1004,P015,João Félix,14,Chelsea,Bournemouth,AM,25,0,0,3,0.36,15,1,0,0,0
+M1004,P016,Axel Disasi,2,Chelsea,Bournemouth,CB,17,0,0,0,0.0,13,1,1,0,0
+M1004,P017,Mykhailo Mudryk,10,Chelsea,Bournemouth,LW,21,0,0,3,0.42,6,0,0,1,0
+M1004,P018,Renato Veiga,40,Chelsea,Bournemouth,LB,31,0,0,0,0.0,21,1,1,0,0
+M1004,P114,Antoine Semenyo,24,Bournemouth,Chelsea,RW,90,0,0,4,0.44,31,4,3,0,0
+M1004,P115,Evanilson,9,Bournemouth,Chelsea,ST,78,0,0,3,0.33,15,2,0,0,0
+M1004,P116,Marcus Tavernier,16,Bournemouth,Chelsea,LW,84,0,0,2,0.22,37,1,3,0,0
+M1004,P117,Lewis Cook,4,Bournemouth,Chelsea,CM,90,0,0,1,0.11,52,4,0,0,0
+M1005,P001,Robert Sánchez,1,Chelsea,West Ham United,GK,90,0,0,0,0.0,38,0,0,0,0
+M1005,P002,Malo Gusto,27,Chelsea,West Ham United,RB,82,0,0,0,0.0,56,3,3,0,0
+M1005,P003,Wesley Fofana,29,Chelsea,West Ham United,CB,84,0,0,0,0.0,76,4,1,0,0
+M1005,P004,Levi Colwill,6,Chelsea,West Ham United,CB,83,0,0,0,0.0,66,3,3,0,0
+M1005,P005,Marc Cucurella,3,Chelsea,West Ham United,LB,76,0,0,1,0.06,42,3,1,0,0
+M1005,P006,Moisés Caicedo,25,Chelsea,West Ham United,DM,78,0,1,2,0.14,55,3,2,0,0
+M1005,P007,Enzo Fernández,8,Chelsea,West Ham United,CM,90,0,0,2,0.24,80,2,1,0,0
+M1005,P008,Cole Palmer,20,Chelsea,West Ham United,AM,78,1,0,4,0.9,47,0,0,0,0
+M1005,P009,Noni Madueke,11,Chelsea,West Ham United,RW,80,0,0,2,0.28,33,0,0,1,0
+M1005,P010,Jadon Sancho,19,Chelsea,West Ham United,LW,79,0,0,4,0.56,28,0,1,0,0
+M1005,P011,Nicolas Jackson,15,Chelsea,West Ham United,ST,85,2,1,3,1.18,33,0,0,0,0
+M1005,P013,Christopher Nkunku,18,Chelsea,West Ham United,ST,24,0,0,3,0.42,9,0,0,0,0
+M1005,P014,Roméo Lavia,45,Chelsea,West Ham United,DM,30,0,0,2,0.14,27,1,1,0,0
+M1005,P016,Axel Disasi,2,Chelsea,West Ham United,CB,13,0,0,0,0.0,10,1,1,0,0
+M1005,P017,Mykhailo Mudryk,10,Chelsea,West Ham United,LW,24,0,0,4,0.56,8,0,0,0,0
+M1005,P018,Renato Veiga,40,Chelsea,West Ham United,LB,13,0,0,1,0.06,7,1,1,0,0
+M1005,P118,Jarrod Bowen,20,West Ham United,Chelsea,RW,90,0,0,3,0.33,32,2,1,0,0
+M1005,P119,Mohammed Kudus,14,West Ham United,Chelsea,LW,90,0,0,4,0.44,28,2,1,1,0
+M1005,P120,Lucas Paquetá,10,West Ham United,Chelsea,AM,82,0,0,2,0.22,46,1,1,0,0
+M1005,P121,Edson Álvarez,19,West Ham United,Chelsea,DM,75,0,0,0,0.0,41,3,2,1,0
+M1006,P001,Robert Sánchez,1,Chelsea,Brighton,GK,90,0,0,0,0.0,33,0,0,0,0
+M1006,P002,Malo Gusto,27,Chelsea,Brighton,RB,90,0,0,0,0.0,53,4,1,0,0
+M1006,P003,Wesley Fofana,29,Chelsea,Brighton,CB,77,0,0,0,0.0,65,4,1,1,0
+M1006,P004,Levi Colwill,6,Chelsea,Brighton,CB,90,0,0,0,0.0,72,2,3,0,0
+M1006,P005,Marc Cucurella,3,Chelsea,Brighton,LB,87,0,0,0,0.0,63,1,2,0,0
+M1006,P006,Moisés Caicedo,25,Chelsea,Brighton,DM,89,0,0,1,0.07,63,6,3,1,0
+M1006,P007,Enzo Fernández,8,Chelsea,Brighton,CM,81,0,0,4,0.48,54,3,1,0,0
+M1006,P008,Cole Palmer,20,Chelsea,Brighton,AM,82,4,0,7,2.14,50,1,2,0,0
+M1006,P009,Noni Madueke,11,Chelsea,Brighton,RW,88,0,0,4,0.56,36,0,0,0,0
+M1006,P010,Jadon Sancho,19,Chelsea,Brighton,LW,86,0,1,4,0.56,28,0,0,0,0
+M1006,P011,Nicolas Jackson,15,Chelsea,Brighton,ST,82,0,1,3,0.42,30,1,1,0,0
+M1006,P012,Pedro Neto,7,Chelsea,Brighton,RW,27,0,0,4,0.56,7,0,0,0,0
+M1006,P013,Christopher Nkunku,18,Chelsea,Brighton,ST,20,0,0,4,0.56,8,0,0,0,0
+M1006,P015,João Félix,14,Chelsea,Brighton,AM,27,0,0,2,0.24,19,1,0,0,0
+M1006,P016,Axel Disasi,2,Chelsea,Brighton,CB,12,0,0,1,0.06,9,1,1,0,0
+M1006,P017,Mykhailo Mudryk,10,Chelsea,Brighton,LW,27,0,0,4,0.56,9,0,0,0,0
+M1006,P018,Renato Veiga,40,Chelsea,Brighton,LB,20,0,0,1,0.06,12,1,1,0,0
+M1006,P122,Danny Welbeck,18,Brighton,Chelsea,ST,90,0,0,3,0.33,22,3,0,0,0
+M1006,P123,Georginio Rutter,14,Brighton,Chelsea,AM,80,1,1,3,0.85,35,2,1,0,0
+M1006,P124,Carlos Baleba,20,Brighton,Chelsea,DM,90,1,0,2,0.74,59,3,0,0,0
+M1006,P125,Kaoru Mitoma,22,Brighton,Chelsea,LW,90,0,0,3,0.33,38,3,1,0,0
+M1006,P126,Lewis Dunk,5,Brighton,Chelsea,CB,90,0,0,1,0.11,74,3,0,0,0
+M1007,P001,Robert Sánchez,1,Chelsea,Nottingham Forest,GK,90,0,0,0,0.0,26,0,0,0,0
+M1007,P002,Malo Gusto,27,Chelsea,Nottingham Forest,RB,69,0,0,2,0.12,43,2,3,1,0
+M1007,P003,Wesley Fofana,29,Chelsea,Nottingham Forest,CB,68,0,0,0,0.0,60,3,3,0,0
+M1007,P004,Levi Colwill,6,Chelsea,Nottingham Forest,CB,69,0,0,0,0.0,61,1,1,0,0
+M1007,P005,Marc Cucurella,3,Chelsea,Nottingham Forest,LB,70,0,0,2,0.12,52,1,1,0,0
+M1007,P006,Moisés Caicedo,25,Chelsea,Nottingham Forest,DM,86,0,0,1,0.07,61,3,1,0,0
+M1007,P007,Enzo Fernández,8,Chelsea,Nottingham Forest,CM,81,0,0,2,0.24,66,3,1,0,0
+M1007,P008,Cole Palmer,20,Chelsea,Nottingham Forest,AM,77,0,1,4,0.48,43,0,2,0,0
+M1007,P009,Noni Madueke,11,Chelsea,Nottingham Forest,RW,71,1,0,3,0.8,20,0,1,1,0
+M1007,P010,Jadon Sancho,19,Chelsea,Nottingham Forest,LW,75,0,0,3,0.42,30,0,0,1,0
+M1007,P011,Nicolas Jackson,15,Chelsea,Nottingham Forest,ST,82,0,0,5,0.7,26,0,0,0,0
+M1007,P012,Pedro Neto,7,Chelsea,Nottingham Forest,RW,26,0,0,2,0.28,7,0,0,0,0
+M1007,P013,Christopher Nkunku,18,Chelsea,Nottingham Forest,ST,18,0,0,5,0.7,4,0,0,0,0
+M1007,P014,Roméo Lavia,45,Chelsea,Nottingham Forest,DM,16,0,0,0,0.0,11,1,1,0,0
+M1007,P015,João Félix,14,Chelsea,Nottingham Forest,AM,21,0,0,4,0.48,10,0,0,0,0
+M1007,P016,Axel Disasi,2,Chelsea,Nottingham Forest,CB,20,0,0,0,0.0,17,1,1,0,0
+M1007,P017,Mykhailo Mudryk,10,Chelsea,Nottingham Forest,LW,22,0,0,4,0.56,4,0,0,0,0
+M1007,P018,Renato Veiga,40,Chelsea,Nottingham Forest,LB,30,0,0,2,0.12,16,1,1,0,0
+M1007,P127,Chris Wood,11,Nottingham Forest,Chelsea,ST,90,1,0,3,0.85,17,4,2,0,0
+M1007,P128,Morgan Gibbs-White,10,Nottingham Forest,Chelsea,AM,88,0,0,3,0.33,45,4,3,0,0
+M1007,P129,Callum Hudson-Odoi,14,Nottingham Forest,Chelsea,LW,78,0,0,2,0.22,30,4,2,0,0
+M1007,P130,Murillo,40,Nottingham Forest,Chelsea,CB,90,0,0,0,0.0,52,3,0,0,0
+M1008,P001,Robert Sánchez,1,Chelsea,Liverpool,GK,90,0,0,0,0.0,29,0,0,0,0
+M1008,P002,Malo Gusto,27,Chelsea,Liverpool,RB,83,0,0,1,0.06,63,4,1,0,0
+M1008,P003,Wesley Fofana,29,Chelsea,Liverpool,CB,78,0,0,0,0.0,58,4,1,0,0
+M1008,P004,Levi Colwill,6,Chelsea,Liverpool,CB,85,0,0,0,0.0,62,2,2,0,0
+M1008,P005,Marc Cucurella,3,Chelsea,Liverpool,LB,83,0,0,2,0.12,57,1,1,0,0
+M1008,P006,Moisés Caicedo,25,Chelsea,Liverpool,DM,72,0,1,1,0.07,60,4,1,1,0
+M1008,P007,Enzo Fernández,8,Chelsea,Liverpool,CM,88,0,0,2,0.24,78,1,1,0,0
+M1008,P008,Cole Palmer,20,Chelsea,Liverpool,AM,85,0,0,4,0.48,41,1,0,0,0
+M1008,P009,Noni Madueke,11,Chelsea,Liverpool,RW,71,0,0,3,0.42,27,1,0,0,0
+M1008,P010,Jadon Sancho,19,Chelsea,Liverpool,LW,76,0,0,5,0.7,29,0,0,0,0
+M1008,P011,Nicolas Jackson,15,Chelsea,Liverpool,ST,72,1,0,5,1.08,20,1,1,0,0
+M1008,P014,Roméo Lavia,45,Chelsea,Liverpool,DM,25,0,0,1,0.07,21,1,1,0,0
+M1008,P015,João Félix,14,Chelsea,Liverpool,AM,30,0,0,4,0.48,15,1,1,0,0
+M1008,P016,Axel Disasi,2,Chelsea,Liverpool,CB,29,0,0,0,0.0,24,1,1,0,0
+M1008,P017,Mykhailo Mudryk,10,Chelsea,Liverpool,LW,25,0,0,2,0.28,8,0,0,0,0
+M1008,P018,Renato Veiga,40,Chelsea,Liverpool,LB,24,0,0,2,0.12,18,1,1,0,0
+M1008,P131,Mohamed Salah,11,Liverpool,Chelsea,RW,90,1,0,4,0.96,36,3,0,0,0
+M1008,P132,Curtis Jones,17,Liverpool,Chelsea,CM,85,1,0,2,0.74,54,4,0,0,0
+M1008,P133,Cody Gakpo,18,Liverpool,Chelsea,LW,76,0,0,3,0.33,28,4,1,1,0
+M1008,P134,Ryan Gravenberch,38,Liverpool,Chelsea,DM,90,0,0,1,0.11,68,3,2,0,0
+M1008,P135,Virgil van Dijk,4,Liverpool,Chelsea,CB,90,0,0,1,0.11,79,4,0,0,0

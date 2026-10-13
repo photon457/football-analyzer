@@ -1,0 +1,831 @@
+{
+  "$defs": {
+    "MatchMetadata": {
+      "description": "Core identification and context for a single match.",
+      "properties": {
+        "match_id": {
+          "description": "Stable unique identifier for the match",
+          "minLength": 1,
+          "title": "Match Id",
+          "type": "string"
+        },
+        "date": {
+          "description": "ISO 8601 match date (YYYY-MM-DD)",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "title": "Date",
+          "type": "string"
+        },
+        "competition": {
+          "description": "Competition name (e.g. Premier League)",
+          "minLength": 1,
+          "title": "Competition",
+          "type": "string"
+        },
+        "season": {
+          "description": "Season label (e.g. 2024-2025)",
+          "title": "Season",
+          "type": "string"
+        },
+        "matchday": {
+          "anyOf": [
+            {
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Matchday number",
+          "title": "Matchday"
+        },
+        "team": {
+          "description": "Focus squad name (e.g. Chelsea)",
+          "minLength": 1,
+          "title": "Team",
+          "type": "string"
+        },
+        "opponent": {
+          "description": "Opponent club name",
+          "minLength": 1,
+          "title": "Opponent",
+          "type": "string"
+        },
+        "home_away": {
+          "description": "home or away fixture",
+          "enum": [
+            "home",
+            "away"
+          ],
+          "title": "Home Away",
+          "type": "string"
+        },
+        "result": {
+          "description": "Result from focus squad perspective: W, D, or L",
+          "enum": [
+            "W",
+            "D",
+            "L"
+          ],
+          "title": "Result",
+          "type": "string"
+        },
+        "score_team": {
+          "description": "Goals scored by focus team",
+          "minimum": 0,
+          "title": "Score Team",
+          "type": "integer"
+        },
+        "score_opponent": {
+          "description": "Goals scored by opponent",
+          "minimum": 0,
+          "title": "Score Opponent",
+          "type": "integer"
+        },
+        "stadium": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Venue name",
+          "title": "Stadium"
+        },
+        "referee": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Match referee",
+          "title": "Referee"
+        }
+      },
+      "required": [
+        "match_id",
+        "date",
+        "competition",
+        "season",
+        "team",
+        "opponent",
+        "home_away",
+        "result",
+        "score_team",
+        "score_opponent"
+      ],
+      "title": "MatchMetadata",
+      "type": "object"
+    },
+    "PlayerMatchStats": {
+      "description": "Individual player match record.\nSeparates raw stats from derived metrics.",
+      "properties": {
+        "player_id": {
+          "description": "Stable unique player ID",
+          "minLength": 1,
+          "title": "Player Id",
+          "type": "string"
+        },
+        "player_name": {
+          "description": "Full player name",
+          "minLength": 1,
+          "title": "Player Name",
+          "type": "string"
+        },
+        "jersey_number": {
+          "description": "Squad number",
+          "maximum": 99,
+          "minimum": 1,
+          "title": "Jersey Number",
+          "type": "integer"
+        },
+        "primary_position": {
+          "description": "Position group: GK, DF, MF, FW",
+          "enum": [
+            "GK",
+            "DF",
+            "MF",
+            "FW"
+          ],
+          "title": "Primary Position",
+          "type": "string"
+        },
+        "detailed_position": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Specific tactical role: CB, LB, RB, CM, DM, AM, RW, LW, ST",
+          "title": "Detailed Position"
+        },
+        "is_starter": {
+          "description": "True if started the match",
+          "title": "Is Starter",
+          "type": "boolean"
+        },
+        "minutes_played": {
+          "description": "Total minutes on pitch",
+          "maximum": 130,
+          "minimum": 0,
+          "title": "Minutes Played",
+          "type": "integer"
+        },
+        "subbed_in_minute": {
+          "anyOf": [
+            {
+              "maximum": 130,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subbed In Minute"
+        },
+        "subbed_out_minute": {
+          "anyOf": [
+            {
+              "maximum": 130,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subbed Out Minute"
+        },
+        "goals": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Goals",
+          "type": "integer"
+        },
+        "assists": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Assists",
+          "type": "integer"
+        },
+        "shots_total": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Shots Total",
+          "type": "integer"
+        },
+        "shots_on_target": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Shots On Target",
+          "type": "integer"
+        },
+        "big_chances_created": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Big Chances Created",
+          "type": "integer"
+        },
+        "big_chances_missed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Big Chances Missed",
+          "type": "integer"
+        },
+        "passes_attempted": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Passes Attempted",
+          "type": "integer"
+        },
+        "passes_completed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Passes Completed",
+          "type": "integer"
+        },
+        "key_passes": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Key Passes",
+          "type": "integer"
+        },
+        "crosses_attempted": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Crosses Attempted",
+          "type": "integer"
+        },
+        "crosses_completed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Crosses Completed",
+          "type": "integer"
+        },
+        "progressive_passes": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Progressive Passes",
+          "type": "integer"
+        },
+        "tackles_attempted": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Tackles Attempted",
+          "type": "integer"
+        },
+        "tackles_won": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Tackles Won",
+          "type": "integer"
+        },
+        "interceptions": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Interceptions",
+          "type": "integer"
+        },
+        "blocks": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Blocks",
+          "type": "integer"
+        },
+        "clearances": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Clearances",
+          "type": "integer"
+        },
+        "recoveries": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Recoveries",
+          "type": "integer"
+        },
+        "duels_total": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Duels Total",
+          "type": "integer"
+        },
+        "duels_won": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Duels Won",
+          "type": "integer"
+        },
+        "aerial_duels_total": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Aerial Duels Total",
+          "type": "integer"
+        },
+        "aerial_duels_won": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Aerial Duels Won",
+          "type": "integer"
+        },
+        "fouls_committed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Fouls Committed",
+          "type": "integer"
+        },
+        "fouls_drawn": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Fouls Drawn",
+          "type": "integer"
+        },
+        "yellow_cards": {
+          "default": 0,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Yellow Cards",
+          "type": "integer"
+        },
+        "red_cards": {
+          "default": 0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Red Cards",
+          "type": "integer"
+        },
+        "distance_covered_km": {
+          "anyOf": [
+            {
+              "maximum": 20.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distance Covered Km"
+        },
+        "sprints": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sprints"
+        },
+        "saves": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Saves"
+        },
+        "goals_conceded": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Goals Conceded"
+        },
+        "clean_sheet": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clean Sheet"
+        },
+        "penalties_saved": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Penalties Saved"
+        },
+        "xg": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Expected goals",
+          "title": "Xg"
+        },
+        "xa": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Expected assists",
+          "title": "Xa"
+        },
+        "pass_accuracy_pct": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pass Accuracy Pct"
+        },
+        "tackle_success_pct": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tackle Success Pct"
+        },
+        "duel_win_pct": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duel Win Pct"
+        }
+      },
+      "required": [
+        "player_id",
+        "player_name",
+        "jersey_number",
+        "primary_position",
+        "is_starter",
+        "minutes_played"
+      ],
+      "title": "PlayerMatchStats",
+      "type": "object"
+    },
+    "SpatialEvent": {
+      "description": "Spatial event information (touch, shot, pass, tackle, etc.).\nCoordinate Convention (Core-4 Rule 12):\n- Normalized 0-100 pitch coordinates.\n- x: 0.0 (defending goal line) to 100.0 (attacking goal line).\n- y: 0.0 (left touchline looking towards opponent goal) to 100.0 (right touchline).",
+      "properties": {
+        "event_id": {
+          "description": "Unique event identifier",
+          "minLength": 1,
+          "title": "Event Id",
+          "type": "string"
+        },
+        "player_id": {
+          "description": "Player responsible for event",
+          "minLength": 1,
+          "title": "Player Id",
+          "type": "string"
+        },
+        "minute": {
+          "description": "Match minute",
+          "maximum": 130,
+          "minimum": 0,
+          "title": "Minute",
+          "type": "integer"
+        },
+        "second": {
+          "anyOf": [
+            {
+              "maximum": 59,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Match second",
+          "title": "Second"
+        },
+        "event_type": {
+          "description": "Action category",
+          "enum": [
+            "shot",
+            "pass",
+            "tackle",
+            "interception",
+            "touch",
+            "foul",
+            "save",
+            "clearance",
+            "take_on"
+          ],
+          "title": "Event Type",
+          "type": "string"
+        },
+        "x": {
+          "description": "Pitch X coordinate (0-100)",
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "description": "Pitch Y coordinate (0-100)",
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "Y",
+          "type": "number"
+        },
+        "end_x": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Action end X coordinate (0-100)",
+          "title": "End X"
+        },
+        "end_y": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Action end Y coordinate (0-100)",
+          "title": "End Y"
+        },
+        "outcome": {
+          "description": "successful or unsuccessful",
+          "enum": [
+            "successful",
+            "unsuccessful"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Event specifics (e.g. shot result, xg value)",
+          "title": "Metadata"
+        }
+      },
+      "required": [
+        "event_id",
+        "player_id",
+        "minute",
+        "event_type",
+        "x",
+        "y",
+        "outcome"
+      ],
+      "title": "SpatialEvent",
+      "type": "object"
+    },
+    "TeamMatchMetrics": {
+      "description": "Team-level statistics for the match.\nRaw observed counts are required; derived metrics can be computed or optionally supplied.",
+      "properties": {
+        "possession_pct": {
+          "description": "Possession percentage (0-100)",
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "Possession Pct",
+          "type": "number"
+        },
+        "shots": {
+          "description": "Total shots taken by focus team",
+          "minimum": 0,
+          "title": "Shots",
+          "type": "integer"
+        },
+        "shots_on_target": {
+          "description": "Shots on target",
+          "minimum": 0,
+          "title": "Shots On Target",
+          "type": "integer"
+        },
+        "shots_off_target": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shots Off Target"
+        },
+        "shots_blocked": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shots Blocked"
+        },
+        "corners": {
+          "description": "Corner kicks awarded",
+          "minimum": 0,
+          "title": "Corners",
+          "type": "integer"
+        },
+        "fouls": {
+          "description": "Fouls committed",
+          "minimum": 0,
+          "title": "Fouls",
+          "type": "integer"
+        },
+        "yellow_cards": {
+          "default": 0,
+          "description": "Yellow cards",
+          "minimum": 0,
+          "title": "Yellow Cards",
+          "type": "integer"
+        },
+        "red_cards": {
+          "default": 0,
+          "description": "Red cards",
+          "minimum": 0,
+          "title": "Red Cards",
+          "type": "integer"
+        },
+        "offsides": {
+          "default": 0,
+          "description": "Offsides",
+          "minimum": 0,
+          "title": "Offsides",
+          "type": "integer"
+        },
+        "passes_total": {
+          "description": "Total passes attempted",
+          "minimum": 0,
+          "title": "Passes Total",
+          "type": "integer"
+        },
+        "passes_completed": {
+          "description": "Passes completed",
+          "minimum": 0,
+          "title": "Passes Completed",
+          "type": "integer"
+        },
+        "pass_accuracy_pct": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pass Accuracy Pct"
+        },
+        "xg": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Expected goals (xG)",
+          "title": "Xg"
+        }
+      },
+      "required": [
+        "possession_pct",
+        "shots",
+        "shots_on_target",
+        "corners",
+        "fouls",
+        "passes_total",
+        "passes_completed"
+      ],
+      "title": "TeamMatchMetrics",
+      "type": "object"
+    }
+  },
+  "description": "Complete imported match data document.\nEnforces squad completeness, starter count, and internal consistency.",
+  "properties": {
+    "match": {
+      "$ref": "#/$defs/MatchMetadata"
+    },
+    "team_stats": {
+      "$ref": "#/$defs/TeamMatchMetrics"
+    },
+    "players": {
+      "items": {
+        "$ref": "#/$defs/PlayerMatchStats"
+      },
+      "minItems": 11,
+      "title": "Players",
+      "type": "array"
+    },
+    "events": {
+      "items": {
+        "$ref": "#/$defs/SpatialEvent"
+      },
+      "title": "Events",
+      "type": "array"
+    }
+  },
+  "required": [
+    "match",
+    "team_stats",
+    "players"
+  ],
+  "title": "MatchDataPayload",
+  "type": "object"
+}

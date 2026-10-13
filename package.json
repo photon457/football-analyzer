@@ -1,0 +1,95 @@
+{
+  "name": "football-analyzer",
+  "version": "0.1.0",
+  "description": "Football analysis desktop application designed from the perspective of a football manager",
+  "main": "dist-electron/main/index.js",
+  "private": true,
+  "scripts": {
+    "dev:renderer": "vite",
+    "dev:electron": "tsc -p tsconfig.electron.json --watch",
+    "dev:backend": "python -m uvicorn backend.api.main:app --port 8000 --reload",
+    "dev": "concurrently -k \"npm run dev:backend\" \"npm run dev:renderer\" \"npm run dev:electron\" \"node scripts/dev-runner.js\"",
+    "build:renderer": "vite build",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "build": "npm run build:renderer && npm run build:electron",
+    "package:win": "npm run build && electron-builder --win",
+    "package:portable": "npm run build && electron-builder --win portable",
+    "start": "electron ."
+  },
+  "dependencies": {
+    "@types/three": "^0.186.0",
+    "d3": "^7.9.0",
+    "lucide-react": "^0.475.0",
+    "motion": "^14.1.0",
+    "ogl": "^1.0.11",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/node": "^22.13.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^34.5.8",
+    "electron-builder": "^26.15.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  },
+  "build": {
+    "appId": "com.tacticalanalyst.desktop",
+    "productName": "Tactical Analyst",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "build-resources/python",
+        "to": "python",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "backend",
+        "to": "backend",
+        "filter": [
+          "**/*",
+          "!**/__pycache__/**",
+          "!**/*.pyc"
+        ]
+      },
+      {
+        "from": "data/football_analyzer.db",
+        "to": "data/football_analyzer.db"
+      },
+      {
+        "from": "Fictional_Premier_League_2024_25_Fixture_Allocation.csv",
+        "to": "Fictional_Premier_League_2024_25_Fixture_Allocation.csv"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
