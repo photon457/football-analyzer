@@ -41,11 +41,13 @@ import { fetchSquadSeason, SquadPlayerSeason } from '../../services/api';
 import { JellyRadio } from '../JellyRadio/JellyRadio';
 import { RadarChart } from '../visualizations/RadarChart';
 import { BorderGlow } from '../BorderGlow/BorderGlow';
+import { OpponentTactics } from '../OpponentTactics/OpponentTactics';
 
 interface TacticSetterProps {
   managedTeam: string;
   onTacticDeployed?: (tactic: TacticConfiguration) => void;
   onNavigateToMatches?: () => void;
+  initialPerspective?: 'my_team' | 'opponents';
 }
 
 const TOKENS = {
@@ -92,7 +94,11 @@ export const TacticSetter: React.FC<TacticSetterProps> = ({
   managedTeam,
   onTacticDeployed,
   onNavigateToMatches,
+  initialPerspective,
 }) => {
+  const [tacticsPerspective, setTacticsPerspective] = useState<'my_team' | 'opponents'>(
+    initialPerspective || 'my_team'
+  );
   const [tactic, setTactic] = useState<TacticConfiguration>(() => getActiveTactic());
   const [squadPlayers, setSquadPlayers] = useState<SquadPlayerSeason[]>([]);
   const [loadingSquad, setLoadingSquad] = useState<boolean>(true);
@@ -471,8 +477,28 @@ export const TacticSetter: React.FC<TacticSetterProps> = ({
         </div>
       )}
 
-      {/* TOP HEADER & CONTROL BAR */}
-      <div
+      {/* PERSPECTIVE SWITCHER: MY TEAM STRATEGY VS OPPONENTS SCOUTING */}
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '-4px' }}>
+        <JellyRadio
+          value={tacticsPerspective}
+          onChange={(val) => setTacticsPerspective(val as 'my_team' | 'opponents')}
+          items={[
+            { value: 'my_team', label: `${managedTeam} Strategy & Chalkboard`, icon: <Shield size={14} /> },
+            { value: 'opponents', label: 'Opponents Tactics & Scouting', icon: <Target size={14} /> },
+          ]}
+          size="md"
+        />
+      </div>
+
+      {tacticsPerspective === 'opponents' ? (
+        <OpponentTactics
+          managedTeam={managedTeam}
+          onNavigateToMatches={onNavigateToMatches}
+        />
+      ) : (
+        <>
+          {/* TOP HEADER & CONTROL BAR */}
+          <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -2442,6 +2468,8 @@ export const TacticSetter: React.FC<TacticSetterProps> = ({
             </div>
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   );

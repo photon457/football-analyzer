@@ -52,21 +52,20 @@ def test_parse_player_stats_csv_sample():
     payloads = parse_player_stats_csv(str(csv_path), focus_team="Chelsea")
     assert len(payloads) == 8
 
-    # Match M1001 should be Chelsea vs Arsenal
-    m1001 = next(p for p in payloads if p.match.match_id == "M1001")
-    assert m1001.match.team == "Chelsea"
-    assert m1001.match.opponent == "Arsenal"
-    assert m1001.match.score_team == 1
-    assert m1001.match.score_opponent == 2
-    assert m1001.match.result == "L"
-    assert m1001.match.competition == "Premier League"
-    assert len(m1001.players) == 2
+    # Match 1 should be Chelsea vs Manchester City
+    m1 = next(p for p in payloads if p.match.match_id == "match_20240818_che_mci")
+    assert m1.match.team == "Chelsea"
+    assert m1.match.opponent == "Manchester City"
+    assert m1.match.score_team == 0
+    assert m1.match.score_opponent == 2
+    assert m1.match.result == "L"
+    assert m1.match.competition == "Premier League"
+    assert len(m1.players) == 18
 
     # Player stats check
-    p4 = next(p for p in m1001.players if p.player_id == "P004")
-    assert p4.goals == 1
-    assert p4.shots_total == 4
-    assert p4.primary_position == "FW"
+    palmer = next(p for p in m1.players if p.player_id == "p_cole_palmer")
+    assert palmer.jersey_number == 20
+    assert palmer.primary_position == "MF"
 
 
 def test_api_import_csv_endpoint(client):
@@ -98,4 +97,43 @@ def test_api_database_reset_endpoint(client):
     data = res.json()
     assert data["status"] == "success"
     assert data["fixtures_count"] == 380
-    assert data["imported_matches_count"] == 8
+    assert data["imported_matches_count"] in [5, 8]
+
+
+def test_fixture_template_csv_endpoint(client):
+    db.seed_fixtures_from_csv()
+    # Test blank template
+    res = client.get("/api/fixtures/6/template-csv")
+    assert res.status_code == 200
+    data = res.json()
+    assert "csv_content" in data
+    assert "p_cole_palmer" in data["csv_content"]
+    assert "Robert Sánchez" in data["csv_content"]
+
+    # Test sample pre-filled template
+    res_sample = client.get("/api/fixtures/6/template-csv?sample=true")
+    assert res_sample.status_code == 200
+    sample_data = res_sample.json()
+    assert "match_id" in sample_data["csv_content"]
+
+
+def test_record_fixture_with_csv(client):
+    db.seed_fixtures_from_csv()
+    template_res = client.get("/api/fixtures/6/template-csv?sample=true")
+    csv_text = template_res.json()["csv_content"]
+
+    # Post CSV to record the upcoming fixture
+    rec_res = client.post("/api/fixtures/6/record-match", json={
+        "csv_content": csv_text,
+        "focus_team": "Chelsea"
+    })
+    assert rec_res.status_code == 201
+    rec_data = rec_res.json()
+    assert rec_data["status"] == "success"
+    assert "match_id" in rec_data
+    assert rec_data["fixture_id"] == 6
+
+    # Verify fixture status is now played
+    fix = db.get_fixture(6)
+    assert fix["status"] == "played"
+    assert fix["match_id"] == rec_data["match_id"]

@@ -69,6 +69,7 @@ interface ManagerDashboardProps {
   onNavigateToUpload?: () => void;
   onNavigateToHistory?: () => void;
   onNavigateToTactics?: () => void;
+  onNavigateToOpponents?: (opponentName?: string) => void;
 }
 
 // ── DESIGN TOKENS ───────────────────────────────────────────────────────────
@@ -667,9 +668,26 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                 </div>
               </div>
 
-              <div style={{ background: '#121622', border: `1px solid ${TOKENS.border}`, borderRadius: '8px', padding: '12px 14px' }}>
-                <div style={{ fontSize: '11.5px', color: TOKENS.gold, fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px' }}>
-                  Scouting Focus
+              <div
+                onClick={() => {
+                  if (onNavigateToOpponents) onNavigateToOpponents(nextOpponent);
+                  else if (onNavigateToTactics) onNavigateToTactics();
+                }}
+                style={{
+                  background: '#121622',
+                  border: `1px solid ${TOKENS.border}`,
+                  borderRadius: '8px',
+                  padding: '12px 14px',
+                  cursor: 'pointer',
+                  transition: 'border-color 0.15s ease',
+                }}
+                title={`Inspect Opponents Tactics & Scouting for ${nextOpponent}`}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '11.5px', color: TOKENS.gold, fontWeight: 600, textTransform: 'uppercase' }}>
+                    Scouting Focus
+                  </div>
+                  <span style={{ fontSize: '10.5px', color: '#38bdf8', fontWeight: 600 }}>Inspect &rarr;</span>
                 </div>
                 <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#ffffff' }}>{nextOpponent} Channels</div>
                 <div style={{ fontSize: '12px', color: TOKENS.textMuted, marginTop: '2px' }}>Nullify direct counter-runs into wide defensive pockets</div>

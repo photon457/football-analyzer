@@ -191,14 +191,32 @@ class DatabaseService:
                 cursor.execute("SELECT 1 FROM matches WHERE id = ?", (match_id,))
                 return cursor.fetchone() is not None
 
-    def save_match(self, payload: MatchDataPayload) -> Tuple[bool, str]:
+    def delete_match(self, match_id: str) -> bool:
+        """Deletes all records associated with a match."""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.execute("PRAGMA foreign_keys = ON;")
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM match_events WHERE match_id = ?", (match_id,))
+            cursor.execute("DELETE FROM player_match_metrics WHERE match_id = ?", (match_id,))
+            cursor.execute("DELETE FROM team_match_metrics WHERE match_id = ?", (match_id,))
+            cursor.execute("DELETE FROM match_players WHERE match_id = ?", (match_id,))
+            cursor.execute("DELETE FROM matches WHERE id = ?", (match_id,))
+            cursor.execute("UPDATE fixtures SET match_id = NULL WHERE match_id = ?", (match_id,))
+            conn.commit()
+            return cursor.rowcount > 0
+
+    def save_match(self, payload: MatchDataPayload, allow_overwrite: bool = False) -> Tuple[bool, str]:
         """
         Transactionally saves match metadata, players, metrics, and spatial events.
         Enforces duplicate detection and rollbacks on error.
+        If allow_overwrite is True, removes existing records for this match ID first.
         """
         match = payload.match
         if self.check_duplicate_match(match.match_id):
-            return False, f"Duplicate match detected: Match with ID '{match.match_id}' already exists"
+            if allow_overwrite:
+                self.delete_match(match.match_id)
+            else:
+                return False, f"Duplicate match detected: Match with ID '{match.match_id}' already exists"
 
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -807,18 +825,29 @@ class DatabaseService:
     def import_csv_matches(
         self,
         csv_source: str,
-        focus_team: Optional[str] = "Chelsea"
+        focus_team: Optional[str] = "Chelsea",
+        default_match_id: Optional[str] = None,
+        default_team: Optional[str] = None,
+        default_opponent: Optional[str] = None,
+        allow_overwrite: bool = False,
     ) -> List[Dict[str, Any]]:
         """
         Parses and imports matches from player match stats CSV.
         Transactionally saves each match and links to fixtures where appropriate.
+        Supports default match IDs, teams, opponents, and overwrite mode.
         """
         from backend.analysis.validation.csv_importer import parse_player_stats_csv
-        payloads = parse_player_stats_csv(csv_source, focus_team=focus_team)
+        payloads = parse_player_stats_csv(
+            csv_source,
+            focus_team=focus_team,
+            default_match_id=default_match_id,
+            default_team=default_team,
+            default_opponent=default_opponent,
+        )
         imported_summaries = []
 
         for p in payloads:
-            success, msg = self.save_match(p)
+            success, msg = self.save_match(p, allow_overwrite=allow_overwrite)
             if success:
                 imported_summaries.append({
                     "match_id": p.match.match_id,

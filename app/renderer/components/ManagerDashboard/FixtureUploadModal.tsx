@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   X,
   Upload,
@@ -8,11 +8,16 @@ import {
   AlertCircle,
   Calendar,
   Sparkles,
+  Table,
+  Download,
+  Edit3,
+  RefreshCw,
 } from 'lucide-react';
 import {
   FixtureItem,
   recordFixtureMatch,
   RecordFixtureMatchPayload,
+  fetchFixtureCsvTemplate,
 } from '../../services/api';
 import { JellyRadio } from '../JellyRadio/JellyRadio';
 
@@ -25,6 +30,24 @@ interface FixtureUploadModalProps {
   onUploadSuccess: (matchId: string) => void;
 }
 
+interface ParsedPlayerRow {
+  rowId: number;
+  playerId: string;
+  name: string;
+  jersey: number;
+  position: string;
+  minutes: number;
+  goals: number;
+  assists: number;
+  shots: number;
+  xg: number;
+  passes: number;
+  tackles: number;
+  interceptions: number;
+  yellowCards: number;
+  redCards: number;
+}
+
 const TOKENS = {
   bgOverlay: 'rgba(5, 8, 14, 0.78)',
   bgModal: '#121722',
@@ -35,6 +58,7 @@ const TOKENS = {
   goldDim: 'rgba(210, 174, 94, 0.18)',
   blue: '#8FC8EE',
   green: '#5FD068',
+  red: '#f87171',
   textPrimary: '#F2F4F7',
   textSecondary: '#A8AFB9',
   textMuted: '#6F7885',
@@ -52,7 +76,14 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
     targetFixture ? targetFixture.fixture_id : null
   );
 
-  const [activeTab, setActiveTab] = useState<'quick' | 'file' | 'sample'>('quick');
+  // Tab mode: Default is dedicated player-by-player CSV import
+  const [activeTab, setActiveTab] = useState<'csv_player' | 'quick' | 'file' | 'sample'>('csv_player');
+
+  // Player-by-Player CSV State
+  const [playerCsvText, setPlayerCsvText] = useState<string>('');
+  const [playerCsvFileName, setPlayerCsvFileName] = useState<string>('');
+  const [isLoadingTemplate, setIsLoadingTemplate] = useState<boolean>(false);
+  const [csvViewMode, setCsvViewMode] = useState<'table' | 'raw'>('table');
 
   // Quick Scorecard State
   const [scoreHome, setScoreHome] = useState<number>(2);
@@ -61,7 +92,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
   const [shotsHome, setShotsHome] = useState<number>(14);
   const [shotsAway, setShotsAway] = useState<number>(9);
 
-  // File Upload State
+  // File Upload State (for generic telemetry file tab)
   const [fileContent, setFileContent] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [fileType, setFileType] = useState<'json' | 'csv' | null>(null);
@@ -71,11 +102,28 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successInfo, setSuccessInfo] = useState<string | null>(null);
 
-  // Sync selected fixture when targetFixture changes
+  const currentFixture =
+    allUpcomingFixtures.find((f) => f.fixture_id === selectedFixtureId) || targetFixture;
+
+  // Function to load CSV template (blank or sample)
+  const loadTemplate = async (fixtureId: number, sample: boolean) => {
+    setIsLoadingTemplate(true);
+    setErrorMessage(null);
+    try {
+      const res = await fetchFixtureCsvTemplate(fixtureId, sample);
+      setPlayerCsvText(res.csv_content);
+      setPlayerCsvFileName(res.filename);
+    } catch (err: any) {
+      setErrorMessage(err.message || 'Failed to generate player CSV template');
+    } finally {
+      setIsLoadingTemplate(false);
+    }
+  };
+
+  // Sync selected fixture when targetFixture changes & auto-load authentic CSV template
   useEffect(() => {
     if (targetFixture) {
       setSelectedFixtureId(targetFixture.fixture_id);
-      // Auto-set realistic default score according to home/away
       const isHome = targetFixture.home_team === managedTeam;
       if (isHome) {
         setScoreHome(2);
@@ -84,17 +132,163 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
         setScoreHome(1);
         setScoreAway(2);
       }
+      loadTemplate(targetFixture.fixture_id, true);
     } else if (allUpcomingFixtures.length > 0) {
       setSelectedFixtureId(allUpcomingFixtures[0].fixture_id);
+      loadTemplate(allUpcomingFixtures[0].fixture_id, true);
     }
   }, [targetFixture, allUpcomingFixtures, managedTeam]);
 
+  // When manager changes fixture selection via dropdown, reload template
+  const handleFixtureSelectChange = (newFixtureId: number) => {
+    setSelectedFixtureId(newFixtureId);
+    loadTemplate(newFixtureId, true);
+  };
+
+  // Parse CSV into structured rows
+  const parsedPlayers: ParsedPlayerRow[] = useMemo(() => {
+    if (!playerCsvText.trim()) return [];
+    const lines = playerCsvText.trim().split('\n').map((l) => l.trim()).filter(Boolean);
+    if (lines.length < 2) return [];
+
+    const headers = lines[0].split(',').map((h) => h.trim().toLowerCase());
+
+    const getIdx = (keys: string[]) => {
+      return headers.findIndex((h) => keys.includes(h));
+    };
+
+    const nameIdx = getIdx(['player_name', 'name', 'player']);
+    const numIdx = getIdx(['jersey_number', 'jersey', 'number', 'num']);
+    const posIdx = getIdx(['position', 'pos']);
+    const minsIdx = getIdx(['minutes', 'mins', 'minutes_played']);
+    const goalsIdx = getIdx(['goals', 'g']);
+    const assistsIdx = getIdx(['assists', 'a']);
+    const shotsIdx = getIdx(['shots', 'sh']);
+    const xgIdx = getIdx(['xg']);
+    const passesIdx = getIdx(['passes_completed', 'passes', 'pass']);
+    const tacklesIdx = getIdx(['tackles', 'tk', 'tackles_won']);
+    const intsIdx = getIdx(['interceptions', 'int', 'ints']);
+    const ycIdx = getIdx(['yellow_cards', 'yellow_card', 'yc']);
+    const rcIdx = getIdx(['red_cards', 'red_card', 'rc']);
+    const idIdx = getIdx(['player_id', 'id']);
+
+    return lines.slice(1).map((line, rowIdx) => {
+      const cols = line.split(',').map((c) => c.trim());
+      return {
+        rowId: rowIdx,
+        playerId: idIdx >= 0 ? cols[idIdx] : `p_${rowIdx}`,
+        name: nameIdx >= 0 ? cols[nameIdx] : `Player ${rowIdx + 1}`,
+        jersey: numIdx >= 0 ? parseInt(cols[numIdx]) || rowIdx + 1 : rowIdx + 1,
+        position: posIdx >= 0 ? cols[posIdx] || 'MF' : 'MF',
+        minutes: minsIdx >= 0 ? parseInt(cols[minsIdx]) || 0 : 0,
+        goals: goalsIdx >= 0 ? parseInt(cols[goalsIdx]) || 0 : 0,
+        assists: assistsIdx >= 0 ? parseInt(cols[assistsIdx]) || 0 : 0,
+        shots: shotsIdx >= 0 ? parseInt(cols[shotsIdx]) || 0 : 0,
+        xg: xgIdx >= 0 ? parseFloat(cols[xgIdx]) || 0 : 0,
+        passes: passesIdx >= 0 ? parseInt(cols[passesIdx]) || 0 : 0,
+        tackles: tacklesIdx >= 0 ? parseInt(cols[tacklesIdx]) || 0 : 0,
+        interceptions: intsIdx >= 0 ? parseInt(cols[intsIdx]) || 0 : 0,
+        yellowCards: ycIdx >= 0 ? parseInt(cols[ycIdx]) || 0 : 0,
+        redCards: rcIdx >= 0 ? parseInt(cols[rcIdx]) || 0 : 0,
+      };
+    });
+  }, [playerCsvText]);
+
+  // Aggregate metrics computed from the player table
+  const aggregates = useMemo(() => {
+    const totalGoals = parsedPlayers.reduce((sum, p) => sum + p.goals, 0);
+    const totalAssists = parsedPlayers.reduce((sum, p) => sum + p.assists, 0);
+    const totalShots = parsedPlayers.reduce((sum, p) => sum + p.shots, 0);
+    const totalXg = parsedPlayers.reduce((sum, p) => sum + p.xg, 0);
+    const totalPasses = parsedPlayers.reduce((sum, p) => sum + p.passes, 0);
+    const totalTackles = parsedPlayers.reduce((sum, p) => sum + p.tackles, 0);
+    const totalYellows = parsedPlayers.reduce((sum, p) => sum + p.yellowCards, 0);
+    return {
+      totalGoals,
+      totalAssists,
+      totalShots,
+      totalXg: totalXg.toFixed(2),
+      totalPasses,
+      totalTackles,
+      totalYellows,
+      squadCount: parsedPlayers.length,
+    };
+  }, [parsedPlayers]);
+
   if (!isOpen) return null;
 
-  const currentFixture =
-    allUpcomingFixtures.find((f) => f.fixture_id === selectedFixtureId) || targetFixture;
+  // Handle direct file input for Player CSV tab
+  const handlePlayerCsvFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!file.name.endsWith('.csv')) {
+      setErrorMessage('Please select a valid CSV player stats sheet (.csv).');
+      return;
+    }
+
+    setPlayerCsvFileName(file.name);
+    setErrorMessage(null);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result as string;
+      setPlayerCsvText(text);
+    };
+    reader.readAsText(file);
+  };
+
+  // Download current CSV
+  const handleDownloadCsv = () => {
+    if (!playerCsvText) return;
+    const blob = new Blob([playerCsvText], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', playerCsvFileName || `fixture_${currentFixture?.fixture_id}_player_stats.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // Submit Player CSV
+  const handlePlayerCsvSubmit = async () => {
+    if (!currentFixture) {
+      setErrorMessage('Please select an upcoming fixture.');
+      return;
+    }
+    if (!playerCsvText.trim()) {
+      setErrorMessage('Player CSV content is empty. Please load template or upload a file.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+    setSuccessInfo(null);
+
+    try {
+      const payload: RecordFixtureMatchPayload = {
+        csv_content: playerCsvText,
+        focus_team: managedTeam,
+      };
+      const result = await recordFixtureMatch(currentFixture.fixture_id, payload);
+      setSuccessInfo(
+        `Player CSV Ingested: ${result.team} vs ${result.opponent} (${result.score}) with ${result.players_count ?? parsedPlayers.length} player stats`
+      );
+
+      setTimeout(() => {
+        onUploadSuccess(result.match_id);
+      }, 700);
+    } catch (err: any) {
+      setErrorMessage(err.message || 'Failed to ingest player-by-player match CSV');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Generic File Change (Tab 3)
+  const handleGenericFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -119,6 +313,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
     reader.readAsText(file);
   };
 
+  // Generic Quick Submit
   const handleQuickSubmit = async () => {
     if (!currentFixture) {
       setErrorMessage('Please select an upcoming fixture.');
@@ -152,7 +347,8 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
     }
   };
 
-  const handleFileSubmit = async () => {
+  // Generic File Submit
+  const handleGenericFileSubmit = async () => {
     if (!currentFixture) {
       setErrorMessage('Please select an upcoming fixture.');
       return;
@@ -196,6 +392,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
     }
   };
 
+  // Preset Submit
   const handlePresetSubmit = async (presetType: 'win' | 'draw' | 'loss') => {
     if (!currentFixture) return;
 
@@ -263,21 +460,21 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
       <div
         style={{
           width: '100%',
-          maxWidth: '720px',
+          maxWidth: '920px',
           backgroundColor: TOKENS.bgModal,
           border: `1px solid ${TOKENS.border}`,
           borderRadius: '12px',
-          boxShadow: '0 24px 48px rgba(0, 0, 0, 0.65)',
+          boxShadow: '0 24px 48px rgba(0, 0, 0, 0.7)',
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
-          maxHeight: '90vh',
+          maxHeight: '92vh',
         }}
       >
         {/* Modal Header */}
         <div
           style={{
-            padding: '18px 24px',
+            padding: '16px 24px',
             borderBottom: `1px solid ${TOKENS.border}`,
             display: 'flex',
             justifyContent: 'space-between',
@@ -299,7 +496,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
                 color: TOKENS.gold,
               }}
             >
-              <Upload size={17} />
+              <Table size={18} />
             </div>
             <div>
               <div
@@ -311,10 +508,10 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
                   textTransform: 'uppercase',
                 }}
               >
-                Upload Match Data &amp; Telemetry
+                Match Telemetry &amp; Player-by-Player Ingestion
               </div>
               <div style={{ fontSize: '12px', color: TOKENS.textMuted }}>
-                Record match outcome and ingest player tracking events for scheduled fixture
+                Record match outcome and ingest player statistics for scheduled fixtures
               </div>
             </div>
           </div>
@@ -339,14 +536,14 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
         </div>
 
         {/* Scrollable Content Body */}
-        <div style={{ padding: '24px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ padding: '20px 24px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '18px' }}>
           {/* Target Fixture Selector Bar */}
           <div
             style={{
               backgroundColor: TOKENS.bgInset,
               border: `1px solid ${TOKENS.border}`,
               borderRadius: '8px',
-              padding: '14px 18px',
+              padding: '12px 18px',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -366,7 +563,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
                   </div>
                 )}
                 {currentFixture && (
-                  <div style={{ fontSize: '12px', color: TOKENS.textMuted }}>
+                  <div style={{ fontSize: '11.5px', color: TOKENS.textMuted }}>
                     Scheduled: {currentFixture.date} &bull; {currentFixture.phase}
                   </div>
                 )}
@@ -378,7 +575,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
               <div>
                 <select
                   value={selectedFixtureId || ''}
-                  onChange={(e) => setSelectedFixtureId(Number(e.target.value))}
+                  onChange={(e) => handleFixtureSelectChange(Number(e.target.value))}
                   disabled={isSubmitting}
                   style={{
                     backgroundColor: '#161d2a',
@@ -405,18 +602,441 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
           <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
             <JellyRadio
               value={activeTab}
-              onChange={(val) => setActiveTab(val as 'quick' | 'file' | 'sample')}
+              onChange={(val) => setActiveTab(val as 'csv_player' | 'quick' | 'file' | 'sample')}
               items={[
-                { value: 'quick', label: 'Record Match Result', icon: <Activity size={14} /> },
-                { value: 'file', label: 'Upload File (JSON / CSV)', icon: <Upload size={14} /> },
-                { value: 'sample', label: 'Telemetry Presets', icon: <Sparkles size={14} /> },
+                { value: 'csv_player', label: 'Player-by-Player CSV', icon: <Table size={14} /> },
+                { value: 'quick', label: 'Scorecard Entry', icon: <Activity size={14} /> },
+                { value: 'file', label: 'Telemetry Ingest', icon: <Upload size={14} /> },
+                { value: 'sample', label: 'Tactical Presets', icon: <Sparkles size={14} /> },
               ]}
               size="md"
               style={{ width: '100%', justifyContent: 'center' }}
             />
           </div>
 
-          {/* TAB 1: QUICK SCORECARD RECORDER */}
+          {/* TAB 1: PLAYER-BY-PLAYER CSV IMPORT (PRIMARY) */}
+          {activeTab === 'csv_player' && currentFixture && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {/* Actions & Controls Toolbar */}
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '10px',
+                  backgroundColor: TOKENS.bgCard,
+                  border: `1px solid ${TOKENS.border}`,
+                  borderRadius: '8px',
+                  padding: '12px 16px',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => loadTemplate(currentFixture.fixture_id, false)}
+                    disabled={isLoadingTemplate || isSubmitting}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: '#1e2638',
+                      border: `1px solid ${TOKENS.border}`,
+                      color: TOKENS.textPrimary,
+                      padding: '7px 12px',
+                      borderRadius: '6px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <RefreshCw size={13} className={isLoadingTemplate ? 'spin' : ''} />
+                    <span>Load Blank Squad Template</span>
+                  </button>
+
+                  <button
+                    onClick={() => loadTemplate(currentFixture.fixture_id, true)}
+                    disabled={isLoadingTemplate || isSubmitting}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: 'rgba(210, 174, 94, 0.15)',
+                      border: `1px solid rgba(210, 174, 94, 0.4)`,
+                      color: TOKENS.gold,
+                      padding: '7px 12px',
+                      borderRadius: '6px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Sparkles size={13} />
+                    <span>Load Realistic Match Sheet</span>
+                  </button>
+
+                  <label
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: '#1e2638',
+                      border: `1px solid ${TOKENS.border}`,
+                      color: TOKENS.textPrimary,
+                      padding: '7px 12px',
+                      borderRadius: '6px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Upload size={13} />
+                    <span>Browse CSV File</span>
+                    <input
+                      type="file"
+                      accept=".csv"
+                      onChange={handlePlayerCsvFileChange}
+                      disabled={isSubmitting}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+
+                  <button
+                    onClick={handleDownloadCsv}
+                    disabled={!playerCsvText || isSubmitting}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: 'transparent',
+                      border: `1px solid ${TOKENS.border}`,
+                      color: TOKENS.textSecondary,
+                      padding: '7px 12px',
+                      borderRadius: '6px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Download size={13} />
+                    <span>Download .csv</span>
+                  </button>
+                </div>
+
+                {/* Table vs Raw CSV View Toggle */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', backgroundColor: '#101520', padding: '3px', borderRadius: '6px', border: `1px solid ${TOKENS.border}` }}>
+                  <button
+                    onClick={() => setCsvViewMode('table')}
+                    style={{
+                      border: 'none',
+                      background: csvViewMode === 'table' ? TOKENS.gold : 'transparent',
+                      color: csvViewMode === 'table' ? '#0e121a' : TOKENS.textSecondary,
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      padding: '5px 10px',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Roster Table
+                  </button>
+                  <button
+                    onClick={() => setCsvViewMode('raw')}
+                    style={{
+                      border: 'none',
+                      background: csvViewMode === 'raw' ? TOKENS.gold : 'transparent',
+                      color: csvViewMode === 'raw' ? '#0e121a' : TOKENS.textSecondary,
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      padding: '5px 10px',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Raw CSV
+                  </button>
+                </div>
+              </div>
+
+              {/* Aggregated Tactical Summary Strip */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '10px',
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: TOKENS.bgInset,
+                    border: `1px solid ${TOKENS.border}`,
+                    borderRadius: '6px',
+                    padding: '10px 14px',
+                  }}
+                >
+                  <div style={{ fontSize: '11px', color: TOKENS.textMuted, textTransform: 'uppercase', fontWeight: 600 }}>
+                    Squad Selected
+                  </div>
+                  <div style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
+                    {aggregates.squadCount} Players
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    backgroundColor: TOKENS.bgInset,
+                    border: `1px solid ${TOKENS.border}`,
+                    borderRadius: '6px',
+                    padding: '10px 14px',
+                  }}
+                >
+                  <div style={{ fontSize: '11px', color: TOKENS.gold, textTransform: 'uppercase', fontWeight: 600 }}>
+                    {managedTeam} Goals
+                  </div>
+                  <div style={{ fontSize: '16px', fontWeight: 700, color: TOKENS.gold, marginTop: '2px' }}>
+                    {aggregates.totalGoals} Goals ({aggregates.totalAssists} Ast)
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    backgroundColor: TOKENS.bgInset,
+                    border: `1px solid ${TOKENS.border}`,
+                    borderRadius: '6px',
+                    padding: '10px 14px',
+                  }}
+                >
+                  <div style={{ fontSize: '11px', color: TOKENS.blue, textTransform: 'uppercase', fontWeight: 600 }}>
+                    Attacking Output
+                  </div>
+                  <div style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
+                    {aggregates.totalShots} Shots &bull; {aggregates.totalXg} xG
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    backgroundColor: TOKENS.bgInset,
+                    border: `1px solid ${TOKENS.border}`,
+                    borderRadius: '6px',
+                    padding: '10px 14px',
+                  }}
+                >
+                  <div style={{ fontSize: '11px', color: TOKENS.green, textTransform: 'uppercase', fontWeight: 600 }}>
+                    Circulation &amp; Duels
+                  </div>
+                  <div style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
+                    {aggregates.totalPasses} Passes &bull; {aggregates.totalTackles} Tkl
+                  </div>
+                </div>
+              </div>
+
+              {/* View Mode: Table or Raw CSV */}
+              {csvViewMode === 'table' ? (
+                <div
+                  style={{
+                    backgroundColor: TOKENS.bgCard,
+                    border: `1px solid ${TOKENS.border}`,
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <div
+                    style={{
+                      maxHeight: '340px',
+                      overflowY: 'auto',
+                      overflowX: 'auto',
+                    }}
+                  >
+                    <table
+                      style={{
+                        width: '100%',
+                        borderCollapse: 'collapse',
+                        fontSize: '12px',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <thead>
+                        <tr
+                          style={{
+                            backgroundColor: '#101520',
+                            borderBottom: `1px solid ${TOKENS.border}`,
+                            color: TOKENS.textSecondary,
+                            position: 'sticky',
+                            top: 0,
+                            zIndex: 2,
+                          }}
+                        >
+                          <th style={{ padding: '8px 10px', width: '38px', textAlign: 'center' }}>#</th>
+                          <th style={{ padding: '8px 12px' }}>Player Name</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '48px' }}>Pos</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '50px' }}>Min</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '42px', color: TOKENS.gold }}>G</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '42px', color: TOKENS.blue }}>A</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '48px' }}>Shots</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '56px' }}>xG</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '60px' }}>Passes</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '50px' }}>Tkl</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '50px' }}>Int</th>
+                          <th style={{ padding: '8px 8px', textAlign: 'center', width: '48px' }}>YC</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {parsedPlayers.length === 0 ? (
+                          <tr>
+                            <td colSpan={12} style={{ padding: '30px', textAlign: 'center', color: TOKENS.textMuted }}>
+                              No player rows loaded. Click "Load Realistic Match Sheet" or "Load Blank Squad Template".
+                            </td>
+                          </tr>
+                        ) : (
+                          parsedPlayers.map((player) => {
+                            const isStandout = player.goals > 0 || player.assists > 0;
+                            return (
+                              <tr
+                                key={player.playerId}
+                                style={{
+                                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                                  backgroundColor: isStandout ? 'rgba(210, 174, 94, 0.05)' : 'transparent',
+                                }}
+                              >
+                                <td style={{ padding: '7px 10px', textAlign: 'center', color: TOKENS.textMuted, fontWeight: 700 }}>
+                                  {player.jersey}
+                                </td>
+                                <td style={{ padding: '7px 12px', fontWeight: 600, color: '#ffffff' }}>
+                                  {player.name}
+                                  {player.minutes < 45 && (
+                                    <span style={{ fontSize: '10px', color: TOKENS.textMuted, marginLeft: '6px' }}>(Sub)</span>
+                                  )}
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center' }}>
+                                  <span
+                                    style={{
+                                      fontSize: '10.5px',
+                                      fontWeight: 700,
+                                      padding: '2px 6px',
+                                      borderRadius: '4px',
+                                      backgroundColor:
+                                        player.position === 'FW'
+                                          ? 'rgba(239, 68, 68, 0.2)'
+                                          : player.position === 'MF'
+                                          ? 'rgba(143, 200, 238, 0.2)'
+                                          : player.position === 'DF'
+                                          ? 'rgba(95, 208, 104, 0.2)'
+                                          : 'rgba(210, 174, 94, 0.2)',
+                                      color:
+                                        player.position === 'FW'
+                                          ? '#f87171'
+                                          : player.position === 'MF'
+                                          ? TOKENS.blue
+                                          : player.position === 'DF'
+                                          ? TOKENS.green
+                                          : TOKENS.gold,
+                                    }}
+                                  >
+                                    {player.position}
+                                  </span>
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', color: TOKENS.textSecondary }}>
+                                  {player.minutes}'
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', fontWeight: 700, color: player.goals > 0 ? TOKENS.gold : TOKENS.textMuted }}>
+                                  {player.goals}
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', fontWeight: 700, color: player.assists > 0 ? TOKENS.blue : TOKENS.textMuted }}>
+                                  {player.assists}
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', color: TOKENS.textSecondary }}>
+                                  {player.shots}
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', color: player.xg > 0.3 ? TOKENS.gold : TOKENS.textSecondary }}>
+                                  {player.xg.toFixed(2)}
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', color: TOKENS.textSecondary }}>
+                                  {player.passes}
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', color: player.tackles > 2 ? TOKENS.green : TOKENS.textSecondary }}>
+                                  {player.tackles}
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', color: TOKENS.textSecondary }}>
+                                  {player.interceptions}
+                                </td>
+                                <td style={{ padding: '7px 8px', textAlign: 'center', color: player.yellowCards > 0 ? '#facc15' : TOKENS.textMuted }}>
+                                  {player.yellowCards}
+                                </td>
+                              </tr>
+                            );
+                          })
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : (
+                /* Raw CSV Text Area */
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', color: TOKENS.textMuted }}>
+                    <span>Edit or paste raw CSV text (rows automatically update the live table preview):</span>
+                    <span>{playerCsvText.split('\n').length} lines</span>
+                  </div>
+                  <textarea
+                    rows={12}
+                    value={playerCsvText}
+                    onChange={(e) => setPlayerCsvText(e.target.value)}
+                    disabled={isSubmitting}
+                    style={{
+                      width: '100%',
+                      fontFamily: 'monospace',
+                      fontSize: '12px',
+                      lineHeight: '1.5',
+                      padding: '12px',
+                      backgroundColor: '#0d1118',
+                      border: `1px solid ${TOKENS.border}`,
+                      borderRadius: '6px',
+                      color: '#ffffff',
+                      outline: 'none',
+                      resize: 'vertical',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                onClick={handlePlayerCsvSubmit}
+                disabled={isSubmitting || parsedPlayers.length === 0}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  backgroundColor: TOKENS.gold,
+                  color: '#0e121a',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '12px 20px',
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  cursor: isSubmitting || parsedPlayers.length === 0 ? 'not-allowed' : 'pointer',
+                  opacity: isSubmitting || parsedPlayers.length === 0 ? 0.6 : 1,
+                  transition: 'background 0.15s ease',
+                }}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Activity size={16} className="spin" />
+                    <span>Ingesting Player Stats &amp; Computing Telemetry...</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle size={16} />
+                    <span>Ingest Player CSV &amp; Analyze Match</span>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+
+          {/* TAB 2: QUICK SCORECARD ENTRY */}
           {activeTab === 'quick' && currentFixture && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div
@@ -693,7 +1313,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
             </div>
           )}
 
-          {/* TAB 2: FILE UPLOAD (JSON OR CSV) */}
+          {/* TAB 3: FILE INGESTION (JSON OR CSV) */}
           {activeTab === 'file' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div
@@ -754,7 +1374,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
                   <input
                     type="file"
                     accept=".json,.csv"
-                    onChange={handleFileChange}
+                    onChange={handleGenericFileChange}
                     disabled={isSubmitting}
                     style={{ display: 'none' }}
                   />
@@ -782,7 +1402,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
               </div>
 
               <button
-                onClick={handleFileSubmit}
+                onClick={handleGenericFileSubmit}
                 disabled={!fileContent || isSubmitting}
                 style={{
                   display: 'flex',
@@ -815,7 +1435,7 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
             </div>
           )}
 
-          {/* TAB 3: TELEMETRY PRESETS */}
+          {/* TAB 4: TACTICAL PRESETS */}
           {activeTab === 'sample' && currentFixture && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div style={{ fontSize: '13px', color: TOKENS.textSecondary }}>

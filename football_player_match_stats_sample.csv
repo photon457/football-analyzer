@@ -1,41 +1,173 @@
-match_id,player_id,team,opponent,position,minutes,goals,assists,shots,xG,passes_completed,tackles,interceptions,yellow_cards,red_cards
-M1001,P001,Arsenal,Chelsea,CM,90,0,1,3,0.22,68,3,2,0,0
-M1001,P002,Arsenal,Chelsea,ST,90,2,0,6,1.31,24,1,0,0,0
-M1001,P003,Arsenal,Chelsea,CB,90,0,0,0,0.04,81,4,3,1,0
-M1001,P004,Chelsea,Arsenal,LW,78,1,0,4,0.67,31,2,1,1,0
-M1001,P005,Chelsea,Arsenal,DM,90,0,0,1,0.08,59,5,4,0,0
-M1002,P006,Liverpool,Tottenham,RW,87,1,1,5,0.94,37,2,1,0,0
-M1002,P007,Liverpool,Tottenham,CM,90,0,0,2,0.14,76,4,3,0,0
-M1002,P008,Tottenham,Liverpool,ST,90,1,0,4,0.81,22,1,0,1,0
-M1002,P009,Tottenham,Liverpool,CB,90,0,0,0,0.03,74,6,4,0,0
-M1002,P010,Liverpool,Tottenham,LB,90,0,0,1,0.05,63,3,2,1,0
-M1003,P011,Manchester City,Newcastle,AM,90,1,2,4,0.88,61,1,2,0,0
-M1003,P012,Manchester City,Newcastle,DM,90,0,0,1,0.06,92,3,5,0,0
-M1003,P013,Newcastle,Manchester City,ST,83,1,0,3,0.72,19,2,1,0,0
-M1003,P014,Newcastle,Manchester City,CM,90,0,1,2,0.18,54,7,3,1,0
-M1003,P015,Manchester City,Newcastle,CB,90,0,0,0,0.02,88,2,4,0,0
-M1004,P016,Barcelona,Real Madrid,LW,90,1,0,5,0.96,42,2,2,0,0
-M1004,P017,Barcelona,Real Madrid,CM,90,0,1,1,0.1,84,3,4,0,0
-M1004,P018,Real Madrid,Barcelona,ST,90,2,0,7,1.55,28,1,0,0,0
-M1004,P019,Real Madrid,Barcelona,CM,86,0,0,2,0.19,67,4,3,1,0
-M1004,P020,Barcelona,Real Madrid,CB,90,0,0,0,0.03,79,5,5,0,0
-M1005,P021,Bayern Munich,Dortmund,ST,90,2,1,6,1.47,27,1,0,0,0
-M1005,P022,Bayern Munich,Dortmund,CM,90,0,1,2,0.16,82,4,3,0,0
-M1005,P023,Dortmund,Bayern Munich,RW,76,1,0,4,0.73,35,2,1,1,0
-M1005,P024,Dortmund,Bayern Munich,DM,90,0,0,1,0.05,64,6,4,0,0
-M1005,P025,Bayern Munich,Dortmund,CB,90,0,0,0,0.02,86,3,5,0,0
-M1006,P026,PSG,Lyon,AM,90,1,1,5,0.91,57,2,2,0,0
-M1006,P027,PSG,Lyon,ST,84,2,0,6,1.28,23,1,0,0,0
-M1006,P028,Lyon,PSG,ST,90,1,0,5,0.89,25,2,1,1,0
-M1006,P029,Lyon,PSG,CM,90,0,0,1,0.07,58,5,3,0,0
-M1006,P030,PSG,Lyon,CB,90,0,0,0,0.03,91,2,4,0,0
-M1007,P031,Inter Milan,AC Milan,ST,90,1,1,5,1.02,26,2,1,0,0
-M1007,P032,Inter Milan,AC Milan,DM,90,0,0,1,0.06,71,6,4,1,0
-M1007,P033,AC Milan,Inter Milan,LW,88,1,0,4,0.78,39,2,1,0,0
-M1007,P034,AC Milan,Inter Milan,CB,90,0,0,0,0.02,76,7,4,1,0
-M1007,P035,Inter Milan,AC Milan,CM,90,0,1,2,0.21,73,4,3,0,0
-M1008,P036,Atletico Madrid,Sevilla,CB,90,0,0,1,0.05,69,8,5,1,0
-M1008,P037,Atletico Madrid,Sevilla,ST,90,1,0,4,0.85,21,2,1,0,0
-M1008,P038,Sevilla,Atletico Madrid,AM,82,1,1,3,0.64,48,3,2,0,0
-M1008,P039,Sevilla,Atletico Madrid,DM,90,0,0,1,0.04,62,7,4,1,0
-M1008,P040,Atletico Madrid,Sevilla,CM,90,0,0,2,0.17,65,5,3,0,0
+match_id,player_id,player_name,jersey_number,team,opponent,position,minutes,goals,assists,shots,xG,passes_completed,tackles,interceptions,yellow_cards,red_cards
+match_20240818_che_mci,p_robert_sanchez,Robert Sánchez,1,Chelsea,Manchester City,GK,90,0,0,0,0.0,34,0,0,1,0
+match_20240818_che_mci,p_malo_gusto,Malo Gusto,27,Chelsea,Manchester City,RB,76,0,0,0,0.0,46,2,1,0,0
+match_20240818_che_mci,p_wesley_fofana,Wesley Fofana,29,Chelsea,Manchester City,CB,85,0,0,1,0.06,73,1,1,1,0
+match_20240818_che_mci,p_levi_colwill,Levi Colwill,6,Chelsea,Manchester City,CB,75,0,0,0,0.0,54,2,3,0,0
+match_20240818_che_mci,p_marc_cucurella,Marc Cucurella,3,Chelsea,Manchester City,LB,86,0,0,1,0.06,45,2,3,0,0
+match_20240818_che_mci,p_moises_caicedo,Moisés Caicedo,25,Chelsea,Manchester City,DM,72,0,0,0,0.0,57,2,1,0,0
+match_20240818_che_mci,p_enzo_fernandez,Enzo Fernández,8,Chelsea,Manchester City,CM,79,0,0,3,0.36,67,2,0,0,0
+match_20240818_che_mci,p_cole_palmer,Cole Palmer,20,Chelsea,Manchester City,AM,85,0,0,1,0.12,51,0,2,0,0
+match_20240818_che_mci,p_noni_madueke,Noni Madueke,11,Chelsea,Manchester City,RW,88,0,0,4,0.56,37,0,1,1,0
+match_20240818_che_mci,p_jadon_sancho,Jadon Sancho,19,Chelsea,Manchester City,LW,89,0,0,3,0.42,28,0,0,0,0
+match_20240818_che_mci,p_nicolas_jackson,Nicolas Jackson,15,Chelsea,Manchester City,ST,80,0,0,4,0.56,30,1,0,0,0
+match_20240818_che_mci,p_pedro_neto,Pedro Neto,7,Chelsea,Manchester City,RW,20,0,0,2,0.28,5,0,0,0,0
+match_20240818_che_mci,p_christopher_nkunku,Christopher Nkunku,18,Chelsea,Manchester City,ST,20,0,0,3,0.42,6,0,0,0,0
+match_20240818_che_mci,p_romeo_lavia,Roméo Lavia,45,Chelsea,Manchester City,DM,24,0,0,1,0.07,17,1,1,0,0
+match_20240818_che_mci,p_joao_felix,João Félix,14,Chelsea,Manchester City,AM,32,0,0,4,0.48,16,1,0,0,0
+match_20240818_che_mci,p_axel_disasi,Axel Disasi,2,Chelsea,Manchester City,CB,20,0,0,0,0.0,17,1,1,0,0
+match_20240818_che_mci,p_mykhailo_mudryk,Mykhailo Mudryk,10,Chelsea,Manchester City,LW,28,0,0,5,0.7,6,0,0,0,0
+match_20240818_che_mci,p_renato_veiga,Renato Veiga,40,Chelsea,Manchester City,LB,25,0,0,2,0.12,13,1,1,0,0
+match_20240818_che_mci,p_erling_haaland,Erling Haaland,9,Manchester City,Chelsea,ST,90,1,0,5,1.07,18,3,0,0,0
+match_20240818_che_mci,p_mateo_kovacic,Mateo Kovačić,8,Manchester City,Chelsea,CM,90,1,0,2,0.74,72,3,2,1,0
+match_20240818_che_mci,p_kevin_de_bruyne,Kevin De Bruyne,17,Manchester City,Chelsea,AM,88,0,0,3,0.33,58,4,1,0,0
+match_20240818_che_mci,p_bernardo_silva,Bernardo Silva,20,Manchester City,Chelsea,RW,90,0,0,2,0.22,64,3,1,0,0
+match_20240818_che_mci,p_ruben_dias,Rúben Dias,3,Manchester City,Chelsea,CB,90,0,0,0,0.0,85,1,2,0,0
+match_20240825_wol_che,p_robert_sanchez,Robert Sánchez,1,Chelsea,Wolverhampton Wanderers,GK,90,0,0,0,0.0,32,0,0,0,0
+match_20240825_wol_che,p_malo_gusto,Malo Gusto,27,Chelsea,Wolverhampton Wanderers,RB,72,0,0,1,0.06,42,1,2,0,0
+match_20240825_wol_che,p_wesley_fofana,Wesley Fofana,29,Chelsea,Wolverhampton Wanderers,CB,71,0,0,0,0.0,58,2,1,0,0
+match_20240825_wol_che,p_levi_colwill,Levi Colwill,6,Chelsea,Wolverhampton Wanderers,CB,86,0,0,0,0.0,64,4,1,0,0
+match_20240825_wol_che,p_marc_cucurella,Marc Cucurella,3,Chelsea,Wolverhampton Wanderers,LB,85,0,0,0,0.0,49,4,1,0,0
+match_20240825_wol_che,p_moises_caicedo,Moisés Caicedo,25,Chelsea,Wolverhampton Wanderers,DM,87,0,0,1,0.07,65,6,2,0,0
+match_20240825_wol_che,p_enzo_fernandez,Enzo Fernández,8,Chelsea,Wolverhampton Wanderers,CM,80,0,0,3,0.36,64,3,0,0,0
+match_20240825_wol_che,p_cole_palmer,Cole Palmer,20,Chelsea,Wolverhampton Wanderers,AM,70,1,3,3,0.78,32,1,2,0,0
+match_20240825_wol_che,p_noni_madueke,Noni Madueke,11,Chelsea,Wolverhampton Wanderers,RW,70,3,0,6,1.62,21,0,0,0,0
+match_20240825_wol_che,p_jadon_sancho,Jadon Sancho,19,Chelsea,Wolverhampton Wanderers,LW,70,0,0,3,0.42,21,1,0,0,0
+match_20240825_wol_che,p_nicolas_jackson,Nicolas Jackson,15,Chelsea,Wolverhampton Wanderers,ST,72,1,1,5,1.08,21,0,0,0,0
+match_20240825_wol_che,p_christopher_nkunku,Christopher Nkunku,18,Chelsea,Wolverhampton Wanderers,ST,25,0,0,5,0.7,9,0,0,0,0
+match_20240825_wol_che,p_romeo_lavia,Roméo Lavia,45,Chelsea,Wolverhampton Wanderers,DM,15,0,0,0,0.0,12,1,1,0,0
+match_20240825_wol_che,p_joao_felix,João Félix,14,Chelsea,Wolverhampton Wanderers,AM,26,1,0,2,0.66,15,0,0,0,0
+match_20240825_wol_che,p_axel_disasi,Axel Disasi,2,Chelsea,Wolverhampton Wanderers,CB,14,0,0,0,0.0,12,1,1,0,0
+match_20240825_wol_che,p_mykhailo_mudryk,Mykhailo Mudryk,10,Chelsea,Wolverhampton Wanderers,LW,12,0,0,2,0.28,3,0,0,0,0
+match_20240825_wol_che,p_renato_veiga,Renato Veiga,40,Chelsea,Wolverhampton Wanderers,LB,24,0,0,0,0.0,14,1,1,0,0
+match_20240825_wol_che,p_matheus_cunha,Matheus Cunha,10,Wolverhampton Wanderers,Chelsea,AM,90,1,0,4,0.96,34,4,2,0,0
+match_20240825_wol_che,p_jorgen_strand_larsen,Jørgen Strand Larsen,9,Wolverhampton Wanderers,Chelsea,ST,82,1,1,3,0.85,16,4,1,0,0
+match_20240825_wol_che,p_mario_lemina,Mario Lemina,5,Wolverhampton Wanderers,Chelsea,DM,90,0,0,1,0.11,48,2,0,0,0
+match_20240825_wol_che,p_rayan_ait_nouri,Rayan Aït-Nouri,3,Wolverhampton Wanderers,Chelsea,LB,90,0,0,1,0.11,42,1,2,1,0
+match_20240901_che_cry,p_robert_sanchez,Robert Sánchez,1,Chelsea,Crystal Palace,GK,90,0,0,0,0.0,33,0,0,0,0
+match_20240901_che_cry,p_malo_gusto,Malo Gusto,27,Chelsea,Crystal Palace,RB,84,0,0,0,0.0,45,1,1,1,0
+match_20240901_che_cry,p_wesley_fofana,Wesley Fofana,29,Chelsea,Crystal Palace,CB,70,0,0,0,0.0,56,3,1,0,0
+match_20240901_che_cry,p_levi_colwill,Levi Colwill,6,Chelsea,Crystal Palace,CB,86,0,0,1,0.06,80,1,1,0,0
+match_20240901_che_cry,p_marc_cucurella,Marc Cucurella,3,Chelsea,Crystal Palace,LB,86,0,0,2,0.12,61,3,2,0,0
+match_20240901_che_cry,p_moises_caicedo,Moisés Caicedo,25,Chelsea,Crystal Palace,DM,90,0,0,1,0.07,69,5,5,1,0
+match_20240901_che_cry,p_enzo_fernandez,Enzo Fernández,8,Chelsea,Crystal Palace,CM,88,0,0,3,0.36,70,2,0,1,0
+match_20240901_che_cry,p_cole_palmer,Cole Palmer,20,Chelsea,Crystal Palace,AM,87,0,1,1,0.12,42,1,2,0,0
+match_20240901_che_cry,p_noni_madueke,Noni Madueke,11,Chelsea,Crystal Palace,RW,79,0,0,2,0.28,23,0,0,0,0
+match_20240901_che_cry,p_jadon_sancho,Jadon Sancho,19,Chelsea,Crystal Palace,LW,85,0,0,4,0.56,34,0,1,0,0
+match_20240901_che_cry,p_nicolas_jackson,Nicolas Jackson,15,Chelsea,Crystal Palace,ST,77,1,0,2,0.66,20,0,0,0,0
+match_20240901_che_cry,p_pedro_neto,Pedro Neto,7,Chelsea,Crystal Palace,RW,16,0,0,4,0.56,5,0,0,0,0
+match_20240901_che_cry,p_christopher_nkunku,Christopher Nkunku,18,Chelsea,Crystal Palace,ST,32,0,0,4,0.56,12,0,0,0,0
+match_20240901_che_cry,p_romeo_lavia,Roméo Lavia,45,Chelsea,Crystal Palace,DM,14,0,0,2,0.14,11,1,1,1,0
+match_20240901_che_cry,p_joao_felix,João Félix,14,Chelsea,Crystal Palace,AM,32,0,0,3,0.36,16,1,1,0,0
+match_20240901_che_cry,p_axel_disasi,Axel Disasi,2,Chelsea,Crystal Palace,CB,15,0,0,1,0.06,14,1,1,0,0
+match_20240901_che_cry,p_mykhailo_mudryk,Mykhailo Mudryk,10,Chelsea,Crystal Palace,LW,16,0,0,5,0.7,4,0,0,0,0
+match_20240901_che_cry,p_renato_veiga,Renato Veiga,40,Chelsea,Crystal Palace,LB,13,0,0,1,0.06,7,1,1,0,0
+match_20240901_che_cry,p_eberechi_eze,Eberechi Eze,10,Crystal Palace,Chelsea,AM,90,1,1,5,1.07,44,4,1,0,0
+match_20240901_che_cry,p_jean_philippe_mateta,Jean-Philippe Mateta,14,Crystal Palace,Chelsea,ST,85,0,0,3,0.33,19,2,1,0,0
+match_20240901_che_cry,p_adam_wharton,Adam Wharton,20,Crystal Palace,Chelsea,CM,90,0,0,1,0.11,61,2,3,1,0
+match_20240901_che_cry,p_marc_guehi,Marc Guéhi,6,Crystal Palace,Chelsea,CB,90,0,0,0,0.0,68,3,3,0,0
+match_20240914_bou_che,p_robert_sanchez,Robert Sánchez,1,Chelsea,Bournemouth,GK,90,0,0,0,0.0,37,0,0,0,0
+match_20240914_bou_che,p_malo_gusto,Malo Gusto,27,Chelsea,Bournemouth,RB,75,0,0,1,0.06,44,1,3,0,0
+match_20240914_bou_che,p_wesley_fofana,Wesley Fofana,29,Chelsea,Bournemouth,CB,83,0,0,1,0.06,72,3,2,0,0
+match_20240914_bou_che,p_levi_colwill,Levi Colwill,6,Chelsea,Bournemouth,CB,75,0,0,1,0.06,71,2,3,0,0
+match_20240914_bou_che,p_marc_cucurella,Marc Cucurella,3,Chelsea,Bournemouth,LB,70,0,0,1,0.06,45,3,2,0,0
+match_20240914_bou_che,p_moises_caicedo,Moisés Caicedo,25,Chelsea,Bournemouth,DM,71,0,0,1,0.07,52,5,3,1,0
+match_20240914_bou_che,p_enzo_fernandez,Enzo Fernández,8,Chelsea,Bournemouth,CM,87,0,0,4,0.48,66,2,1,0,0
+match_20240914_bou_che,p_cole_palmer,Cole Palmer,20,Chelsea,Bournemouth,AM,84,0,0,1,0.12,50,1,1,1,0
+match_20240914_bou_che,p_noni_madueke,Noni Madueke,11,Chelsea,Bournemouth,RW,81,0,0,2,0.28,32,1,1,0,0
+match_20240914_bou_che,p_jadon_sancho,Jadon Sancho,19,Chelsea,Bournemouth,LW,89,0,1,3,0.42,30,0,0,0,0
+match_20240914_bou_che,p_nicolas_jackson,Nicolas Jackson,15,Chelsea,Bournemouth,ST,78,0,0,4,0.56,19,1,0,0,0
+match_20240914_bou_che,p_pedro_neto,Pedro Neto,7,Chelsea,Bournemouth,RW,22,0,0,5,0.7,7,0,0,0,0
+match_20240914_bou_che,p_christopher_nkunku,Christopher Nkunku,18,Chelsea,Bournemouth,ST,24,1,0,3,0.8,10,0,0,0,0
+match_20240914_bou_che,p_joao_felix,João Félix,14,Chelsea,Bournemouth,AM,25,0,0,3,0.36,15,1,0,0,0
+match_20240914_bou_che,p_axel_disasi,Axel Disasi,2,Chelsea,Bournemouth,CB,17,0,0,0,0.0,13,1,1,0,0
+match_20240914_bou_che,p_mykhailo_mudryk,Mykhailo Mudryk,10,Chelsea,Bournemouth,LW,21,0,0,3,0.42,6,0,0,1,0
+match_20240914_bou_che,p_renato_veiga,Renato Veiga,40,Chelsea,Bournemouth,LB,31,0,0,0,0.0,21,1,1,0,0
+match_20240914_bou_che,p_antoine_semenyo,Antoine Semenyo,24,Bournemouth,Chelsea,RW,90,0,0,4,0.44,31,4,3,0,0
+match_20240914_bou_che,p_evanilson,Evanilson,9,Bournemouth,Chelsea,ST,78,0,0,3,0.33,15,2,0,0,0
+match_20240914_bou_che,p_marcus_tavernier,Marcus Tavernier,16,Bournemouth,Chelsea,LW,84,0,0,2,0.22,37,1,3,0,0
+match_20240914_bou_che,p_lewis_cook,Lewis Cook,4,Bournemouth,Chelsea,CM,90,0,0,1,0.11,52,4,0,0,0
+match_20240921_whu_che,p_robert_sanchez,Robert Sánchez,1,Chelsea,West Ham United,GK,90,0,0,0,0.0,38,0,0,0,0
+match_20240921_whu_che,p_malo_gusto,Malo Gusto,27,Chelsea,West Ham United,RB,82,0,0,0,0.0,56,3,3,0,0
+match_20240921_whu_che,p_wesley_fofana,Wesley Fofana,29,Chelsea,West Ham United,CB,84,0,0,0,0.0,76,4,1,0,0
+match_20240921_whu_che,p_levi_colwill,Levi Colwill,6,Chelsea,West Ham United,CB,83,0,0,0,0.0,66,3,3,0,0
+match_20240921_whu_che,p_marc_cucurella,Marc Cucurella,3,Chelsea,West Ham United,LB,76,0,0,1,0.06,42,3,1,0,0
+match_20240921_whu_che,p_moises_caicedo,Moisés Caicedo,25,Chelsea,West Ham United,DM,78,0,1,2,0.14,55,3,2,0,0
+match_20240921_whu_che,p_enzo_fernandez,Enzo Fernández,8,Chelsea,West Ham United,CM,90,0,0,2,0.24,80,2,1,0,0
+match_20240921_whu_che,p_cole_palmer,Cole Palmer,20,Chelsea,West Ham United,AM,78,1,0,4,0.9,47,0,0,0,0
+match_20240921_whu_che,p_noni_madueke,Noni Madueke,11,Chelsea,West Ham United,RW,80,0,0,2,0.28,33,0,0,1,0
+match_20240921_whu_che,p_jadon_sancho,Jadon Sancho,19,Chelsea,West Ham United,LW,79,0,0,4,0.56,28,0,1,0,0
+match_20240921_whu_che,p_nicolas_jackson,Nicolas Jackson,15,Chelsea,West Ham United,ST,85,2,1,3,1.18,33,0,0,0,0
+match_20240921_whu_che,p_christopher_nkunku,Christopher Nkunku,18,Chelsea,West Ham United,ST,24,0,0,3,0.42,9,0,0,0,0
+match_20240921_whu_che,p_romeo_lavia,Roméo Lavia,45,Chelsea,West Ham United,DM,30,0,0,2,0.14,27,1,1,0,0
+match_20240921_whu_che,p_axel_disasi,Axel Disasi,2,Chelsea,West Ham United,CB,13,0,0,0,0.0,10,1,1,0,0
+match_20240921_whu_che,p_mykhailo_mudryk,Mykhailo Mudryk,10,Chelsea,West Ham United,LW,24,0,0,4,0.56,8,0,0,0,0
+match_20240921_whu_che,p_renato_veiga,Renato Veiga,40,Chelsea,West Ham United,LB,13,0,0,1,0.06,7,1,1,0,0
+match_20240921_whu_che,p_jarrod_bowen,Jarrod Bowen,20,West Ham United,Chelsea,RW,90,0,0,3,0.33,32,2,1,0,0
+match_20240921_whu_che,p_mohammed_kudus,Mohammed Kudus,14,West Ham United,Chelsea,LW,90,0,0,4,0.44,28,2,1,1,0
+match_20240921_whu_che,p_lucas_paqueta,Lucas Paquetá,10,West Ham United,Chelsea,AM,82,0,0,2,0.22,46,1,1,0,0
+match_20240921_whu_che,p_edson_alvarez,Edson Álvarez,19,West Ham United,Chelsea,DM,75,0,0,0,0.0,41,3,2,1,0
+match_20240928_che_bha,p_robert_sanchez,Robert Sánchez,1,Chelsea,Brighton,GK,90,0,0,0,0.0,33,0,0,0,0
+match_20240928_che_bha,p_malo_gusto,Malo Gusto,27,Chelsea,Brighton,RB,90,0,0,0,0.0,53,4,1,0,0
+match_20240928_che_bha,p_wesley_fofana,Wesley Fofana,29,Chelsea,Brighton,CB,77,0,0,0,0.0,65,4,1,1,0
+match_20240928_che_bha,p_levi_colwill,Levi Colwill,6,Chelsea,Brighton,CB,90,0,0,0,0.0,72,2,3,0,0
+match_20240928_che_bha,p_marc_cucurella,Marc Cucurella,3,Chelsea,Brighton,LB,87,0,0,0,0.0,63,1,2,0,0
+match_20240928_che_bha,p_moises_caicedo,Moisés Caicedo,25,Chelsea,Brighton,DM,89,0,0,1,0.07,63,6,3,1,0
+match_20240928_che_bha,p_enzo_fernandez,Enzo Fernández,8,Chelsea,Brighton,CM,81,0,0,4,0.48,54,3,1,0,0
+match_20240928_che_bha,p_cole_palmer,Cole Palmer,20,Chelsea,Brighton,AM,82,4,0,7,2.14,50,1,2,0,0
+match_20240928_che_bha,p_noni_madueke,Noni Madueke,11,Chelsea,Brighton,RW,88,0,0,4,0.56,36,0,0,0,0
+match_20240928_che_bha,p_jadon_sancho,Jadon Sancho,19,Chelsea,Brighton,LW,86,0,1,4,0.56,28,0,0,0,0
+match_20240928_che_bha,p_nicolas_jackson,Nicolas Jackson,15,Chelsea,Brighton,ST,82,0,1,3,0.42,30,1,1,0,0
+match_20240928_che_bha,p_pedro_neto,Pedro Neto,7,Chelsea,Brighton,RW,27,0,0,4,0.56,7,0,0,0,0
+match_20240928_che_bha,p_christopher_nkunku,Christopher Nkunku,18,Chelsea,Brighton,ST,20,0,0,4,0.56,8,0,0,0,0
+match_20240928_che_bha,p_joao_felix,João Félix,14,Chelsea,Brighton,AM,27,0,0,2,0.24,19,1,0,0,0
+match_20240928_che_bha,p_axel_disasi,Axel Disasi,2,Chelsea,Brighton,CB,12,0,0,1,0.06,9,1,1,0,0
+match_20240928_che_bha,p_mykhailo_mudryk,Mykhailo Mudryk,10,Chelsea,Brighton,LW,27,0,0,4,0.56,9,0,0,0,0
+match_20240928_che_bha,p_renato_veiga,Renato Veiga,40,Chelsea,Brighton,LB,20,0,0,1,0.06,12,1,1,0,0
+match_20240928_che_bha,p_danny_welbeck,Danny Welbeck,18,Brighton,Chelsea,ST,90,0,0,3,0.33,22,3,0,0,0
+match_20240928_che_bha,p_georginio_rutter,Georginio Rutter,14,Brighton,Chelsea,AM,80,1,1,3,0.85,35,2,1,0,0
+match_20240928_che_bha,p_carlos_baleba,Carlos Baleba,20,Brighton,Chelsea,DM,90,1,0,2,0.74,59,3,0,0,0
+match_20240928_che_bha,p_kaoru_mitoma,Kaoru Mitoma,22,Brighton,Chelsea,LW,90,0,0,3,0.33,38,3,1,0,0
+match_20240928_che_bha,p_lewis_dunk,Lewis Dunk,5,Brighton,Chelsea,CB,90,0,0,1,0.11,74,3,0,0,0
+match_20241006_che_nfo,p_robert_sanchez,Robert Sánchez,1,Chelsea,Nottingham Forest,GK,90,0,0,0,0.0,26,0,0,0,0
+match_20241006_che_nfo,p_malo_gusto,Malo Gusto,27,Chelsea,Nottingham Forest,RB,69,0,0,2,0.12,43,2,3,1,0
+match_20241006_che_nfo,p_wesley_fofana,Wesley Fofana,29,Chelsea,Nottingham Forest,CB,68,0,0,0,0.0,60,3,3,0,0
+match_20241006_che_nfo,p_levi_colwill,Levi Colwill,6,Chelsea,Nottingham Forest,CB,69,0,0,0,0.0,61,1,1,0,0
+match_20241006_che_nfo,p_marc_cucurella,Marc Cucurella,3,Chelsea,Nottingham Forest,LB,70,0,0,2,0.12,52,1,1,0,0
+match_20241006_che_nfo,p_moises_caicedo,Moisés Caicedo,25,Chelsea,Nottingham Forest,DM,86,0,0,1,0.07,61,3,1,0,0
+match_20241006_che_nfo,p_enzo_fernandez,Enzo Fernández,8,Chelsea,Nottingham Forest,CM,81,0,0,2,0.24,66,3,1,0,0
+match_20241006_che_nfo,p_cole_palmer,Cole Palmer,20,Chelsea,Nottingham Forest,AM,77,0,1,4,0.48,43,0,2,0,0
+match_20241006_che_nfo,p_noni_madueke,Noni Madueke,11,Chelsea,Nottingham Forest,RW,71,1,0,3,0.8,20,0,1,1,0
+match_20241006_che_nfo,p_jadon_sancho,Jadon Sancho,19,Chelsea,Nottingham Forest,LW,75,0,0,3,0.42,30,0,0,1,0
+match_20241006_che_nfo,p_nicolas_jackson,Nicolas Jackson,15,Chelsea,Nottingham Forest,ST,82,0,0,5,0.7,26,0,0,0,0
+match_20241006_che_nfo,p_pedro_neto,Pedro Neto,7,Chelsea,Nottingham Forest,RW,26,0,0,2,0.28,7,0,0,0,0
+match_20241006_che_nfo,p_christopher_nkunku,Christopher Nkunku,18,Chelsea,Nottingham Forest,ST,18,0,0,5,0.7,4,0,0,0,0
+match_20241006_che_nfo,p_romeo_lavia,Roméo Lavia,45,Chelsea,Nottingham Forest,DM,16,0,0,0,0.0,11,1,1,0,0
+match_20241006_che_nfo,p_joao_felix,João Félix,14,Chelsea,Nottingham Forest,AM,21,0,0,4,0.48,10,0,0,0,0
+match_20241006_che_nfo,p_axel_disasi,Axel Disasi,2,Chelsea,Nottingham Forest,CB,20,0,0,0,0.0,17,1,1,0,0
+match_20241006_che_nfo,p_mykhailo_mudryk,Mykhailo Mudryk,10,Chelsea,Nottingham Forest,LW,22,0,0,4,0.56,4,0,0,0,0
+match_20241006_che_nfo,p_renato_veiga,Renato Veiga,40,Chelsea,Nottingham Forest,LB,30,0,0,2,0.12,16,1,1,0,0
+match_20241006_che_nfo,p_chris_wood,Chris Wood,11,Nottingham Forest,Chelsea,ST,90,1,0,3,0.85,17,4,2,0,0
+match_20241006_che_nfo,p_morgan_gibbs_white,Morgan Gibbs-White,10,Nottingham Forest,Chelsea,AM,88,0,0,3,0.33,45,4,3,0,0
+match_20241006_che_nfo,p_callum_hudson_odoi,Callum Hudson-Odoi,14,Nottingham Forest,Chelsea,LW,78,0,0,2,0.22,30,4,2,0,0
+match_20241006_che_nfo,p_murillo,Murillo,40,Nottingham Forest,Chelsea,CB,90,0,0,0,0.0,52,3,0,0,0
+match_20241020_liv_che,p_robert_sanchez,Robert Sánchez,1,Chelsea,Liverpool,GK,90,0,0,0,0.0,29,0,0,0,0
+match_20241020_liv_che,p_malo_gusto,Malo Gusto,27,Chelsea,Liverpool,RB,83,0,0,1,0.06,63,4,1,0,0
+match_20241020_liv_che,p_wesley_fofana,Wesley Fofana,29,Chelsea,Liverpool,CB,78,0,0,0,0.0,58,4,1,0,0
+match_20241020_liv_che,p_levi_colwill,Levi Colwill,6,Chelsea,Liverpool,CB,85,0,0,0,0.0,62,2,2,0,0
+match_20241020_liv_che,p_marc_cucurella,Marc Cucurella,3,Chelsea,Liverpool,LB,83,0,0,2,0.12,57,1,1,0,0
+match_20241020_liv_che,p_moises_caicedo,Moisés Caicedo,25,Chelsea,Liverpool,DM,72,0,1,1,0.07,60,4,1,1,0
+match_20241020_liv_che,p_enzo_fernandez,Enzo Fernández,8,Chelsea,Liverpool,CM,88,0,0,2,0.24,78,1,1,0,0
+match_20241020_liv_che,p_cole_palmer,Cole Palmer,20,Chelsea,Liverpool,AM,85,0,0,4,0.48,41,1,0,0,0
+match_20241020_liv_che,p_noni_madueke,Noni Madueke,11,Chelsea,Liverpool,RW,71,0,0,3,0.42,27,1,0,0,0
+match_20241020_liv_che,p_jadon_sancho,Jadon Sancho,19,Chelsea,Liverpool,LW,76,0,0,5,0.7,29,0,0,0,0
+match_20241020_liv_che,p_nicolas_jackson,Nicolas Jackson,15,Chelsea,Liverpool,ST,72,1,0,5,1.08,20,1,1,0,0
+match_20241020_liv_che,p_romeo_lavia,Roméo Lavia,45,Chelsea,Liverpool,DM,25,0,0,1,0.07,21,1,1,0,0
+match_20241020_liv_che,p_joao_felix,João Félix,14,Chelsea,Liverpool,AM,30,0,0,4,0.48,15,1,1,0,0
+match_20241020_liv_che,p_axel_disasi,Axel Disasi,2,Chelsea,Liverpool,CB,29,0,0,0,0.0,24,1,1,0,0
+match_20241020_liv_che,p_mykhailo_mudryk,Mykhailo Mudryk,10,Chelsea,Liverpool,LW,25,0,0,2,0.28,8,0,0,0,0
+match_20241020_liv_che,p_renato_veiga,Renato Veiga,40,Chelsea,Liverpool,LB,24,0,0,2,0.12,18,1,1,0,0
+match_20241020_liv_che,p_mohamed_salah,Mohamed Salah,11,Liverpool,Chelsea,RW,90,1,0,4,0.96,36,3,0,0,0
+match_20241020_liv_che,p_curtis_jones,Curtis Jones,17,Liverpool,Chelsea,CM,85,1,0,2,0.74,54,4,0,0,0
+match_20241020_liv_che,p_cody_gakpo,Cody Gakpo,18,Liverpool,Chelsea,LW,76,0,0,3,0.33,28,4,1,1,0
+match_20241020_liv_che,p_ryan_gravenberch,Ryan Gravenberch,38,Liverpool,Chelsea,DM,90,0,0,1,0.11,68,3,2,0,0
+match_20241020_liv_che,p_virgil_van_dijk,Virgil van Dijk,4,Liverpool,Chelsea,CB,90,0,0,1,0.11,79,4,0,0,0

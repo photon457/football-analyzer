@@ -536,3 +536,174 @@ export async function recordFixtureMatch(
   }
   return data;
 }
+
+export interface FixtureCsvTemplateResponse {
+  fixture_id: number;
+  match_id: string;
+  filename: string;
+  home_team: string;
+  away_team: string;
+  csv_content: string;
+}
+
+export async function fetchFixtureCsvTemplate(
+  fixtureId: number,
+  sample: boolean = false
+): Promise<FixtureCsvTemplateResponse> {
+  const response = await fetch(
+    `${API_BASE_URL}/api/fixtures/${fixtureId}/template-csv?sample=${sample}`
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.detail || `Failed to generate CSV template for fixture #${fixtureId}`);
+  }
+  return data;
+}
+
+// --- Opponent Tactical Scouting & Performance Contracts ---
+
+export interface OpponentListItem {
+  name: string;
+  slug: string;
+  short: string;
+  stadium: string;
+  formation: string;
+  next_fixture?: {
+    fixture_id: number;
+    matchweek: number;
+    date: string;
+    venue: 'Home' | 'Away';
+    status: string;
+  } | null;
+}
+
+export interface OpponentTeamSheetResponse {
+  team: string;
+  slug: string;
+  filename: string;
+  csv_content: string;
+  players_count: number;
+  players: Array<{
+    num: number;
+    name: string;
+    pos: string;
+    role: string;
+    mins: number;
+    g: number;
+    a: number;
+    sh: number;
+    xg: number;
+    pc: number;
+    tk: number;
+    it: number;
+    yc: number;
+  }>;
+}
+
+export interface OpponentPerformanceResponse {
+  team: string;
+  as_of_date: string;
+  record: {
+    played: number;
+    wins: number;
+    draws: number;
+    losses: number;
+    points: number;
+    goals_for: number;
+    goals_against: number;
+    goal_differential: number;
+    clean_sheets: number;
+    points_per_game: number;
+    recent_form: string[];
+  };
+  averages: {
+    possession_pct: number;
+    goals_per_90: number;
+    goals_conceded_per_90: number;
+    xg_per_90: number;
+    xga_per_90: number;
+    clean_sheet_pct: number;
+  };
+  form_timeline: Array<{
+    mw: number;
+    date: string;
+    opp: string;
+    venue: 'home' | 'away';
+    scored: number;
+    conceded: number;
+    res: 'W' | 'D' | 'L';
+    poss: number;
+    xg: number;
+    xga: number;
+  }>;
+  tactical_profile: {
+    formation: string;
+    archetype: string;
+    philosophy: string;
+    possession_pct: number;
+    xg_per_90: number;
+    xga_per_90: number;
+    goals_per_90: number;
+    conceded_per_90: number;
+    ppda: number;
+    strengths: string[];
+    vulnerabilities: string[];
+  };
+  radar: Record<string, number>;
+  top_performers: {
+    top_scorer?: { name: string; stat: string; jersey: number };
+    top_creator?: { name: string; stat: string; jersey: number };
+    defensive_anchor?: { name: string; stat: string; jersey: number };
+    goalkeeper?: { name: string; stat: string; jersey: number };
+  };
+}
+
+export async function fetchOpponentsList(): Promise<OpponentListItem[]> {
+  const response = await fetch(`${API_BASE_URL}/api/opponents`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch opponents list');
+  }
+  return response.json();
+}
+
+export async function fetchOpponentTeamSheet(teamName: string): Promise<OpponentTeamSheetResponse> {
+  const encoded = encodeURIComponent(teamName);
+  const response = await fetch(`${API_BASE_URL}/api/opponents/${encoded}/team-sheet-csv`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch team sheet CSV for ${teamName}`);
+  }
+  return response.json();
+}
+
+export async function saveOpponentTeamSheet(
+  teamName: string,
+  csvContent: string
+): Promise<OpponentTeamSheetResponse> {
+  const encoded = encodeURIComponent(teamName);
+  const response = await fetch(`${API_BASE_URL}/api/opponents/${encoded}/team-sheet-csv`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ csv_content: csvContent }),
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to update team sheet CSV for ${teamName}`);
+  }
+  return response.json();
+}
+
+export async function fetchOpponentPerformance(
+  teamName: string,
+  asOfDate?: string
+): Promise<OpponentPerformanceResponse> {
+  const encoded = encodeURIComponent(teamName);
+  const url = asOfDate
+    ? `${API_BASE_URL}/api/opponents/${encoded}/performance?as_of_date=${encodeURIComponent(asOfDate)}`
+    : `${API_BASE_URL}/api/opponents/${encoded}/performance`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch performance telemetry for ${teamName}`);
+  }
+  return response.json();
+}
+
+

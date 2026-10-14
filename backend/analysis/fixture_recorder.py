@@ -75,15 +75,29 @@ def record_fixture_match(
 
     # 2. Handle CSV content
     if "csv_content" in data and data["csv_content"]:
-        imported = db.import_csv_matches(data["csv_content"], focus_team=managed_team)
+        is_home = (fixture["home_team"] == managed_team)
+        opponent = fixture["away_team"] if is_home else fixture["home_team"]
+        date_clean = fixture["date"].replace("-", "")
+        home_slug = fixture["home_team"][:3].lower()
+        away_slug = fixture["away_team"][:3].lower()
+        target_match_id = f"match_{date_clean}_{home_slug}_{away_slug}"
+
+        imported = db.import_csv_matches(
+            data["csv_content"],
+            focus_team=managed_team,
+            default_match_id=target_match_id,
+            default_team=managed_team,
+            default_opponent=opponent,
+            allow_overwrite=True,
+        )
         if not imported:
             raise ValueError("No matches could be imported from provided CSV")
-        # Link the first imported match to this fixture
+        # Link the imported match to this fixture
         match_id = imported[0]["match_id"]
         db.link_fixture_match(fixture_id, match_id)
         return {
             "status": "success",
-            "message": f"Successfully imported {len(imported)} match(es) from CSV",
+            "message": f"Successfully imported match '{match_id}' from CSV ({len(imported)} match processed)",
             "match_id": match_id,
             "fixture_id": fixture_id,
             "score": imported[0]["score"],
@@ -388,4 +402,96 @@ def record_fixture_match(
         "result": result,
         "players_count": len(final_players),
         "events_count": len(events),
+    }
+
+
+CHELSEA_SQUAD_ROSTER = [
+    {"id": "p_robert_sanchez", "name": "Robert Sánchez", "jersey": 1, "pos": "GK", "mins": 90},
+    {"id": "p_malo_gusto", "name": "Malo Gusto", "jersey": 27, "pos": "RB", "mins": 76},
+    {"id": "p_wesley_fofana", "name": "Wesley Fofana", "jersey": 29, "pos": "CB", "mins": 82},
+    {"id": "p_levi_colwill", "name": "Levi Colwill", "jersey": 6, "pos": "CB", "mins": 90},
+    {"id": "p_marc_cucurella", "name": "Marc Cucurella", "jersey": 3, "pos": "LB", "mins": 85},
+    {"id": "p_moises_caicedo", "name": "Moisés Caicedo", "jersey": 25, "pos": "DM", "mins": 88},
+    {"id": "p_enzo_fernandez", "name": "Enzo Fernández", "jersey": 8, "pos": "CM", "mins": 80},
+    {"id": "p_cole_palmer", "name": "Cole Palmer", "jersey": 20, "pos": "AM", "mins": 85},
+    {"id": "p_noni_madueke", "name": "Noni Madueke", "jersey": 11, "pos": "RW", "mins": 75},
+    {"id": "p_jadon_sancho", "name": "Jadon Sancho", "jersey": 19, "pos": "LW", "mins": 72},
+    {"id": "p_nicolas_jackson", "name": "Nicolas Jackson", "jersey": 15, "pos": "ST", "mins": 78},
+    # Substitutes
+    {"id": "p_pedro_neto", "name": "Pedro Neto", "jersey": 7, "pos": "RW", "mins": 15},
+    {"id": "p_christopher_nkunku", "name": "Christopher Nkunku", "jersey": 18, "pos": "ST", "mins": 12},
+    {"id": "p_joao_felix", "name": "João Félix", "jersey": 14, "pos": "AM", "mins": 10},
+    {"id": "p_romeo_lavia", "name": "Roméo Lavia", "jersey": 45, "pos": "DM", "mins": 10},
+    {"id": "p_axel_disasi", "name": "Axel Disasi", "jersey": 2, "pos": "CB", "mins": 8},
+    {"id": "p_mykhailo_mudryk", "name": "Mykhailo Mudryk", "jersey": 10, "pos": "LW", "mins": 18},
+    {"id": "p_renato_veiga", "name": "Renato Veiga", "jersey": 40, "pos": "LB", "mins": 14},
+]
+
+
+def generate_fixture_csv_template(
+    db: DatabaseService,
+    fixture_id: int,
+    sample_stats: bool = False,
+) -> Dict[str, Any]:
+    """
+    Generates a player-by-player CSV template for any scheduled fixture.
+    If sample_stats is True, populates realistic performance metrics.
+    If False, generates a clean blank squad template ready for coaching input.
+    """
+    fixture = db.get_fixture(fixture_id)
+    if not fixture:
+        raise ValueError(f"Fixture #{fixture_id} not found in schedule")
+
+    managed_team = db.get_setting("focus_team", "Chelsea")
+    is_home = (fixture["home_team"] == managed_team)
+    opponent = fixture["away_team"] if is_home else fixture["home_team"]
+    date_clean = fixture["date"].replace("-", "")
+    home_slug = fixture["home_team"][:3].lower()
+    away_slug = fixture["away_team"][:3].lower()
+    match_id = f"match_{date_clean}_{home_slug}_{away_slug}"
+
+    header = "match_id,player_id,player_name,jersey_number,team,opponent,position,minutes,goals,assists,shots,xG,passes_completed,tackles,interceptions,yellow_cards,red_cards\n"
+    lines = [header]
+
+    for p in CHELSEA_SQUAD_ROSTER:
+        if sample_stats:
+            if p["id"] == "p_cole_palmer":
+                g, a, sh, xg, pc, tk, it, yc = 1, 1, 4, 0.85, 48, 1, 1, 0
+            elif p["id"] == "p_nicolas_jackson":
+                g, a, sh, xg, pc, tk, it, yc = 1, 0, 4, 0.92, 22, 1, 0, 0
+            elif p["id"] == "p_noni_madueke":
+                g, a, sh, xg, pc, tk, it, yc = 0, 1, 3, 0.42, 24, 1, 0, 1
+            elif p["id"] == "p_moises_caicedo":
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, 1, 0.07, 65, 5, 2, 0
+            elif p["id"] == "p_enzo_fernandez":
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, 2, 0.24, 72, 3, 1, 0
+            elif p["id"] == "p_robert_sanchez":
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, 0, 0.0, 32, 0, 0, 0
+            elif p["id"] == "p_levi_colwill":
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, 0, 0.0, 74, 2, 3, 0
+            elif p["id"] == "p_wesley_fofana":
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, 0, 0.0, 68, 2, 1, 1
+            elif p["id"] == "p_marc_cucurella":
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, 1, 0.06, 52, 3, 2, 0
+            elif p["id"] == "p_malo_gusto":
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, 1, 0.06, 46, 2, 1, 0
+            elif p["id"] == "p_jadon_sancho":
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, 2, 0.28, 30, 0, 0, 0
+            else:
+                g, a, sh, xg, pc, tk, it, yc = 0, 0, (1 if p["pos"] in ("FW", "MF") else 0), (0.12 if p["pos"] in ("FW", "MF") else 0.0), 12, 1, 0, 0
+        else:
+            g, a, sh, xg, pc, tk, it, yc = 0, 0, 0, 0.0, 0, 0, 0, 0
+
+        line = f"{match_id},{p['id']},{p['name']},{p['jersey']},{managed_team},{opponent},{p['pos']},{p['mins']},{g},{a},{sh},{xg},{pc},{tk},{it},{yc},0\n"
+        lines.append(line)
+
+    csv_text = "".join(lines)
+    filename = f"{match_id}_player_stats.csv"
+    return {
+        "fixture_id": fixture_id,
+        "match_id": match_id,
+        "filename": filename,
+        "home_team": fixture["home_team"],
+        "away_team": fixture["away_team"],
+        "csv_content": csv_text,
     }

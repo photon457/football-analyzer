@@ -177,11 +177,15 @@ def parse_player_stats_csv(
     focus_team: Optional[str] = "Chelsea",
     default_season: str = "2024-2025",
     fixtures_path: Optional[Path] = None,
+    default_match_id: Optional[str] = None,
+    default_team: Optional[str] = None,
+    default_opponent: Optional[str] = None,
 ) -> List[MatchDataPayload]:
     """
     Parses CSV content or file path into a list of validated MatchDataPayload instances.
     Each match in the CSV is processed with aggregated team metrics, normalized player
     stats, and matched against the fixture allocation schedule where possible.
+    Supports default match IDs, teams, and opponents for fixture-specific uploads.
     """
     if "\n" in csv_source:
         f = io.StringIO(csv_source)
@@ -200,15 +204,27 @@ def parse_player_stats_csv(
     first_row = raw_rows[0]
     col_map = {k: k.strip().lower() for k in first_row.keys()}
     normalized_rows = []
-    for r in raw_rows:
+    for idx, r in enumerate(raw_rows):
         norm_r = {col_map[k]: (v.strip() if isinstance(v, str) else v) for k, v in r.items()}
+        # Apply defaults if missing or blank
+        if not norm_r.get("match_id"):
+            norm_r["match_id"] = default_match_id or "match_imported"
+        if not norm_r.get("team"):
+            norm_r["team"] = default_team or (focus_team or "Chelsea")
+        if not norm_r.get("opponent"):
+            norm_r["opponent"] = default_opponent or "Opponent"
+        if not norm_r.get("player_id"):
+            p_name = norm_r.get("player_name") or norm_r.get("name")
+            if p_name:
+                slug = re.sub(r'[^a-z0-9_]', '', str(p_name).lower().replace(' ', '_'))
+                norm_r["player_id"] = f"p_{slug}"
+            else:
+                norm_r["player_id"] = f"p_squad_{idx + 1}"
+        if not norm_r.get("position"):
+            norm_r["position"] = "MF"
+        if norm_r.get("minutes") is None or str(norm_r.get("minutes")).strip() == "":
+            norm_r["minutes"] = 90
         normalized_rows.append(norm_r)
-
-    required_cols = {"match_id", "player_id", "team", "opponent", "position", "minutes"}
-    present_cols = set(col_map.values())
-    missing = required_cols - present_cols
-    if missing:
-        raise ValueError(f"CSV is missing required columns: {sorted(list(missing))}")
 
     # Load fixtures schedule
     fixtures = load_fixture_schedule(fixtures_path)

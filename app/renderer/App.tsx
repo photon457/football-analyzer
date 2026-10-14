@@ -10,6 +10,7 @@ import {
   UserCheck,
   LayoutDashboard,
   Shield,
+  Target,
 } from 'lucide-react';
 import {
   checkBackendHealth,
@@ -27,6 +28,7 @@ import { MyTeam } from './components/MyTeam/MyTeam';
 import { SeasonCalendar } from './components/SeasonCalendar/SeasonCalendar';
 import { AuthScreen } from './components/Auth/AuthScreen';
 import { TacticSetter } from './components/TacticSetter/TacticSetter';
+import { OpponentTactics } from './components/OpponentTactics/OpponentTactics';
 import {
   ManagerUser,
   getStoredSession,
@@ -34,11 +36,12 @@ import {
   updateCurrentUserClub,
 } from './services/auth';
 
-type NavTab = 'dashboard' | 'tactics' | 'squad' | 'calendar' | 'journal' | 'import' | 'settings';
+type NavTab = 'dashboard' | 'tactics' | 'opponents' | 'squad' | 'calendar' | 'journal' | 'import' | 'settings';
 
 const TAB_LABELS: Record<NavTab, string> = {
   dashboard: 'Matches',
   tactics: 'Tactic Setter',
+  opponents: 'Opponents Tactics',
   squad: 'My Team',
   calendar: 'Season Calendar',
   journal: 'Player Details',
@@ -76,6 +79,7 @@ export const App: React.FC = () => {
   });
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
   const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
+  const [selectedOpponentScout, setSelectedOpponentScout] = useState<string | undefined>(undefined);
   const [backendHealth, setBackendHealth] = useState<HealthResponse | null>(null);
   const [focusClub, setFocusClub] = useState<string>(() => currentUser?.club || 'Chelsea');
   const [clubMsg, setClubMsg] = useState<string>('');
@@ -150,7 +154,7 @@ export const App: React.FC = () => {
           </button>
 
           <nav style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            {(['dashboard', 'tactics', 'squad', 'calendar', 'journal', 'import', 'settings'] as const).map((tab) => {
+            {(['dashboard', 'tactics', 'opponents', 'squad', 'calendar', 'journal', 'import', 'settings'] as const).map((tab) => {
               const label = TAB_LABELS[tab];
               return (
                 <button
@@ -317,6 +321,13 @@ export const App: React.FC = () => {
               <Shield size={18} />
             </button>
             <button
+              className={`rail-btn ${activeTab === 'opponents' ? 'active' : ''}`}
+              onClick={() => setActiveTab('opponents')}
+              title="Opponents Tactics & Opposition Scouting"
+            >
+              <Target size={18} />
+            </button>
+            <button
               className={`rail-btn ${activeTab === 'calendar' ? 'active' : ''}`}
               onClick={() => setActiveTab('calendar')}
               title="Season Fixtures Calendar"
@@ -372,6 +383,10 @@ export const App: React.FC = () => {
               onNavigateToUpload={() => setActiveTab('import')}
               onNavigateToHistory={() => setActiveTab('journal')}
               onNavigateToTactics={() => setActiveTab('tactics')}
+              onNavigateToOpponents={(opp) => {
+                setSelectedOpponentScout(opp);
+                setActiveTab('opponents');
+              }}
             />
           )}
 
@@ -380,6 +395,16 @@ export const App: React.FC = () => {
               managedTeam={focusClub}
               onNavigateToMatches={() => setActiveTab('dashboard')}
             />
+          )}
+
+          {activeTab === 'opponents' && (
+            <div style={{ padding: '24px 28px' }}>
+              <OpponentTactics
+                managedTeam={focusClub}
+                initialOpponent={selectedOpponentScout}
+                onNavigateToMatches={() => setActiveTab('dashboard')}
+              />
+            </div>
           )}
 
           {activeTab === 'squad' && (

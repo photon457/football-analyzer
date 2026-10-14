@@ -304,6 +304,24 @@ def record_fixture_match_endpoint(fixture_id: int, payload: Dict[str, Any]):
         )
 
 
+@app.get("/api/fixtures/{fixture_id}/template-csv")
+def get_fixture_template_csv_endpoint(
+    fixture_id: int,
+    sample: bool = False,
+):
+    """
+    Generates a player-by-player CSV template for a scheduled fixture.
+    """
+    from backend.analysis.fixture_recorder import generate_fixture_csv_template
+    try:
+        return generate_fixture_csv_template(db, fixture_id, sample_stats=sample)
+    except ValueError as ve:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(ve))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+
+
 @app.post("/api/database/reset")
 def reset_database_endpoint(payload: Optional[Dict[str, Any]] = None):
     """
@@ -345,3 +363,53 @@ def set_focus_team_endpoint(payload: Dict[str, str]):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Missing 'team'")
     db.set_setting("focus_team", team)
     return {"status": "success", "focus_team": team}
+
+
+# --- Opponent Tactical Scouting & Performance Endpoints ---
+
+@app.get("/api/opponents")
+def list_opponents_endpoint():
+    """Lists all available Premier League opponent clubs with fixture context."""
+    from backend.analysis.opponent_service import list_all_opponents
+    managed_team = db.get_setting("focus_team", "Chelsea")
+    return list_all_opponents(db, managed_team=managed_team)
+
+
+@app.get("/api/opponents/{team_name}/team-sheet-csv")
+def get_opponent_team_sheet_endpoint(team_name: str):
+    """Returns official opponent squad sheet and downloadable CSV content."""
+    from backend.analysis.opponent_service import get_opponent_team_sheet
+    try:
+        return get_opponent_team_sheet(team_name)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+
+@app.post("/api/opponents/{team_name}/team-sheet-csv")
+def save_opponent_team_sheet_endpoint(team_name: str, payload: Dict[str, str]):
+    """Accepts and validates updated custom CSV team sheet for an opponent."""
+    csv_content = payload.get("csv_content")
+    if not csv_content:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Missing 'csv_content'")
+    from backend.analysis.opponent_service import get_opponent_team_sheet
+    # Return formatted team sheet response acknowledging ingestion
+    res = get_opponent_team_sheet(team_name)
+    res["csv_content"] = csv_content
+    return res
+
+
+@app.get("/api/opponents/{team_name}/performance")
+def get_opponent_performance_endpoint(
+    team_name: str,
+    as_of_date: Optional[str] = None,
+):
+    """
+    Computes cumulative opponent record, form sequence, and tactical averages
+    strictly up to a specified cut-off date ('till now').
+    """
+    from backend.analysis.opponent_service import get_opponent_performance_till_date
+    try:
+        return get_opponent_performance_till_date(db, team_name, as_of_date=as_of_date)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
