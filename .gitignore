@@ -53,3 +53,32 @@ Thumbs.db
 # Agent / Internal Documentation (Local context only)
 docs/
 
+# Agent & AI Instructions, Configurations, and Markdown Files
+AGENTS.md
+PROJECT_RULES.md
+GSD-STYLE.md
+CLAUDE.md
+GEMINI.md
+COPILOT.md
+CHATGPT.md
+*.agent.md
+*.agents.md
+*AGENT*.md
+*agent*.md
+*CLAUDE*.md
+*claude*.md
+*GEMINI*.md
+*gemini*.md
+*COPILOT*.md
+*copilot*.md
+*CHATGPT*.md
+*chatgpt*.md
+*PROMPT*.md
+*prompt*.md
+
+# Agent & AI Tooling Directories
+.agent/
+.agents/
+.gemini/
+.gsd/
+adapters/

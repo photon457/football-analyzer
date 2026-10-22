@@ -419,22 +419,10 @@ export const ThreeDShotTrajectory: React.FC<ThreeDShotTrajectoryProps> = ({
       >
         <div>
           <div style={{ fontSize: '16.5px', fontWeight: 700, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span>3D Interactive Pitch Shot Trajectory &amp; Goal Mouth Elevation</span>
-            <span
-              style={{
-                fontSize: '12.5px',
-                background: 'rgba(210, 174, 94, 0.2)',
-                color: 'var(--accent-gold)',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                fontWeight: 600,
-              }}
-            >
-              WebGL 3D
-            </span>
+            <span>Shot Trajectories</span>
           </div>
-          <div style={{ fontSize: '13.5px', color: 'var(--text-muted)', marginTop: '2px' }}>
-            Parabolic 3D ball altitude arcs $Z(t)$, goalpost intersection, xG bubble volume, and 360&deg; tactical camera view.
+          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '2px' }}>
+            3D ball altitude arcs, goalpost intersection, xG volume, and tactical camera angles.
           </div>
         </div>
 

@@ -251,3 +251,78 @@ export function updateCurrentUserClub(club: string): ManagerUser | null {
 
   return session.user;
 }
+
+/**
+ * Updates manager profile fields in active session and accounts store.
+ */
+export function updateManagerProfile(
+  userId: string,
+  updates: Partial<ManagerUser>
+): { success: boolean; user?: ManagerUser; error?: string } {
+  if (updates.name !== undefined && !updates.name.trim()) {
+    return { success: false, error: 'Manager name cannot be empty.' };
+  }
+  if (updates.email !== undefined && (!updates.email.trim() || !updates.email.includes('@'))) {
+    return { success: false, error: 'Please enter a valid manager email address.' };
+  }
+
+  const session = getStoredSession();
+  const accounts = getStoredAccounts();
+  const accIndex = accounts.findIndex((a) => a.id === userId);
+
+  if (accIndex === -1 && (!session || session.user.id !== userId)) {
+    return { success: false, error: 'Manager account not found.' };
+  }
+
+  // Update account if found
+  if (accIndex !== -1) {
+    accounts[accIndex] = {
+      ...accounts[accIndex],
+      ...updates,
+      name: updates.name ? updates.name.trim() : accounts[accIndex].name,
+      email: updates.email ? updates.email.trim().toLowerCase() : accounts[accIndex].email,
+      club: updates.club ? updates.club.trim() : accounts[accIndex].club,
+      role: updates.role ? updates.role.trim() : accounts[accIndex].role,
+    };
+    saveAccounts(accounts);
+  }
+
+  // Update active session
+  let updatedUser: ManagerUser | undefined;
+  if (session && session.user.id === userId) {
+    session.user = {
+      ...session.user,
+      ...updates,
+      name: updates.name ? updates.name.trim() : session.user.name,
+      email: updates.email ? updates.email.trim().toLowerCase() : session.user.email,
+      club: updates.club ? updates.club.trim() : session.user.club,
+      role: updates.role ? updates.role.trim() : session.user.role,
+    };
+    updatedUser = session.user;
+    try {
+      const serialized = JSON.stringify(session);
+      if (session.rememberMe) {
+        localStorage.setItem(STORAGE_KEY_SESSION, serialized);
+      } else {
+        sessionStorage.setItem(STORAGE_KEY_SESSION, serialized);
+      }
+    } catch {
+      // Ignore
+    }
+  } else if (accIndex !== -1) {
+    const acc = accounts[accIndex];
+    updatedUser = {
+      id: acc.id,
+      name: acc.name,
+      email: acc.email,
+      club: acc.club,
+      role: acc.role,
+      tacticalPhilosophy: acc.tacticalPhilosophy,
+      preferredShape: acc.preferredShape,
+      seasonObjective: acc.seasonObjective,
+    };
+  }
+
+  return { success: true, user: updatedUser };
+}
+

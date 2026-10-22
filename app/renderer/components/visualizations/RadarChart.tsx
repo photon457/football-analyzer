@@ -2,9 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 interface RadarChartProps {
-  data: Record<string, number>;
-  playerName: string;
+  data: Record<string, number> | Array<{ axis: string; value: number; comparison?: number }>;
+  playerName?: string;
   size?: number;
+  width?: number;
+  height?: number;
   color?: string;
   comparisonData?: Record<string, number>;
   comparisonName?: string;
@@ -14,10 +16,12 @@ interface RadarChartProps {
 export const RadarChart: React.FC<RadarChartProps> = ({
   data,
   playerName,
-  size = 300,
+  size,
+  width: propWidth,
+  height: propHeight,
   color = '#c68715',
   comparisonData,
-  comparisonName = 'Whole Team Average',
+  comparisonName = 'League Standard',
   comparisonColor = '#38bdf8',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -26,12 +30,53 @@ export const RadarChart: React.FC<RadarChartProps> = ({
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const width = size;
-    const height = size;
-    const margin = 44;
-    const radius = Math.min(width, height) / 2 - margin;
-
     d3.select(container).selectAll('svg').remove();
+
+    // 1. Normalize data structure
+    let normalizedData: Record<string, number> = {};
+    let resolvedCompData: Record<string, number> | undefined = comparisonData;
+
+    if (Array.isArray(data)) {
+      normalizedData = {};
+      const arrayComp: Record<string, number> = {};
+      let hasComp = false;
+      data.forEach((item: any) => {
+        if (item && item.axis) {
+          normalizedData[item.axis] = typeof item.value === 'number' && !isNaN(item.value) ? item.value : 50;
+          if (typeof item.comparison === 'number' && !isNaN(item.comparison)) {
+            arrayComp[item.axis] = item.comparison;
+            hasComp = true;
+          }
+        }
+      });
+      if (!resolvedCompData && hasComp) {
+        resolvedCompData = arrayComp;
+      }
+    } else if (data && typeof data === 'object') {
+      Object.entries(data).forEach(([k, v]) => {
+        normalizedData[k] = typeof v === 'number' && !isNaN(v) ? v : 50;
+      });
+    }
+
+    const axes = Object.keys(normalizedData);
+    if (axes.length < 3) {
+      // Empty / insufficient data placeholder
+      const emptyDiv = d3
+        .select(container)
+        .append('div')
+        .style('padding', '24px')
+        .style('text-align', 'center')
+        .style('color', '#6b7280')
+        .style('font-size', '12px')
+        .text('Tactical radar telemetry unavailable for selected fixture');
+      return;
+    }
+
+    const chartSize = size || propWidth || propHeight || 280;
+    const width = chartSize;
+    const height = chartSize;
+    const margin = 38;
+    const radius = Math.min(width, height) / 2 - margin;
 
     const svg = d3
       .select(container)
@@ -47,7 +92,6 @@ export const RadarChart: React.FC<RadarChartProps> = ({
       .append('g')
       .attr('transform', `translate(${width / 2},${height / 2})`);
 
-    const axes = Object.keys(data);
     const totalAxes = axes.length;
     const angleSlice = (Math.PI * 2) / totalAxes;
 
@@ -75,22 +119,9 @@ export const RadarChart: React.FC<RadarChartProps> = ({
         .attr('x', 4)
         .attr('y', -levelFactor + 3)
         .attr('fill', 'rgba(255, 255, 255, 0.35)')
-        .style('font-size', '10.5px')
+        .style('font-size', '9.5px')
         .style('font-family', 'var(--font-mono)')
         .text(`${Math.round((level / levels) * 100)}`);
-    }
-
-    // Radial Axis Subtitle / Legend
-    if (!comparisonData) {
-      g.append('text')
-        .attr('x', 0)
-        .attr('y', radius + 32)
-        .attr('text-anchor', 'middle')
-        .attr('fill', '#9c9ca6')
-        .style('font-size', '11.5px')
-        .style('font-weight', '600')
-        .style('letter-spacing', '0.04em')
-        .text('Radial Axes: Tactical Attribute Ratings (0 – 100)');
     }
 
     // Axis Lines & Labels
@@ -106,7 +137,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({
         .attr('stroke', 'rgba(255, 255, 255, 0.12)')
         .attr('stroke-width', 1);
 
-      const labelDistance = radius + 20;
+      const labelDistance = radius + 18;
       const lx = labelDistance * Math.cos(angleSlice * i - Math.PI / 2);
       const ly = labelDistance * Math.sin(angleSlice * i - Math.PI / 2);
 
@@ -114,17 +145,19 @@ export const RadarChart: React.FC<RadarChartProps> = ({
         .attr('x', lx)
         .attr('y', ly + 3)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#9c9ca6')
-        .style('font-size', '12px')
-        .style('font-weight', '500')
+        .attr('fill', '#a0aab8')
+        .style('font-size', '11px')
+        .style('font-weight', '600')
         .text(axis);
     });
 
-    // Comparison Dataset Polygon (Whole Team Average)
-    if (comparisonData) {
+    // Comparison Dataset Polygon (e.g. League Standard or Team Baseline)
+    if (resolvedCompData) {
       const compPoints = axes.map((axis, i) => {
-        const val = comparisonData[axis] || 0;
-        const r = rScale(val);
+        const val = typeof resolvedCompData![axis] === 'number' && !isNaN(resolvedCompData![axis])
+          ? resolvedCompData![axis]
+          : 50;
+        const r = rScale(Math.min(100, Math.max(0, val)));
         const x = r * Math.cos(angleSlice * i - Math.PI / 2);
         const y = r * Math.sin(angleSlice * i - Math.PI / 2);
         return [x, y];
@@ -135,26 +168,28 @@ export const RadarChart: React.FC<RadarChartProps> = ({
       g.append('polygon')
         .attr('points', compPolygonPointsStr)
         .attr('fill', comparisonColor)
-        .attr('fill-opacity', 0.15)
+        .attr('fill-opacity', 0.12)
         .attr('stroke', comparisonColor)
-        .attr('stroke-width', 2)
+        .attr('stroke-width', 1.8)
         .attr('stroke-dasharray', '4 3');
 
       compPoints.forEach(([x, y]) => {
         g.append('circle')
           .attr('cx', x)
           .attr('cy', y)
-          .attr('r', 3.5)
+          .attr('r', 3)
           .attr('fill', comparisonColor)
           .attr('stroke', '#0c0f16')
           .attr('stroke-width', 1.5);
       });
     }
 
-    // Primary Player Dataset Polygon
+    // Primary Dataset Polygon
     const radarPoints = axes.map((axis, i) => {
-      const val = data[axis] || 0;
-      const r = rScale(val);
+      const val = typeof normalizedData[axis] === 'number' && !isNaN(normalizedData[axis])
+        ? normalizedData[axis]
+        : 50;
+      const r = rScale(Math.min(100, Math.max(0, val)));
       const x = r * Math.cos(angleSlice * i - Math.PI / 2);
       const y = r * Math.sin(angleSlice * i - Math.PI / 2);
       return [x, y];
@@ -174,12 +209,12 @@ export const RadarChart: React.FC<RadarChartProps> = ({
       g.append('circle')
         .attr('cx', x)
         .attr('cy', y)
-        .attr('r', 4)
-        .attr('fill', '#e59e1b')
+        .attr('r', 3.8)
+        .attr('fill', color)
         .attr('stroke', '#ffffff')
         .attr('stroke-width', 1.5);
     });
-  }, [data, playerName, size, color, comparisonData, comparisonName, comparisonColor]);
+  }, [data, playerName, size, propWidth, propHeight, color, comparisonData, comparisonName, comparisonColor]);
 
   return (
     <div
@@ -192,9 +227,9 @@ export const RadarChart: React.FC<RadarChartProps> = ({
         background: 'rgba(14, 15, 18, 0.75)',
         border: '1px solid var(--border-subtle)',
         borderRadius: '6px',
-        padding: '12px',
+        padding: '10px',
         width: '100%',
-        maxWidth: `${size}px`,
+        maxWidth: `${size || propWidth || 280}px`,
         margin: '0 auto',
         boxSizing: 'border-box',
         overflow: 'hidden',

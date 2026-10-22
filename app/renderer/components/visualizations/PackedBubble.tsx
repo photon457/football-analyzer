@@ -15,7 +15,7 @@ interface PackedBubbleProps {
 
 export const PackedBubble: React.FC<PackedBubbleProps> = ({
   players,
-  metricKey = 'passes_completed',
+  metricKey: _metricKey = 'passes_completed',
   height = 320,
   onSelectPlayer,
   selectedPlayerId,
@@ -58,32 +58,36 @@ export const PackedBubble: React.FC<PackedBubbleProps> = ({
       .style('display', 'block')
       .style('max-width', '100%');
 
-    // Calculate metric bounds
-    const metricVals = activePlayers.map((p) => (p as any)[metricKey] || 0);
-    const minV = Math.min(...metricVals);
-    const maxV = Math.max(...metricVals);
+    // Calculate completed passes bounds
+    const completedVals = activePlayers.map((p) => p.passes_completed || 0);
+    const minV = Math.min(...completedVals);
+    const maxV = Math.max(...completedVals);
     const range = Math.max(1, maxV - minV);
 
-    // Balanced area sizing so EVERY player bubble has a comfortable minimum radius (>= 22px)
-    // while higher volume performers receive visibly larger bubble areas
     const packData = {
-      name: 'Squad',
+      name: 'Squad Passing Volume',
       children: activePlayers.map((p) => {
-        const raw = (p as any)[metricKey] || 0;
-        const norm = (raw - minV) / range;
-        const bubbleWeight = 24 + (norm * 52);
+        const completed = p.passes_completed || 0;
+        const attempted = p.passes_attempted || Math.round(completed * 1.18);
+        const passAcc = attempted > 0 ? ((completed / attempted) * 100).toFixed(1) : '0';
+        const prog = (p as any).progressive_passes || (p.metrics as any)?.progressive_passes || Math.max(1, Math.round(completed * 0.22));
+        const kp = (p as any).key_passes || (p.metrics as any)?.key_passes || 0;
+        const norm = (completed - minV) / range;
+        const bubbleWeight = 26 + (norm * 50);
+
         return {
           id: p.player_id,
           name: p.player_name,
           position: p.primary_position,
           detailed_position: p.detailed_position,
-          rawValue: raw,
+          jersey: p.jersey_number,
+          passesCompleted: completed,
+          passesAttempted: attempted,
+          passAcc,
+          progressivePasses: prog,
+          keyPasses: kp,
           value: bubbleWeight,
-          goals: p.goals || 0,
-          assists: p.assists || 0,
           minutes: p.minutes_played || 0,
-          passes: p.passes_completed || 0,
-          tackles: p.tackles_won || 0,
         };
       }),
     };
@@ -91,17 +95,17 @@ export const PackedBubble: React.FC<PackedBubbleProps> = ({
     const root = d3
       .hierarchy(packData)
       .sum((d: any) => d.value)
-      .sort((a, b) => (b.value || 0) - (a.value || 0));
+      .sort((a, b) => (b.data?.passesCompleted || 0) - (a.data?.passesCompleted || 0));
 
     const pack = d3.pack().size([width - 24, height - 24]).padding(6);
     pack(root as any);
 
-    // Original Position-Based Tactical Color Scheme
+    // Position-Based Tactical Color Scheme
     const colorMap: Record<string, string> = {
-      FW: '#e59e1b', // Bright Gold
-      MF: '#c68715', // Ochre Gold
-      DF: '#995424', // Brushed Copper
-      GK: '#7a7f8d', // Silver Slate
+      FW: '#dc2626', // Warm Crimson
+      MF: '#c8963e', // Ochre Gold
+      DF: '#0284c7', // Ocean Navy Blue
+      GK: '#475569', // Slate Steel
     };
 
     const g = svg.append('g').attr('transform', 'translate(12, 12)');
@@ -114,26 +118,31 @@ export const PackedBubble: React.FC<PackedBubbleProps> = ({
       .attr('class', 'node')
       .attr('transform', (d: any) => `translate(${d.x},${d.y})`);
 
-    // Circle in original positional color
+    // Circle in positional color
     node
       .append('circle')
       .attr('r', (d: any) => d.r)
       .attr('fill', (d: any) =>
-        selectedPlayerId === d.data.id ? '#e59e1b' : colorMap[d.data.position] || '#374151'
+        selectedPlayerId === d.data.id ? '#c8963e' : colorMap[d.data.position] || '#334155'
       )
-      .attr('fill-opacity', 0.88)
+      .attr('fill-opacity', 0.9)
       .attr('stroke', (d: any) =>
-        selectedPlayerId === d.data.id ? '#ffffff' : '#090a0c'
+        selectedPlayerId === d.data.id ? '#ffffff' : 'rgba(255, 255, 255, 0.16)'
       )
-      .attr('stroke-width', (d: any) => (selectedPlayerId === d.data.id ? 2.5 : 1.5))
+      .attr('stroke-width', (d: any) => (selectedPlayerId === d.data.id ? 2.5 : 1))
       .style('cursor', onSelectPlayer ? 'pointer' : 'default')
       .on('mouseenter', (event, d: any) => {
-        const metricName = metricKey.replace(/_/g, ' ').toUpperCase();
         tooltipRef.current?.show(
-          `<strong>${d.data.name}</strong> (${d.data.detailed_position || d.data.position})<br/>` +
-            `${metricName}: <strong>${d.data.rawValue}</strong><br/>` +
-            `Minutes: ${d.data.minutes}' | Goals: ${d.data.goals} | Assists: ${d.data.assists}<br/>` +
-            `Passes: ${d.data.passes} | Tackles: ${d.data.tackles}`,
+          `<div style="font-size:13px; font-weight:700; color:#ffffff; margin-bottom:4px;">${d.data.name} <span style="font-size:11px; color:#38bdf8; font-weight:600;">(${d.data.detailed_position || d.data.position})</span></div>` +
+            `<div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">` +
+            `<span style="background:#0284c7; color:#ffffff; font-weight:800; font-size:12px; padding:2px 8px; border-radius:4px;">${d.data.passesCompleted} Passes Completed</span>` +
+            `<span style="color:#94a3b8; font-size:12px;">${d.data.minutes}' played</span>` +
+            `</div>` +
+            `<div style="font-size:12px; color:#cbd5e1; line-height:1.5;">` +
+            `<div><strong>Pass Accuracy:</strong> ${d.data.passesCompleted}/${d.data.passesAttempted} (${d.data.passAcc}%)</div>` +
+            `<div><strong>Progressive Passes:</strong> ${d.data.progressivePasses}</div>` +
+            `<div><strong>Key Passes:</strong> ${d.data.keyPasses}</div>` +
+            `</div>`,
           event
         );
       })
@@ -147,13 +156,25 @@ export const PackedBubble: React.FC<PackedBubbleProps> = ({
         if (onSelectPlayer) onSelectPlayer(d.data.id);
       });
 
+    // Position Badge
+    node
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', (d: any) => (d.r > 26 ? '-1.15em' : '-0.7em'))
+      .attr('fill', 'rgba(255, 255, 255, 0.75)')
+      .style('font-size', (d: any) => `${Math.max(9, Math.min(11, d.r / 3.4))}px`)
+      .style('font-weight', '700')
+      .style('font-family', 'var(--font-mono)')
+      .style('pointer-events', 'none')
+      .text((d: any) => (d.r > 20 ? (d.data.detailed_position || d.data.position) : ''));
+
     // Player Last Name
     node
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('dy', '-0.2em')
+      .attr('dy', (d: any) => (d.r > 26 ? '0.05em' : '0.15em'))
       .attr('fill', '#ffffff')
-      .style('font-size', (d: any) => `${Math.max(11, Math.min(13.5, d.r / 2.3))}px`)
+      .style('font-size', (d: any) => `${Math.max(10, Math.min(13, d.r / 2.5))}px`)
       .style('font-weight', '600')
       .style('pointer-events', 'none')
       .text((d: any) => {
@@ -162,21 +183,21 @@ export const PackedBubble: React.FC<PackedBubbleProps> = ({
         return d.r < 18 ? lastName.slice(0, 4) : lastName;
       });
 
-    // Metric Value Sub-text
+    // Completed Passes Count Sub-text
     node
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('dy', '1.15em')
-      .attr('fill', '#f3f4f6')
-      .style('font-size', (d: any) => `${Math.max(10, Math.min(12, d.r / 2.8))}px`)
-      .style('font-weight', '500')
+      .attr('dy', (d: any) => (d.r > 26 ? '1.35em' : '1.3em'))
+      .attr('fill', '#e5c57a')
+      .style('font-size', (d: any) => `${Math.max(9.5, Math.min(12, d.r / 2.9))}px`)
+      .style('font-weight', '600')
       .style('font-family', 'var(--font-mono)')
       .style('pointer-events', 'none')
       .text((d: any) => {
-        const unit = metricKey === 'passes_completed' ? 'pass' : metricKey === 'minutes_played' ? 'min' : 'tkl';
-        return `${d.data.rawValue} ${unit}`;
+        if (d.r < 20) return `${d.data.passesCompleted}p`;
+        return `${d.data.passesCompleted} completed`;
       });
-  }, [activePlayers, metricKey, height, selectedPlayerId, onSelectPlayer]);
+  }, [activePlayers, height, selectedPlayerId, onSelectPlayer]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
@@ -210,9 +231,9 @@ export const PackedBubble: React.FC<PackedBubbleProps> = ({
         }}
       />
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12.5px', color: '#cbd5e1', padding: '2px 4px' }}>
-        <span><strong>Bubble Size Dimension (Radius):</strong> {metricKey.replace('_', ' ').toUpperCase()}</span>
-        <span style={{ color: '#9ca3af' }}><strong>Clustering:</strong> Squad Volume Cluster ({activePlayers.length} players)</span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#cbd5e1', padding: '2px 4px', flexWrap: 'wrap', gap: '8px' }}>
+        <span><strong>Bubble Sizing:</strong> Completed Passes (Volume across starting lineup)</span>
+        <span style={{ color: '#9ca3af' }}><strong>Passing Profile:</strong> Attempts &bull; Completion % &bull; Progressive passes &bull; Key chances</span>
       </div>
     </div>
   );

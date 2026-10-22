@@ -20,6 +20,7 @@ import {
   fetchFixtureCsvTemplate,
 } from '../../services/api';
 import { JellyRadio } from '../JellyRadio/JellyRadio';
+import { DataFormatGuide } from '../common/DataFormatGuide';
 
 interface FixtureUploadModalProps {
   isOpen: boolean;
@@ -757,6 +758,16 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
                 </div>
               </div>
 
+              {/* Accepted CSV Column Schema Guide */}
+              <DataFormatGuide
+                formatType="player_stats_csv"
+                defaultExpanded={false}
+                onInsertSample={(sample) => {
+                  setPlayerCsvText(sample);
+                  setCsvViewMode('table');
+                }}
+              />
+
               {/* Aggregated Tactical Summary Strip */}
               <div
                 style={{
@@ -1053,6 +1064,12 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
                 <div style={{ fontSize: '13px', color: TOKENS.textSecondary }}>
                   Input final match scorecard. The analysis engine will generate player ratings, xG differentials, passing networks, and 80+ spatial pitch events matching the official fixture context.
                 </div>
+
+                {/* Accepted Input Format & Engine Bounds */}
+                <DataFormatGuide
+                  formatType="quick_scorecard"
+                  defaultExpanded={false}
+                />
 
                 {/* Scoreline Input Grid */}
                 <div
@@ -1400,6 +1417,19 @@ export const FixtureUploadModal: React.FC<FixtureUploadModalProps> = ({
                   </div>
                 )}
               </div>
+
+              {/* Accepted File Format Specifications */}
+              <DataFormatGuide
+                formatType={fileType === 'csv' ? 'player_stats_csv' : 'telemetry_json'}
+                title={
+                  fileType === 'csv'
+                    ? 'Accepted CSV Match Sheet Column Schema'
+                    : fileType === 'json'
+                    ? 'Accepted JSON Match Telemetry Schema'
+                    : 'Accepted Match File Format Specifications (JSON or CSV)'
+                }
+                defaultExpanded={false}
+              />
 
               <button
                 onClick={handleGenericFileSubmit}

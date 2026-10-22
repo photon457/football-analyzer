@@ -10,6 +10,7 @@ import {
   CsvImportResponse,
 } from '../../services/api';
 import { JellyRadio } from '../JellyRadio/JellyRadio';
+import { DataFormatGuide } from '../common/DataFormatGuide';
 
 interface MatchUploadProps {
   onImportSuccess: (matchId: string) => void;
@@ -221,6 +222,19 @@ export const MatchUpload: React.FC<MatchUploadProps> = ({ onImportSuccess }) => 
           onChange={(val) => setImportMode(val as 'csv' | 'json')}
         />
       </div>
+
+      {/* Accepted Data Format Specifications */}
+      <DataFormatGuide
+        formatType={importMode === 'csv' ? 'player_stats_csv' : 'telemetry_json'}
+        defaultExpanded={false}
+        onInsertSample={(sample) => {
+          setFileContent(sample);
+          setFileName(importMode === 'csv' ? 'custom_player_stats.csv' : 'custom_match_telemetry.json');
+          setErrors([]);
+          setImportResult(null);
+          setCsvResult(null);
+        }}
+      />
 
       {/* Main Import Columns */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '20px', alignItems: 'start' }}>

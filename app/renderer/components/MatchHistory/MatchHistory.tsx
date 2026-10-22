@@ -22,6 +22,7 @@ import { MatchTimeline } from '../visualizations/MatchTimeline';
 import { ThreeDShotTrajectory } from '../visualizations/ThreeDShotTrajectory';
 import { BorderGlow } from '../BorderGlow/BorderGlow';
 import { JellyRadio } from '../JellyRadio/JellyRadio';
+import { DataFormatGuide } from '../common/DataFormatGuide';
 import playerHeads from '../../assets/player-heads.jpg';
 import {
   GitCompare,
@@ -37,7 +38,13 @@ import {
   MapPin,
   Users,
   ArrowLeftRight,
+  Upload,
+  X,
+  FileText,
+  CheckCircle,
+  AlertCircle,
 } from 'lucide-react';
+import { importCsvMatchData } from '../../services/api';
 
 interface MatchHistoryProps {
   onSelectMatch: (matchId: string) => void;
@@ -109,6 +116,12 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ onSelectMatch: _onSe
   const [playerCompareTrendMetric, setPlayerCompareTrendMetric] = useState<
     'contribution_score' | 'goals' | 'xg' | 'shots' | 'key_passes' | 'passes_completed' | 'tackles_won' | 'interceptions'
   >('contribution_score');
+
+  // Player Stats CSV Ingestion Modal
+  const [isPlayerUploadModalOpen, setIsPlayerUploadModalOpen] = useState<boolean>(false);
+  const [playerCsvText, setPlayerCsvText] = useState<string>('');
+  const [playerUploadMsg, setPlayerUploadMsg] = useState<{ text: string; isError?: boolean } | null>(null);
+  const [isUploadingStats, setIsUploadingStats] = useState<boolean>(false);
 
   // Fallback squad roster if backend has not loaded yet
   const fallbackPlayers: PlayerSummary[] = [
@@ -889,7 +902,11 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ onSelectMatch: _onSe
             </button>
 
             <button
-              onClick={() => setViewMode('player_comparison')}
+              onClick={() => {
+                setPlayerCsvText('');
+                setPlayerUploadMsg(null);
+                setIsPlayerUploadModalOpen(true);
+              }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -907,8 +924,8 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ onSelectMatch: _onSe
                 transition: 'all 0.15s ease',
               }}
             >
-              <Users size={14} />
-              <span>Compare with Another Player</span>
+              <Upload size={14} />
+              <span>Upload Player Stats</span>
             </button>
           </div>
         </div>
@@ -1134,7 +1151,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ onSelectMatch: _onSe
               >
                 <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <div>
-                    <div className="surface-panel-title">Player Pitch Heatmap (Continuous Color Gradient)</div>
+                    <div className="surface-panel-title">Player Pitch Heatmap</div>
                     <div className="surface-panel-caption">
                       Spatial action density and tactical presence for {selectedPlayer.name} in selected fixture lens
                     </div>
@@ -1242,7 +1259,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ onSelectMatch: _onSe
               >
                 <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <div>
-                    <div className="surface-panel-title">3D Tactical Shot Arcs &amp; Trajectories (Three.js WebGL)</div>
+                    <div className="surface-panel-title">Shot Trajectories</div>
                     <div className="surface-panel-caption">
                       Parabolic ball flight paths, apex elevation, goal frame wireframe, and outcome raycasting
                     </div>
@@ -1607,7 +1624,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ onSelectMatch: _onSe
               >
                 <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <div>
-                    <div className="surface-panel-title">Match Chronology &amp; Event Stream (D3 Timeline)</div>
+                    <div className="surface-panel-title">Match Chronology &amp; Event Stream</div>
                     <div className="surface-panel-caption">
                       Minute-by-minute action stream: Goal symbol, Card symbol, Assist boot symbol
                     </div>
@@ -2674,6 +2691,213 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ onSelectMatch: _onSe
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Player Stats CSV Upload Modal */}
+      {isPlayerUploadModalOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            padding: '20px',
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#111722',
+              border: '1px solid rgba(255, 255, 255, 0.16)',
+              borderRadius: '10px',
+              width: '100%',
+              maxWidth: '720px',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              padding: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Upload size={18} color="#38bdf8" />
+                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#ffffff' }}>
+                  Upload Player Match Stats (CSV)
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsPlayerUploadModalOpen(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#94a3b8',
+                  cursor: 'pointer',
+                  padding: '4px',
+                }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <p style={{ margin: 0, fontSize: '13px', color: '#94a3b8', lineHeight: 1.5 }}>
+              Ingest match statistics for {selectedPlayer?.name || 'squad players'} from a CSV sheet. Updates historical appearances, passing rates, and rating trajectories.
+            </p>
+
+            {/* Accepted Format & Column Specifications */}
+            <DataFormatGuide
+              formatType="player_stats_csv"
+              defaultExpanded={false}
+              onInsertSample={(sample) => setPlayerCsvText(sample)}
+            />
+
+            <div
+              style={{
+                border: '1px dashed rgba(255, 255, 255, 0.2)',
+                borderRadius: '8px',
+                padding: '16px',
+                textAlign: 'center',
+                backgroundColor: 'rgba(0, 0, 0, 0.25)',
+              }}
+            >
+              <FileText size={26} color="#c8963e" style={{ margin: '0 auto 8px' }} />
+              <label
+                style={{
+                  display: 'inline-block',
+                  background: 'rgba(56, 189, 248, 0.15)',
+                  border: '1px solid #38bdf8',
+                  color: '#38bdf8',
+                  borderRadius: '6px',
+                  padding: '7px 16px',
+                  fontSize: '12.5px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+              >
+                Select CSV File
+                <input
+                  type="file"
+                  accept=".csv"
+                  style={{ display: 'none' }}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                      setPlayerCsvText((event.target?.result as string) || '');
+                    };
+                    reader.readAsText(file);
+                  }}
+                />
+              </label>
+              <div style={{ fontSize: '11px', color: '#64748b', marginTop: '6px' }}>
+                Supported format: comma-separated values (.csv)
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#94a3b8', marginBottom: '6px' }}>
+                CSV Preview / Direct Paste:
+              </label>
+              <textarea
+                value={playerCsvText}
+                onChange={(e) => setPlayerCsvText(e.target.value)}
+                placeholder="player_id,player_name,jersey_number,team,position,minutes,goals,assists..."
+                rows={5}
+                style={{
+                  width: '100%',
+                  backgroundColor: '#0a0e16',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '6px',
+                  padding: '10px',
+                  color: '#ffffff',
+                  fontSize: '12px',
+                  fontFamily: 'monospace',
+                  outline: 'none',
+                  resize: 'vertical',
+                  boxSizing: 'border-box',
+                }}
+              />
+            </div>
+
+            {playerUploadMsg && (
+              <div
+                style={{
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '12.5px',
+                  backgroundColor: playerUploadMsg.isError ? 'rgba(239, 68, 68, 0.15)' : 'rgba(34, 197, 94, 0.15)',
+                  border: `1px solid ${playerUploadMsg.isError ? '#ef4444' : '#22c55e'}`,
+                  color: playerUploadMsg.isError ? '#ef4444' : '#22c55e',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                {playerUploadMsg.isError ? <AlertCircle size={15} /> : <CheckCircle size={15} />}
+                <span>{playerUploadMsg.text}</span>
+              </div>
+            )}
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '4px' }}>
+              <button
+                onClick={() => setIsPlayerUploadModalOpen(false)}
+                style={{
+                  background: 'transparent',
+                  border: '1px solid rgba(255, 255, 255, 0.16)',
+                  color: '#94a3b8',
+                  borderRadius: '6px',
+                  padding: '8px 16px',
+                  fontSize: '13px',
+                  cursor: 'pointer',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                disabled={isUploadingStats || !playerCsvText.trim()}
+                onClick={async () => {
+                  if (!playerCsvText.trim()) return;
+                  setIsUploadingStats(true);
+                  setPlayerUploadMsg(null);
+                  try {
+                    await importCsvMatchData(playerCsvText);
+                    setPlayerUploadMsg({ text: 'Player match metrics imported successfully!' });
+                    if (selectedPlayerId) {
+                      const updated = await fetchPlayerHistory(selectedPlayerId);
+                      setHistory(updated);
+                    }
+                    setTimeout(() => {
+                      setIsPlayerUploadModalOpen(false);
+                      setPlayerCsvText('');
+                      setPlayerUploadMsg(null);
+                    }, 1200);
+                  } catch (err: any) {
+                    setPlayerUploadMsg({ text: err.message || 'Failed to import player stats', isError: true });
+                  } finally {
+                    setIsUploadingStats(false);
+                  }
+                }}
+                style={{
+                  background: isUploadingStats || !playerCsvText.trim() ? 'rgba(56, 189, 248, 0.4)' : '#38bdf8',
+                  color: '#090d14',
+                  border: 'none',
+                  borderRadius: '6px',
+                  padding: '8px 18px',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  cursor: isUploadingStats || !playerCsvText.trim() ? 'not-allowed' : 'pointer',
+                }}
+              >
+                {isUploadingStats ? 'Ingesting...' : 'Ingest Stats'}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

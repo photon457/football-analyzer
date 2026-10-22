@@ -31,7 +31,7 @@ import { PassingNetwork } from '../visualizations/PassingNetwork';
 import { MatchTimeline } from '../visualizations/MatchTimeline';
 import { VoronoiPitchControl } from '../visualizations/VoronoiPitchControl';
 import { ThreeDShotTrajectory } from '../visualizations/ThreeDShotTrajectory';
-import { Treemap } from '../visualizations/Treemap';
+import { Treemap, calculatePlayerMatchRating } from '../visualizations/Treemap';
 import { PackedBubble } from '../visualizations/PackedBubble';
 import { BorderGlow } from '../BorderGlow/BorderGlow';
 import { FixtureUploadModal } from './FixtureUploadModal';
@@ -700,59 +700,6 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                 <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#ffffff' }}>60%+ Possession &amp; 3 Pts</div>
                 <div style={{ fontSize: '12px', color: TOKENS.textMuted, marginTop: '2px' }}>Sustain tactical dominance and maintain pass accuracy above 85%</div>
               </div>
-            </div>
-
-            {/* Post-Match Upload / Record Action Bar */}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '12px',
-                marginTop: '16px',
-                paddingTop: '16px',
-                borderTop: `1px solid ${TOKENS.border}`,
-                backgroundColor: 'rgba(210, 174, 94, 0.05)',
-                margin: '16px -20px -20px -20px',
-                padding: '14px 20px',
-                borderBottomLeftRadius: '10px',
-                borderBottomRightRadius: '10px',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Activity size={15} color={TOKENS.gold} />
-                <span style={{ fontSize: '13px', fontWeight: 600, color: '#ffffff' }}>
-                  Match Completed?
-                </span>
-                <span style={{ fontSize: '12.5px', color: TOKENS.textSecondary }}>
-                  Upload match telemetry or record results for Matchweek {nextFixture.matchweek}
-                </span>
-              </div>
-
-              <button
-                onClick={() => {
-                  setUploadTargetFixture(nextFixture);
-                  setIsUploadModalOpen(true);
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '7px',
-                  backgroundColor: TOKENS.gold,
-                  color: '#0e121a',
-                  border: 'none',
-                  borderRadius: '6px',
-                  padding: '7px 16px',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'opacity 0.15s ease',
-                }}
-              >
-                <Upload size={14} />
-                <span>Upload Match Data</span>
-              </button>
             </div>
           </div>
         )}
@@ -1654,7 +1601,7 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
         <div style={{ padding: '16px 20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
             <div>
-              <div style={{ fontSize: '16.5px', fontWeight: 600, color: '#FFFFFF' }}>Match Chronology &amp; Event Stream (D3 Timeline)</div>
+              <div style={{ fontSize: '16.5px', fontWeight: 600, color: '#FFFFFF' }}>Match Chronology &amp; Event Stream</div>
               <div style={{ fontSize: '13px', color: TOKENS.textMuted }}>
                 Minute-by-minute timeline (0' - 90'+) of goals, shots, fouls, and defensive interventions
               </div>
@@ -1676,9 +1623,9 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
             { value: 'team_profile', label: 'Team Tactical Profile & Splits', icon: <Activity size={16} /> },
             { value: 'spatial_analytics', label: 'Pitch & Spatial Control', icon: <MapPin size={16} /> },
             { value: 'threed_analytics', label: '3D Analytics & Feature Space', icon: <Box size={16} /> },
-            { value: 'squad_contribution', label: 'Collective 11-Player Treemap', icon: <LayoutGrid size={16} /> },
+            { value: 'squad_contribution', label: 'Collective Match Performance', icon: <LayoutGrid size={16} /> },
             { value: 'structure_distribution', label: 'Tactical Action & Zone Distribution', icon: <Grid size={16} /> },
-            { value: 'team_matrix', label: 'Team vs Opponent Matrix (Table)', icon: <CircleDot size={16} /> },
+            { value: 'team_matrix', label: 'Team vs Opponent Matrix', icon: <CircleDot size={16} /> },
           ]}
           value={activeTab}
           onChange={(val) => setActiveTab(val as DashboardTab)}
@@ -1705,7 +1652,7 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <div style={{ fontSize: '17px', fontWeight: 600, color: '#FFFFFF' }}>Team Tactical Attribute Radar (D3)</div>
+                    <div style={{ fontSize: '17px', fontWeight: 600, color: '#FFFFFF' }}>Team Tactical Attribute Radar</div>
                     <div style={{ fontSize: '13px', color: TOKENS.textMuted }}>
                       Gold: {match.team} &bull; Cyan: {match.opponent} (0–100 Normalized Scale)
                     </div>
@@ -1909,7 +1856,7 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '16.5px', fontWeight: 600, color: '#FFFFFF' }}>Pitch Activity Heatmap (D3)</div>
+                  <div style={{ fontSize: '16.5px', fontWeight: 600, color: '#FFFFFF' }}>Pitch Activity Heatmap</div>
                   <div style={{ fontSize: '13px', color: TOKENS.textMuted }}>
                     Thermal touch &amp; event density across pitch coordinates (0-100 normalized)
                   </div>
@@ -1939,7 +1886,7 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '16.5px', fontWeight: 600, color: '#FFFFFF' }}>Attacking Half Shot Map (D3)</div>
+                  <div style={{ fontSize: '16.5px', fontWeight: 600, color: '#FFFFFF' }}>Attacking Half Shot Map</div>
                   <div style={{ fontSize: '13px', color: TOKENS.textMuted }}>
                     Shot locations with Expected Goals (xG) bubble diameter and outcome tags
                   </div>
@@ -1969,7 +1916,7 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
                 <div>
                   <div style={{ fontSize: '16.5px', fontWeight: 600, color: '#FFFFFF' }}>
-                    {spatialMode === 'network' ? 'Tactical Passing Network (D3)' : 'Territorial Voronoi Pitch Control (D3)'}
+                    {spatialMode === 'network' ? 'Tactical Passing Network' : 'Territorial Voronoi Pitch Control'}
                   </div>
                   <div style={{ fontSize: '13px', color: TOKENS.textMuted }}>
                     {spatialMode === 'network'
@@ -2030,7 +1977,7 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
             <div>
               <div style={{ fontSize: '17px', fontWeight: 700, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Box size={18} color={TOKENS.gold} />
-                <span>3D Tactical Shot Arcs &amp; Trajectories (Three.js WebGL)</span>
+                <span>Shot Trajectories</span>
               </div>
               <div style={{ fontSize: '13px', color: TOKENS.textMuted, marginTop: '2px' }}>
                 3D spatial ball trajectories with goal frame net wireframe, apex heights, and interactive outcome raycasting.
@@ -2064,10 +2011,10 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                 <div>
                   <div style={{ fontSize: '17px', fontWeight: 700, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <LayoutGrid size={18} color={TOKENS.gold} />
-                    <span>Collective Match Performance Treemap (All 11 Players)</span>
+                    <span>Collective Match Performance</span>
                   </div>
                   <div style={{ fontSize: '13px', color: TOKENS.textMuted, marginTop: '2px' }}>
-                    Collective game contribution in this match: all 11 starting players sized and shaded by individual performance share
+                    Individual match ratings (6.0–10.0 scale) and completed pass volume across the starting lineup
                   </div>
                 </div>
 
@@ -2107,33 +2054,30 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
           {/* Collective Performance Impact Summary Cards */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
             <div style={{ background: TOKENS.bgCard, border: `1px solid ${TOKENS.border}`, borderRadius: '8px', padding: '16px' }}>
-              <div style={{ fontSize: '12.5px', color: TOKENS.textMuted }}>Total Squad Impact Score</div>
+              <div style={{ fontSize: '12.5px', color: TOKENS.textMuted }}>Starting XI Average Rating</div>
               <div style={{ fontSize: '24px', fontWeight: 700, color: TOKENS.gold, fontFamily: 'var(--font-mono)', marginTop: '4px' }}>
-                {Math.round(analysis.players.reduce((sum, p) => {
-                  const contrib = (p.metrics && typeof p.metrics.contribution_score === 'number')
-                    ? p.metrics.contribution_score
-                    : ((p.goals || 0) * 3) + ((p.assists || 0) * 2) + ((p.passes_completed || 0) * 0.05) + ((p.tackles_won || 0) * 1) + 5;
-                  return sum + contrib;
-                }, 0) * 10) / 10} pts
+                {(() => {
+                  const starters = analysis.players.filter(p => p.is_starter);
+                  const list = starters.length >= 11 ? starters.slice(0, 11) : analysis.players.slice(0, 11);
+                  const avg = list.reduce((sum, p) => sum + calculatePlayerMatchRating(p), 0) / (list.length || 1);
+                  return `${avg.toFixed(1)} / 10.0`;
+                })()}
               </div>
               <div style={{ fontSize: '12px', color: TOKENS.textSecondary, marginTop: '2px' }}>
-                Cumulative output across all 11 players
+                Baseline across all 11 starting positions
               </div>
             </div>
 
             <div style={{ background: TOKENS.bgCard, border: `1px solid ${TOKENS.border}`, borderRadius: '8px', padding: '16px' }}>
-              <div style={{ fontSize: '12.5px', color: TOKENS.textMuted }}>Top Match Contributor</div>
+              <div style={{ fontSize: '12.5px', color: TOKENS.textMuted }}>Highest Rated Player</div>
               {(() => {
-                const sorted = [...analysis.players].sort((a, b) => {
-                  const scoreA = (a.metrics?.contribution_score ?? (a.goals || 0) * 3 + (a.assists || 0) * 2 + 5);
-                  const scoreB = (b.metrics?.contribution_score ?? (b.goals || 0) * 3 + (b.assists || 0) * 2 + 5);
-                  return scoreB - scoreA;
-                });
+                const sorted = [...analysis.players].sort((a, b) => calculatePlayerMatchRating(b) - calculatePlayerMatchRating(a));
                 const top = sorted[0];
+                const topRating = top ? calculatePlayerMatchRating(top) : 6.0;
                 return top ? (
                   <div>
                     <div style={{ fontSize: '18px', fontWeight: 700, color: '#38bdf8', marginTop: '4px' }}>
-                      {top.player_name}
+                      {top.player_name} ({topRating.toFixed(1)})
                     </div>
                     <div style={{ fontSize: '12px', color: TOKENS.textSecondary, marginTop: '2px' }}>
                       {top.primary_position} &bull; {top.goals}G {top.assists}A &bull; {top.minutes_played}&apos;
@@ -2144,22 +2088,22 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
             </div>
 
             <div style={{ background: TOKENS.bgCard, border: `1px solid ${TOKENS.border}`, borderRadius: '8px', padding: '16px' }}>
-              <div style={{ fontSize: '12.5px', color: TOKENS.textMuted }}>Starting XI Representation</div>
+              <div style={{ fontSize: '12.5px', color: TOKENS.textMuted }}>Squad Completed Passes</div>
               <div style={{ fontSize: '24px', fontWeight: 700, color: TOKENS.green, fontFamily: 'var(--font-mono)', marginTop: '4px' }}>
-                11 / 11 Players
+                {analysis.players.reduce((sum, p) => sum + (p.passes_completed || 0), 0)} Passes
               </div>
               <div style={{ fontSize: '12px', color: TOKENS.textSecondary, marginTop: '2px' }}>
-                Complete pitch lineup accounted for
+                Total completed in this fixture
               </div>
             </div>
 
             <div style={{ background: TOKENS.bgCard, border: `1px solid ${TOKENS.border}`, borderRadius: '8px', padding: '16px' }}>
-              <div style={{ fontSize: '12.5px', color: TOKENS.textMuted }}>Sizing &amp; Distribution Metric</div>
+              <div style={{ fontSize: '12.5px', color: TOKENS.textMuted }}>Starting XI Representation</div>
               <div style={{ fontSize: '15px', fontWeight: 700, color: '#ffffff', marginTop: '4px' }}>
-                Weighted Game Contribution
+                11 / 11 Players Accounted For
               </div>
               <div style={{ fontSize: '12px', color: TOKENS.textMuted, marginTop: '2px' }}>
-                Goals, Assists, Key Passes, Tackles, Retention
+                Individual ratings &amp; passing metrics verified
               </div>
             </div>
           </div>
@@ -2168,9 +2112,9 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
           <div style={{ background: TOKENS.bgCard, border: `1px solid ${TOKENS.border}`, borderRadius: '10px', padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
               <div>
-                <div style={{ fontSize: '17px', fontWeight: 600, color: '#FFFFFF' }}>Collective Player Match Impact Breakdown</div>
+                <div style={{ fontSize: '17px', fontWeight: 600, color: '#FFFFFF' }}>Collective Starting Lineup Performance Breakdown</div>
                 <div style={{ fontSize: '13px', color: TOKENS.textMuted }}>
-                  Ranked by match impact score &bull; Proportional share of collective squad output in this fixture
+                  Ranked by individual match rating (6.0–10.0 scale) &bull; Completed passes and tactical involvement
                 </div>
               </div>
             </div>
@@ -2182,35 +2126,26 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                     <th style={{ padding: '10px 14px', fontWeight: 600 }}>Player</th>
                     <th style={{ padding: '10px 14px', fontWeight: 600 }}>Pos</th>
                     <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Mins</th>
+                    <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Match Rating</th>
+                    <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Passes Completed</th>
+                    <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Pass Acc</th>
                     <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Goals</th>
                     <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Assists</th>
-                    <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Passes</th>
                     <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Tackles</th>
-                    <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Score</th>
-                    <th style={{ padding: '10px 14px', fontWeight: 600, textAlign: 'right' }}>Squad Share</th>
                   </tr>
                 </thead>
                 <tbody>
                   {(() => {
-                    const totalScore = analysis.players.reduce((sum, p) => {
-                      const score = (p.metrics && typeof p.metrics.contribution_score === 'number')
-                        ? p.metrics.contribution_score
-                        : ((p.goals || 0) * 3) + ((p.assists || 0) * 2) + ((p.passes_completed || 0) * 0.05) + ((p.tackles_won || 0) * 1) + 5;
-                      return sum + score;
-                    }, 0) || 1;
-
                     const sortedPlayers = [...analysis.players].sort((a, b) => {
-                      const scoreA = (a.metrics?.contribution_score ?? (a.goals || 0) * 3 + (a.assists || 0) * 2 + 5);
-                      const scoreB = (b.metrics?.contribution_score ?? (b.goals || 0) * 3 + (b.assists || 0) * 2 + 5);
-                      return scoreB - scoreA;
+                      return calculatePlayerMatchRating(b) - calculatePlayerMatchRating(a);
                     });
 
                     return sortedPlayers.map((p, idx) => {
-                      const score = Math.round(((p.metrics && typeof p.metrics.contribution_score === 'number')
-                        ? p.metrics.contribution_score
-                        : ((p.goals || 0) * 3) + ((p.assists || 0) * 2) + ((p.passes_completed || 0) * 0.05) + ((p.tackles_won || 0) * 1) + 5) * 10) / 10;
-                      const sharePct = ((score / totalScore) * 100).toFixed(1);
+                      const rating = calculatePlayerMatchRating(p);
                       const isSel = selectedDashboardPlayerId === p.player_id;
+                      const pc = p.passes_completed || 0;
+                      const pa = p.passes_attempted || Math.round(pc * 1.18);
+                      const passAcc = pa > 0 ? ((pc / pa) * 100).toFixed(1) : '0';
 
                       return (
                         <tr
@@ -2259,6 +2194,28 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                           <td style={{ padding: '10px 14px', textAlign: 'right', fontFamily: 'var(--font-mono)' }}>
                             {p.minutes_played}&apos;
                           </td>
+                          <td style={{ padding: '10px 14px', textAlign: 'right' }}>
+                            <span
+                              style={{
+                                display: 'inline-block',
+                                padding: '2px 8px',
+                                borderRadius: '4px',
+                                fontSize: '12px',
+                                fontWeight: 800,
+                                fontFamily: 'var(--font-mono)',
+                                backgroundColor: rating >= 8.5 ? '#15803d' : rating >= 7.8 ? '#0f766e' : rating >= 7.2 ? '#1d4ed8' : rating >= 6.7 ? '#854d0e' : '#334155',
+                                color: '#ffffff',
+                              }}
+                            >
+                              {rating.toFixed(1)}
+                            </span>
+                          </td>
+                          <td style={{ padding: '10px 14px', textAlign: 'right', fontFamily: 'var(--font-mono)', fontWeight: 600, color: '#38bdf8' }}>
+                            {pc}
+                          </td>
+                          <td style={{ padding: '10px 14px', textAlign: 'right', fontFamily: 'var(--font-mono)' }}>
+                            {passAcc}%
+                          </td>
                           <td style={{ padding: '10px 14px', textAlign: 'right', fontFamily: 'var(--font-mono)', fontWeight: (p.goals || 0) > 0 ? 700 : 400, color: (p.goals || 0) > 0 ? TOKENS.gold : 'inherit' }}>
                             {p.goals || 0}
                           </td>
@@ -2266,16 +2223,7 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                             {p.assists || 0}
                           </td>
                           <td style={{ padding: '10px 14px', textAlign: 'right', fontFamily: 'var(--font-mono)' }}>
-                            {p.passes_completed || 0}
-                          </td>
-                          <td style={{ padding: '10px 14px', textAlign: 'right', fontFamily: 'var(--font-mono)' }}>
                             {p.tackles_won || 0}
-                          </td>
-                          <td style={{ padding: '10px 14px', textAlign: 'right', fontFamily: 'var(--font-mono)', fontWeight: 700, color: TOKENS.gold }}>
-                            {score}
-                          </td>
-                          <td style={{ padding: '10px 14px', textAlign: 'right', fontFamily: 'var(--font-mono)', fontWeight: 600, color: '#38bdf8' }}>
-                            {sharePct}%
                           </td>
                         </tr>
                       );
@@ -2412,7 +2360,7 @@ export const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
             <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
                 <div>
-                  <div style={{ fontSize: '17px', fontWeight: 600, color: '#FFFFFF' }}>Collective Player Impact Allocation (D3 Treemap)</div>
+                  <div style={{ fontSize: '17px', fontWeight: 600, color: '#FFFFFF' }}>Collective Player Impact Allocation</div>
                   <div style={{ fontSize: '13px', color: TOKENS.textMuted }}>
                     Proportional share of total squad performance generated by each player in this fixture
                   </div>

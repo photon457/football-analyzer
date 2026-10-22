@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
-  Menu,
   Calendar,
-  Layers,
   Sliders,
   Users,
-  HelpCircle,
   LogOut,
   UserCheck,
   LayoutDashboard,
   Shield,
   Target,
+  Edit2,
+  Check,
+  X,
 } from 'lucide-react';
 import {
   checkBackendHealth,
@@ -18,34 +18,36 @@ import {
   fetchFocusTeam,
   setFocusTeam,
   resetDatabase,
+  fetchMatches,
+  MatchSummary,
 } from './services/api';
 import ProfileCard from './components/ProfileCard/ProfileCard';
 import managerAvatar from './assets/manager-avatar.jpg';
 import { ManagerDashboard } from './components/ManagerDashboard/ManagerDashboard';
-import { MatchUpload } from './components/MatchUpload/MatchUpload';
 import { MatchHistory } from './components/MatchHistory/MatchHistory';
 import { MyTeam } from './components/MyTeam/MyTeam';
 import { SeasonCalendar } from './components/SeasonCalendar/SeasonCalendar';
 import { AuthScreen } from './components/Auth/AuthScreen';
 import { TacticSetter } from './components/TacticSetter/TacticSetter';
 import { OpponentTactics } from './components/OpponentTactics/OpponentTactics';
+import { ManagerPerformanceDonut } from './components/visualizations/ManagerPerformanceDonut';
 import {
   ManagerUser,
   getStoredSession,
   logoutManager,
   updateCurrentUserClub,
+  updateManagerProfile,
 } from './services/auth';
 
-type NavTab = 'dashboard' | 'tactics' | 'opponents' | 'squad' | 'calendar' | 'journal' | 'import' | 'settings';
+type NavTab = 'dashboard' | 'tactics' | 'opponents' | 'squad' | 'calendar' | 'journal' | 'settings';
 
 const TAB_LABELS: Record<NavTab, string> = {
   dashboard: 'Matches',
   tactics: 'Tactic Setter',
-  opponents: 'Opponents Tactics',
+  opponents: 'Opposition Tactics',
   squad: 'My Team',
   calendar: 'Season Calendar',
   journal: 'Player Details',
-  import: 'Import',
   settings: 'Settings',
 };
 
@@ -80,11 +82,26 @@ export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
   const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
   const [selectedOpponentScout, setSelectedOpponentScout] = useState<string | undefined>(undefined);
-  const [backendHealth, setBackendHealth] = useState<HealthResponse | null>(null);
+  const [_backendHealth, setBackendHealth] = useState<HealthResponse | null>(null);
   const [focusClub, setFocusClub] = useState<string>(() => currentUser?.club || 'Chelsea');
   const [clubMsg, setClubMsg] = useState<string>('');
   const [dbResetting, setDbResetting] = useState<boolean>(false);
   const [dbResetMsg, setDbResetMsg] = useState<string>('');
+
+  // Real Match Records for Manager W-D-L Donut
+  const [matches, setMatches] = useState<MatchSummary[]>([]);
+
+  // Manager Profile Edit State
+  const [isEditingProfile, setIsEditingProfile] = useState<boolean>(false);
+  const [profileForm, setProfileForm] = useState({
+    name: currentUser?.name || '',
+    role: currentUser?.role || 'Head Coach',
+    club: currentUser?.club || 'Chelsea',
+    email: currentUser?.email || '',
+    tactical_philosophy: currentUser?.tactical_philosophy || 'Positional Play & Counter-Pressing',
+    season_objective: currentUser?.season_objective || 'Premier League Title & Top 4 Finish',
+  });
+  const [profileSaveMsg, setProfileSaveMsg] = useState<string>('');
 
   useEffect(() => {
     if (currentUser?.club) {
@@ -94,6 +111,32 @@ export const App: React.FC = () => {
       fetchFocusTeam().then(setFocusClub).catch(() => {});
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setProfileForm({
+        name: currentUser.name,
+        role: currentUser.role,
+        club: currentUser.club,
+        email: currentUser.email,
+        tactical_philosophy: currentUser.tactical_philosophy || 'Positional Play & Counter-Pressing',
+        season_objective: currentUser.season_objective || 'Premier League Title & Top 4 Finish',
+      });
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    fetchMatches()
+      .then(setMatches)
+      .catch(() => setMatches([]));
+  }, [focusClub]);
+
+  const managerRecords = useMemo(() => {
+    const wins = matches.filter((m) => m.result === 'W').length;
+    const draws = matches.filter((m) => m.result === 'D').length;
+    const losses = matches.filter((m) => m.result === 'L').length;
+    return { wins, draws, losses };
+  }, [matches]);
 
   useEffect(() => {
     const check = () => {
@@ -107,7 +150,7 @@ export const App: React.FC = () => {
           });
         })
         .catch(() => setBackendHealth((prev) => (prev === null ? prev : null)));
-    };
+  };
     check();
     const timer = setInterval(check, 5000);
     return () => clearInterval(timer);
@@ -116,6 +159,32 @@ export const App: React.FC = () => {
   const handleLogout = () => {
     logoutManager();
     setCurrentUser(null);
+  };
+
+  const handleSaveProfile = () => {
+    if (!currentUser) return;
+    try {
+      const updated = updateManagerProfile(currentUser.id, {
+        name: profileForm.name.trim() || currentUser.name,
+        role: profileForm.role.trim() || currentUser.role,
+        club: profileForm.club,
+        email: profileForm.email.trim() || currentUser.email,
+        tactical_philosophy: profileForm.tactical_philosophy.trim(),
+        season_objective: profileForm.season_objective.trim(),
+      });
+      if (updated) {
+        setCurrentUser(updated);
+        if (updated.club !== focusClub) {
+          setFocusClub(updated.club);
+          setFocusTeam(updated.club).catch(() => {});
+        }
+        setIsEditingProfile(false);
+        setProfileSaveMsg('Manager profile saved successfully!');
+        setTimeout(() => setProfileSaveMsg(''), 3500);
+      }
+    } catch {
+      setProfileSaveMsg('Failed to persist profile updates');
+    }
   };
 
   if (!currentUser) {
@@ -132,29 +201,24 @@ export const App: React.FC = () => {
     );
   }
 
+  const NAV_TAB_LIST: NavTab[] = [
+    'dashboard',
+    'tactics',
+    'opponents',
+    'squad',
+    'calendar',
+    'journal',
+    'settings',
+  ];
+
   return (
     <div className="entry-window">
-      {/* Top App Header — matches reference exactly */}
+      {/* Top App Header */}
       <header className="nav-header">
-        {/* Left: Hamburger + Nav Tabs */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <button
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#d1d5db',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '4px',
-            }}
-            title="Menu"
-          >
-            <Menu size={18} />
-          </button>
-
+        {/* Left: Nav Tabs */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <nav style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            {(['dashboard', 'tactics', 'opponents', 'squad', 'calendar', 'journal', 'import', 'settings'] as const).map((tab) => {
+            {NAV_TAB_LIST.map((tab) => {
               const label = TAB_LABELS[tab];
               return (
                 <button
@@ -185,7 +249,7 @@ export const App: React.FC = () => {
           </nav>
         </div>
 
-        {/* Center: TACTICAL ANALYST — exact reference style */}
+        {/* Center: TACTICAL ANALYST */}
         <div
           style={{
             position: 'absolute',
@@ -221,9 +285,10 @@ export const App: React.FC = () => {
           </span>
         </div>
 
-        {/* Right: Manager profile badge + Import button + Sign Out */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Right: Manager profile badge + Sign Out */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div
+            onClick={() => setActiveTab('settings')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -232,7 +297,9 @@ export const App: React.FC = () => {
               background: '#121620',
               border: '1px solid rgba(255, 255, 255, 0.12)',
               borderRadius: '9999px',
+              cursor: 'pointer',
             }}
+            title="Manager Settings"
           >
             <img
               src={managerAvatar}
@@ -254,26 +321,6 @@ export const App: React.FC = () => {
               {currentUser.club}
             </span>
           </div>
-
-          <button
-            onClick={() => setActiveTab('import')}
-            style={{
-              background: 'rgba(200, 150, 62, 0.15)',
-              border: '1px solid rgba(200, 150, 62, 0.4)',
-              color: '#c8963e',
-              borderRadius: '9999px',
-              padding: '7px 16px',
-              fontSize: '13px',
-              fontWeight: '500',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.15s ease',
-            }}
-          >
-            <span>+ Import Match</span>
-          </button>
 
           <button
             onClick={handleLogout}
@@ -323,7 +370,7 @@ export const App: React.FC = () => {
             <button
               className={`rail-btn ${activeTab === 'opponents' ? 'active' : ''}`}
               onClick={() => setActiveTab('opponents')}
-              title="Opponents Tactics & Opposition Scouting"
+              title="Opposition Tactics"
             >
               <Target size={18} />
             </button>
@@ -342,13 +389,6 @@ export const App: React.FC = () => {
               <UserCheck size={18} />
             </button>
             <button
-              className={`rail-btn ${activeTab === 'import' ? 'active' : ''}`}
-              onClick={() => setActiveTab('import')}
-              title="Import Match"
-            >
-              <Layers size={18} />
-            </button>
-            <button
               className={`rail-btn ${activeTab === 'settings' ? 'active' : ''}`}
               onClick={() => setActiveTab('settings')}
               title="Settings"
@@ -365,9 +405,6 @@ export const App: React.FC = () => {
             >
               <Users size={17} />
             </button>
-            <button className="rail-btn" title="Help & Docs" onClick={() => setActiveTab('settings')}>
-              <HelpCircle size={17} />
-            </button>
             <button className="rail-btn" title="Logout" onClick={handleLogout}>
               <LogOut size={17} />
             </button>
@@ -380,7 +417,7 @@ export const App: React.FC = () => {
             <ManagerDashboard
               initialMatchId={selectedMatchId}
               managedTeam={focusClub}
-              onNavigateToUpload={() => setActiveTab('import')}
+              onNavigateToUpload={() => setActiveTab('dashboard')}
               onNavigateToHistory={() => setActiveTab('journal')}
               onNavigateToTactics={() => setActiveTab('tactics')}
               onNavigateToOpponents={(opp) => {
@@ -414,7 +451,7 @@ export const App: React.FC = () => {
                   setSelectedMatchId(matchId);
                   setActiveTab('dashboard');
                 }}
-                onNavigateToUpload={() => setActiveTab('import')}
+                onNavigateToUpload={() => setActiveTab('dashboard')}
                 managedTeam={focusClub}
               />
             </div>
@@ -424,17 +461,6 @@ export const App: React.FC = () => {
             <div style={{ padding: '24px 28px' }}>
               <SeasonCalendar
                 onSelectMatch={(matchId) => {
-                  setSelectedMatchId(matchId);
-                  setActiveTab('dashboard');
-                }}
-              />
-            </div>
-          )}
-
-          {activeTab === 'import' && (
-            <div style={{ padding: '24px 28px' }}>
-              <MatchUpload
-                onImportSuccess={(matchId) => {
                   setSelectedMatchId(matchId);
                   setActiveTab('dashboard');
                 }}
@@ -456,204 +482,422 @@ export const App: React.FC = () => {
           {activeTab === 'settings' && (
             <div style={{ padding: '24px 28px' }}>
               <div className="page-header">
-                <h1 className="page-title">Manager settings</h1>
+                <h1 className="page-title">Manager Settings</h1>
                 <p className="page-description">
-                  Tactical credentials, analytical normalization standards, and backend integration status.
+                  Tactical credentials, club responsibilities, normalization standards, and season performance.
                 </p>
               </div>
 
-            <div className="settings-grid">
-              {/* Profile Card */}
-              <div>
-                <ProfileCard
-                  name={currentUser.name}
-                  title={currentUser.role}
-                  handle={currentUser.email.split('@')[0]}
-                  status="Active"
-                  contactText="Settings"
-                  avatarUrl={managerAvatar}
-                  showUserInfo={true}
-                  enableTilt={true}
-                  enableMobileTilt={false}
-                  behindGlowEnabled={false}
-                  onContactClick={() => {}}
-                />
-              </div>
-
-              {/* Settings Configuration Panels */}
-              <div className="settings-group">
-                <div className="surface-panel">
-                  <div className="surface-panel-header">
-                    <div className="surface-panel-title">Tactical profile</div>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
-                    <div className="settings-field">
-                      <span className="settings-label">Manager</span>
-                      <div className="settings-value">{currentUser.name}</div>
-                    </div>
-                    <div className="settings-field">
-                      <span className="settings-label">Role</span>
-                      <div className="settings-value">{currentUser.role}</div>
-                    </div>
-                    <div className="settings-field">
-                      <span className="settings-label">Managed club</span>
-                      <div className="settings-value">{currentUser.club}</div>
-                    </div>
-                    <div className="settings-field">
-                      <span className="settings-label">Account email</span>
-                      <div className="settings-value">{currentUser.email}</div>
-                    </div>
-                  </div>
+              <div className="settings-grid">
+                {/* Profile Card */}
+                <div>
+                  <ProfileCard
+                    name={currentUser.name}
+                    title={currentUser.role}
+                    handle={currentUser.email.split('@')[0]}
+                    status="Active"
+                    contactText="Tactical Settings"
+                    avatarUrl={managerAvatar}
+                    showUserInfo={true}
+                    enableTilt={true}
+                    enableMobileTilt={false}
+                    behindGlowEnabled={false}
+                    onContactClick={() => setIsEditingProfile(true)}
+                  />
                 </div>
 
-                <div className="surface-panel">
-                  <div className="surface-panel-header">
-                    <div className="surface-panel-title">Analysis &amp; normalization</div>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
-                    <div className="settings-field">
-                      <span className="settings-label">Comparison baseline</span>
-                      <div className="settings-value">Per-90 minutes (Rule 10 standard)</div>
-                    </div>
-                    <div className="settings-field">
-                      <span className="settings-label">Expected goals (xG) calibration</span>
-                      <div className="settings-value">Spatial distance &amp; angle model</div>
-                    </div>
-                    <div className="settings-field">
-                      <span className="settings-label">Visual framework</span>
-                      <div className="settings-value">Mandatory 7-chart D3 suite</div>
-                    </div>
-                    <div className="settings-field">
-                      <span className="settings-label">Persistence engine</span>
-                      <div className="settings-value">Supabase PostgreSQL with SQLite fallback</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="surface-panel">
-                  <div className="surface-panel-header">
-                    <div className="surface-panel-title">Club focus &amp; season fixtures</div>
-                    <div className="surface-panel-caption">Select managed squad and manage fixture calendar synchronization</div>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+                {/* Settings Configuration Panels */}
+                <div className="settings-group">
+                  {/* Manager Tactical Profile Surface Panel with Donut Chart in Upper Right */}
+                  <div className="surface-panel" style={{ position: 'relative' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '14px' }}>
                       <div>
-                        <label style={{ fontSize: '13.5px', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
-                          Managed Premier League Club:
-                        </label>
-                        <select
-                          value={focusClub}
-                          onChange={async (e) => {
-                            const newClub = e.target.value;
-                            setFocusClub(newClub);
-                            const updatedUser = updateCurrentUserClub(newClub);
-                            if (updatedUser) {
-                              setCurrentUser(updatedUser);
-                            }
-                            try {
-                              await setFocusTeam(newClub);
-                              setClubMsg(`Saved focus club: ${newClub}`);
-                              setTimeout(() => setClubMsg(''), 3000);
-                            } catch {
-                              setClubMsg('Failed to update focus club');
-                            }
-                          }}
-                          style={{
-                            background: '#161c26',
-                            border: '1px solid rgba(255, 255, 255, 0.15)',
-                            color: '#ffffff',
-                            borderRadius: '4px',
-                            padding: '7px 14px',
-                            fontSize: '14.5px',
-                          }}
-                        >
-                          {PREMIER_LEAGUE_CLUBS.map((club) => (
-                            <option key={club} value={club}>
-                              {club}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {clubMsg && (
-                        <span style={{ fontSize: '13.5px', color: 'var(--accent-gold)' }}>
-                          {clubMsg}
-                        </span>
-                      )}
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px', borderTop: '1px solid var(--border-hairline)', flexWrap: 'wrap', gap: '10px' }}>
-                      <div>
-                        <div style={{ fontSize: '14.5px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                          Fixture Allocation &amp; Sample Database Reseed
-                        </div>
-                        <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
-                          Wipe local database and initialize all 380 fixtures with sample CSV matches.
+                        <div className="surface-panel-title">Manager Profile &amp; Tactical Philosophy</div>
+                        <div className="surface-panel-caption">
+                          Strategic approach, tactical system, and competitive record
                         </div>
                       </div>
 
-                      <button
-                        disabled={dbResetting}
-                        onClick={async () => {
-                          if (!window.confirm('Reset local database and reload 380 Premier League fixtures with sample matches?')) return;
-                          setDbResetting(true);
-                          setDbResetMsg('');
-                          try {
-                            const res = await resetDatabase(true, focusClub);
-                            setDbResetMsg(`Database reset: ${res.fixtures_count} fixtures, ${res.matches_imported} matches reseeded.`);
-                            setTimeout(() => setDbResetMsg(''), 4500);
-                          } catch (err: any) {
-                            setDbResetMsg(`Error: ${err.message}`);
-                          } finally {
-                            setDbResetting(false);
-                          }
-                        }}
+                      {/* Upper Right: W-D-L Performance Donut & Edit Profile Button */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <ManagerPerformanceDonut
+                          wins={managerRecords.wins}
+                          draws={managerRecords.draws}
+                          losses={managerRecords.losses}
+                          title="Season Record"
+                          size={155}
+                        />
+
+                        {!isEditingProfile ? (
+                          <button
+                            onClick={() => setIsEditingProfile(true)}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              background: 'rgba(200, 150, 62, 0.15)',
+                              border: '1px solid rgba(200, 150, 62, 0.4)',
+                              color: '#c8963e',
+                              borderRadius: '6px',
+                              padding: '6px 12px',
+                              fontSize: '12.5px',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              alignSelf: 'flex-start',
+                            }}
+                          >
+                            <Edit2 size={13} />
+                            <span>Edit Profile</span>
+                          </button>
+                        ) : (
+                          <div style={{ display: 'flex', gap: '8px', alignSelf: 'flex-start' }}>
+                            <button
+                              onClick={handleSaveProfile}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '5px',
+                                background: '#22c55e',
+                                border: 'none',
+                                color: '#090d14',
+                                borderRadius: '6px',
+                                padding: '6px 12px',
+                                fontSize: '12.5px',
+                                fontWeight: 700,
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <Check size={13} />
+                              <span>Save</span>
+                            </button>
+                            <button
+                              onClick={() => {
+                                setIsEditingProfile(false);
+                                setProfileForm({
+                                  name: currentUser.name,
+                                  role: currentUser.role,
+                                  club: currentUser.club,
+                                  email: currentUser.email,
+                                  tactical_philosophy: currentUser.tactical_philosophy || 'Positional Play & Counter-Pressing',
+                                  season_objective: currentUser.season_objective || 'Premier League Title & Top 4 Finish',
+                                });
+                              }}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '5px',
+                                background: 'transparent',
+                                border: '1px solid rgba(255, 255, 255, 0.15)',
+                                color: '#94a3b8',
+                                borderRadius: '6px',
+                                padding: '6px 12px',
+                                fontSize: '12.5px',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <X size={13} />
+                              <span>Cancel</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {profileSaveMsg && (
+                      <div
                         style={{
-                          background: 'rgba(239, 68, 68, 0.1)',
-                          border: '1px solid rgba(239, 68, 68, 0.35)',
-                          color: '#f87171',
-                          padding: '7px 16px',
-                          borderRadius: '4px',
-                          fontSize: '13.5px',
-                          fontWeight: 500,
-                          cursor: dbResetting ? 'not-allowed' : 'pointer',
+                          marginBottom: '14px',
+                          padding: '8px 12px',
+                          borderRadius: '6px',
+                          backgroundColor: 'rgba(34, 197, 94, 0.12)',
+                          border: '1px solid #22c55e',
+                          color: '#22c55e',
+                          fontSize: '12.5px',
+                          fontWeight: 600,
                         }}
                       >
-                        {dbResetting ? 'Resetting Database...' : 'Reset & Reseed Database'}
-                      </button>
-                    </div>
+                        {profileSaveMsg}
+                      </div>
+                    )}
 
-                    {dbResetMsg && (
-                      <div style={{ fontSize: '13.5px', color: 'var(--accent-gold)', background: 'rgba(210, 174, 94, 0.1)', padding: '6px 10px', borderRadius: '4px' }}>
-                        {dbResetMsg}
+                    {!isEditingProfile ? (
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
+                        <div className="settings-field">
+                          <span className="settings-label">Manager Name</span>
+                          <div className="settings-value">{currentUser.name}</div>
+                        </div>
+                        <div className="settings-field">
+                          <span className="settings-label">Role</span>
+                          <div className="settings-value">{currentUser.role}</div>
+                        </div>
+                        <div className="settings-field">
+                          <span className="settings-label">Managed Club</span>
+                          <div className="settings-value">{currentUser.club}</div>
+                        </div>
+                        <div className="settings-field">
+                          <span className="settings-label">Account Email</span>
+                          <div className="settings-value">{currentUser.email}</div>
+                        </div>
+                        <div className="settings-field" style={{ gridColumn: 'span 2' }}>
+                          <span className="settings-label">Tactical Philosophy</span>
+                          <div className="settings-value">{currentUser.tactical_philosophy || 'Positional Play & Counter-Pressing'}</div>
+                        </div>
+                        <div className="settings-field" style={{ gridColumn: 'span 2' }}>
+                          <span className="settings-label">Season Objective</span>
+                          <div className="settings-value">{currentUser.season_objective || 'Premier League Title & Top 4 Finish'}</div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
+                        <div>
+                          <label style={{ display: 'block', fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>Manager Name</label>
+                          <input
+                            type="text"
+                            value={profileForm.name}
+                            onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
+                            style={{
+                              width: '100%',
+                              backgroundColor: '#161d2a',
+                              border: '1px solid rgba(255, 255, 255, 0.18)',
+                              borderRadius: '6px',
+                              padding: '8px 12px',
+                              color: '#ffffff',
+                              fontSize: '13.5px',
+                              outline: 'none',
+                              boxSizing: 'border-box',
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>Manager Role</label>
+                          <input
+                            type="text"
+                            value={profileForm.role}
+                            onChange={(e) => setProfileForm({ ...profileForm, role: e.target.value })}
+                            style={{
+                              width: '100%',
+                              backgroundColor: '#161d2a',
+                              border: '1px solid rgba(255, 255, 255, 0.18)',
+                              borderRadius: '6px',
+                              padding: '8px 12px',
+                              color: '#ffffff',
+                              fontSize: '13.5px',
+                              outline: 'none',
+                              boxSizing: 'border-box',
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>Managed Club</label>
+                          <select
+                            value={profileForm.club}
+                            onChange={(e) => setProfileForm({ ...profileForm, club: e.target.value })}
+                            style={{
+                              width: '100%',
+                              backgroundColor: '#161d2a',
+                              border: '1px solid rgba(255, 255, 255, 0.18)',
+                              borderRadius: '6px',
+                              padding: '8px 12px',
+                              color: '#ffffff',
+                              fontSize: '13.5px',
+                              outline: 'none',
+                              boxSizing: 'border-box',
+                            }}
+                          >
+                            {PREMIER_LEAGUE_CLUBS.map((club) => (
+                              <option key={club} value={club}>{club}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>Account Email</label>
+                          <input
+                            type="email"
+                            value={profileForm.email}
+                            onChange={(e) => setProfileForm({ ...profileForm, email: e.target.value })}
+                            style={{
+                              width: '100%',
+                              backgroundColor: '#161d2a',
+                              border: '1px solid rgba(255, 255, 255, 0.18)',
+                              borderRadius: '6px',
+                              padding: '8px 12px',
+                              color: '#ffffff',
+                              fontSize: '13.5px',
+                              outline: 'none',
+                              boxSizing: 'border-box',
+                            }}
+                          />
+                        </div>
+                        <div style={{ gridColumn: 'span 2' }}>
+                          <label style={{ display: 'block', fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>Tactical Philosophy</label>
+                          <input
+                            type="text"
+                            value={profileForm.tactical_philosophy}
+                            onChange={(e) => setProfileForm({ ...profileForm, tactical_philosophy: e.target.value })}
+                            style={{
+                              width: '100%',
+                              backgroundColor: '#161d2a',
+                              border: '1px solid rgba(255, 255, 255, 0.18)',
+                              borderRadius: '6px',
+                              padding: '8px 12px',
+                              color: '#ffffff',
+                              fontSize: '13.5px',
+                              outline: 'none',
+                              boxSizing: 'border-box',
+                            }}
+                          />
+                        </div>
+                        <div style={{ gridColumn: 'span 2' }}>
+                          <label style={{ display: 'block', fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>Season Objective</label>
+                          <input
+                            type="text"
+                            value={profileForm.season_objective}
+                            onChange={(e) => setProfileForm({ ...profileForm, season_objective: e.target.value })}
+                            style={{
+                              width: '100%',
+                              backgroundColor: '#161d2a',
+                              border: '1px solid rgba(255, 255, 255, 0.18)',
+                              borderRadius: '6px',
+                              padding: '8px 12px',
+                              color: '#ffffff',
+                              fontSize: '13.5px',
+                              outline: 'none',
+                              boxSizing: 'border-box',
+                            }}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
-                </div>
 
-                <div className="surface-panel">
-                  <div className="surface-panel-header">
-                    <div className="surface-panel-title">System runtime</div>
+                  {/* Analysis & Normalization Standard */}
+                  <div className="surface-panel">
+                    <div className="surface-panel-header">
+                      <div className="surface-panel-title">Analysis &amp; Normalization</div>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
+                      <div className="settings-field">
+                        <span className="settings-label">Comparison baseline</span>
+                        <div className="settings-value">Per-90 minutes (Rule 10 standard)</div>
+                      </div>
+                      <div className="settings-field">
+                        <span className="settings-label">Expected goals (xG) calibration</span>
+                        <div className="settings-value">Spatial distance &amp; angle model</div>
+                      </div>
+                      <div className="settings-field">
+                        <span className="settings-label">Visual framework</span>
+                        <div className="settings-value">Mandatory 7-chart tactical suite</div>
+                      </div>
+                      <div className="settings-field">
+                        <span className="settings-label">Persistence engine</span>
+                        <div className="settings-value">Supabase PostgreSQL with SQLite fallback</div>
+                      </div>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--border-hairline)' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>Python analysis engine</span>
-                      <span style={{ color: backendHealth?.status === 'ok' ? '#4ade80' : '#f59e0b', fontWeight: '500' }}>
-                        {backendHealth ? `Online (v${backendHealth.version})` : 'Offline'}
-                      </span>
+
+                  {/* My Club Surface Panel */}
+                  <div className="surface-panel">
+                    <div className="surface-panel-header">
+                      <div className="surface-panel-title">My Club</div>
+                      <div className="surface-panel-caption">Select managed squad and manage fixture calendar synchronization</div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--border-hairline)' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>Desktop application shell</span>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: '500' }}>Electron 34 + React 18</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>Data visualization runtime</span>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: '500' }}>D3.js v7 SVG engine</span>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+                        <div>
+                          <label style={{ fontSize: '13.5px', color: 'var(--text-secondary)', display: 'block', marginBottom: '4px' }}>
+                            Managed Premier League Club:
+                          </label>
+                          <select
+                            value={focusClub}
+                            onChange={async (e) => {
+                              const newClub = e.target.value;
+                              setFocusClub(newClub);
+                              const updatedUser = updateCurrentUserClub(newClub);
+                              if (updatedUser) {
+                                setCurrentUser(updatedUser);
+                              }
+                              try {
+                                await setFocusTeam(newClub);
+                                setClubMsg(`Saved focus club: ${newClub}`);
+                                setTimeout(() => setClubMsg(''), 3000);
+                              } catch {
+                                setClubMsg('Failed to update focus club');
+                              }
+                            }}
+                            style={{
+                              background: '#161c26',
+                              border: '1px solid rgba(255, 255, 255, 0.15)',
+                              color: '#ffffff',
+                              borderRadius: '4px',
+                              padding: '7px 14px',
+                              fontSize: '14.5px',
+                            }}
+                          >
+                            {PREMIER_LEAGUE_CLUBS.map((club) => (
+                              <option key={club} value={club}>
+                                {club}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {clubMsg && (
+                          <span style={{ fontSize: '13.5px', color: 'var(--accent-gold)' }}>
+                            {clubMsg}
+                          </span>
+                        )}
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px', borderTop: '1px solid var(--border-hairline)', flexWrap: 'wrap', gap: '10px' }}>
+                        <div>
+                          <div style={{ fontSize: '14.5px', fontWeight: 600, color: 'var(--text-primary)' }}>
+                            Fixture Allocation &amp; Sample Database Reseed
+                          </div>
+                          <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+                            Wipe local database and initialize all 380 fixtures with sample CSV matches.
+                          </div>
+                        </div>
+
+                        <button
+                          disabled={dbResetting}
+                          onClick={async () => {
+                            if (!window.confirm('Reset local database and reload 380 Premier League fixtures with sample matches?')) return;
+                            setDbResetting(true);
+                            setDbResetMsg('');
+                            try {
+                              const res = await resetDatabase(true, focusClub);
+                              setDbResetMsg(`Database reset: ${res.fixtures_count} fixtures, ${res.matches_imported} matches reseeded.`);
+                              setTimeout(() => setDbResetMsg(''), 4500);
+                            } catch (err: any) {
+                              setDbResetMsg(`Error: ${err.message}`);
+                            } finally {
+                              setDbResetting(false);
+                            }
+                          }}
+                          style={{
+                            background: 'rgba(239, 68, 68, 0.1)',
+                            border: '1px solid rgba(239, 68, 68, 0.35)',
+                            color: '#f87171',
+                            padding: '7px 16px',
+                            borderRadius: '4px',
+                            fontSize: '13.5px',
+                            fontWeight: 500,
+                            cursor: dbResetting ? 'not-allowed' : 'pointer',
+                          }}
+                        >
+                          {dbResetting ? 'Resetting Database...' : 'Reset & Reseed Database'}
+                        </button>
+                      </div>
+
+                      {dbResetMsg && (
+                        <div style={{ fontSize: '13.5px', color: 'var(--accent-gold)', background: 'rgba(210, 174, 94, 0.1)', padding: '6px 10px', borderRadius: '4px' }}>
+                          {dbResetMsg}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              </div>
               </div>
             </div>
           )}

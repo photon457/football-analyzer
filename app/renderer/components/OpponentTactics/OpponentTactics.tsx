@@ -28,6 +28,7 @@ import {
 } from '../../services/api';
 import { RadarChart } from '../visualizations/RadarChart';
 import { JellyRadio } from '../JellyRadio/JellyRadio';
+import { DataFormatGuide } from '../common/DataFormatGuide';
 
 interface OpponentTacticsProps {
   managedTeam: string;
@@ -182,15 +183,28 @@ export const OpponentTactics: React.FC<OpponentTacticsProps> = ({
     reader.readAsText(file);
   };
 
-  // Radar Profile Data Format
-  const radarChartData = useMemo(() => {
-    if (!performance || !performance.radar) return [];
-    return Object.entries(performance.radar).map(([axis, val]) => ({
-      axis,
-      value: val,
-      comparison: 50, // Premier League 50/100 baseline
-    }));
+  // Tactical Radar Data
+  const opponentRadar = useMemo(() => {
+    if (performance?.radar && Object.keys(performance.radar).length > 0) {
+      return performance.radar;
+    }
+    return {
+      Attacking: 70,
+      Circulation: 70,
+      Solidity: 70,
+      Pressing: 70,
+      Transitions: 70,
+    };
   }, [performance]);
+
+  const leagueStandardRadar = useMemo(() => {
+    const keys = Object.keys(opponentRadar);
+    const standard: Record<string, number> = {};
+    keys.forEach((k) => {
+      standard[k] = 50;
+    });
+    return standard;
+  }, [opponentRadar]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', minHeight: '100%', padding: '0 4px' }}>
@@ -582,15 +596,15 @@ export const OpponentTactics: React.FC<OpponentTacticsProps> = ({
               </div>
 
               <div style={{ width: '100%', height: '280px', display: 'flex', justifyContent: 'center' }}>
-                {radarChartData.length > 0 && (
-                  <RadarChart
-                    data={radarChartData}
-                    width={280}
-                    height={280}
-                    color={TOKENS.cyan}
-                    comparisonColor="rgba(255, 255, 255, 0.25)"
-                  />
-                )}
+                <RadarChart
+                  data={opponentRadar}
+                  playerName={selectedOpponentName}
+                  comparisonData={leagueStandardRadar}
+                  comparisonName="League Standard"
+                  size={280}
+                  color={TOKENS.cyan}
+                  comparisonColor="rgba(255, 255, 255, 0.25)"
+                />
               </div>
             </div>
 
@@ -808,6 +822,16 @@ export const OpponentTactics: React.FC<OpponentTacticsProps> = ({
               </button>
             </div>
           </div>
+
+          {/* Accepted CSV Column Schema Guide */}
+          <DataFormatGuide
+            formatType="opponent_teamsheet_csv"
+            defaultExpanded={false}
+            onInsertSample={(sample) => {
+              setCsvText(sample);
+              setCsvViewMode('raw');
+            }}
+          />
 
           {/* Table View */}
           {csvViewMode === 'table' ? (
